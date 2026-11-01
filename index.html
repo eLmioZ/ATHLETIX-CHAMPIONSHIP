@@ -308,9 +308,9 @@
                                     <p class="text-[9px] theme-text-muted uppercase tracking-widest mt-0.5">Hebahan & Makluman Kejohanan</p>
                                 </div>
                             </div>
-                            <span class="text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 bg-yellow-500/10 text-yellow-500 border border-yellow-500/20">
-                                LIVE UPDATES
-                            </span>
+                            <button onclick="navigateToView('media')" class="text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500 hover:text-navy-950 border border-yellow-500/20 transition-all flex items-center cursor-pointer">
+                                PAPARAN LENGKAP <i class="fa-solid fa-arrow-right ml-1.5 text-[8px]"></i>
+                            </button>
                         </div>
                         <div id="homeAnnouncementsContainer" class="space-y-3">
                         </div>
@@ -585,7 +585,7 @@
 
         <section id="media" class="view-section hidden py-16 sm:py-24 theme-bg-secondary min-h-[calc(100vh-5rem)]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
                     <div class="space-y-6">
                         <div class="space-y-2">
                             <span class="theme-text-muted font-bold uppercase tracking-[0.25em] text-[10px] sm:text-xs block">HEBAHAN RASMI KEJOHANAN</span>
@@ -594,7 +594,25 @@
                             </h2>
                         </div>
                         
-                        <div id="publicAnnouncementContainer" class="border theme-border theme-surface p-5 rounded-none space-y-2.5 relative overflow-hidden">
+                        <!-- KOMPONEN PENGUMUMAN TERKINI LENGKAP (INFO & MEDIA) -->
+                        <div class="border theme-border glass-card p-5 sm:p-6 shadow-xl space-y-4">
+                            <div class="flex items-center justify-between border-b theme-border pb-3">
+                                <div class="flex items-center space-x-2.5">
+                                    <div class="w-8 h-8 bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 flex items-center justify-center rounded-none">
+                                        <i class="fa-solid fa-bullhorn text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-display font-extrabold text-xs sm:text-sm theme-text-primary uppercase tracking-wider">PENGUMUMAN & HEBAHAN LENGKAP</h3>
+                                        <p class="text-[9px] theme-text-muted uppercase tracking-widest mt-0.5">Senarai Lengkap Hebahan Rasmi</p>
+                                    </div>
+                                </div>
+                                <span class="text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 bg-green-500/10 text-green-500 border border-green-500/20 flex items-center">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse mr-1.5"></span> LIVE REALTIME
+                                </span>
+                            </div>
+                            
+                            <div id="publicAnnouncementContainer" class="space-y-4">
+                            </div>
                         </div>
 
                         <div class="space-y-3 pt-4 border-t theme-border">
@@ -2906,7 +2924,7 @@
             if (publicContainer) publicContainer.innerHTML = "";
             if (homeContainer) homeContainer.innerHTML = "";
 
-            // Sort announcements descending by kronologi tarikh/masa
+            // Sort announcements descending by kronologi tarikh/masa penerbitan
             const sortedAnnouncements = [...announcementsData].sort((a, b) => {
                 return getTimestampMillis(b) - getTimestampMillis(a);
             });
@@ -2952,35 +2970,44 @@
                 }
             }
 
-            // 2. Render Public Announcement Box (Info & Media Section)
+            // 2. Render Public Announcements Complete List (Info & Media Section)
             if (publicContainer) {
                 if (publishedAnnouncements.length === 0) {
                     publicContainer.innerHTML = `
-                        <div class="flex items-center space-x-2">
-                            <span class="h-2 w-2 bg-gray-500 rounded-full"></span>
-                            <span class="text-[10px] font-bold theme-text-muted uppercase tracking-widest">HEBAHAN</span>
+                        <div class="p-6 text-center border theme-border theme-surface">
+                            <i class="fa-regular fa-bell-slash text-2xl theme-text-muted mb-2 block"></i>
+                            <h4 class="font-display font-extrabold text-xs theme-text-primary uppercase tracking-wider">TIADA HEBAHAN AKTIF</h4>
+                            <p class="text-[10px] theme-text-muted mt-1">Tiada sebarang pengumuman rasmi dikeluarkan pada masa ini.</p>
                         </div>
-                        <h4 class="font-display font-black text-xs theme-text-primary uppercase tracking-wider">TIADA HEBAHAN AKTIF</h4>
-                        <p class="text-xs theme-text-secondary leading-relaxed">Tiada sebarang pengumuman rasmi dikeluarkan pada masa ini.</p>
                     `;
                 } else {
-                    const activeAnn = publishedAnnouncements[0];
-                    const timeInfo = formatTimestampMalay(activeAnn);
-                    publicContainer.innerHTML = `
-                        <div class="absolute right-0 top-0 h-full w-1 bg-yellow-500"></div>
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center space-x-2">
-                                <span class="h-2 w-2 bg-red-500 rounded-full animate-pulse"></span>
-                                <span class="text-[10px] font-bold theme-text-muted uppercase tracking-widest">Hebahan Terkini</span>
+                    publishedAnnouncements.forEach(item => {
+                        const timeInfo = formatTimestampMalay(item);
+                        let catBg = "bg-yellow-500/10 text-yellow-500 border-yellow-500/20";
+                        const catUpper = (item.category || "").toUpperCase();
+                        if (catUpper.includes("PENTING")) catBg = "bg-red-500/10 text-red-500 border-red-500/20";
+                        else if (catUpper.includes("JADUAL")) catBg = "bg-blue-500/10 text-blue-500 border-blue-500/20";
+                        else if (catUpper.includes("KEPUTUSAN")) catBg = "bg-green-500/10 text-green-500 border-green-500/20";
+
+                        const annCard = document.createElement("div");
+                        annCard.className = "border theme-border theme-surface p-4 sm:p-5 hover:border-yellow-500/50 transition-all duration-300 relative space-y-2.5";
+                        annCard.innerHTML = `
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b theme-border pb-2.5">
+                                <div class="flex items-center space-x-2">
+                                    <span class="px-2.5 py-0.5 text-[9px] font-extrabold uppercase tracking-widest border ${catBg} rounded-none">
+                                        ${escapeHTML(item.category || 'MAKLUMAN')}
+                                    </span>
+                                    <h4 class="font-display font-extrabold text-xs sm:text-sm theme-text-primary uppercase tracking-wider">${escapeHTML(item.title || item.message || '')}</h4>
+                                </div>
+                                <div class="text-[9px] theme-text-muted font-mono tracking-wider flex items-center space-x-2 shrink-0">
+                                    <span><i class="fa-regular fa-calendar mr-1"></i>${timeInfo.dateStr}</span>
+                                    <span><i class="fa-regular fa-clock mr-1"></i>${timeInfo.timeStr}</span>
+                                </div>
                             </div>
-                            <span class="text-[9px] theme-text-muted font-mono">${timeInfo.dateStr}</span>
-                        </div>
-                        <h4 class="font-display font-black text-xs theme-text-primary uppercase tracking-wider flex items-center mt-1">
-                            <i class="fa-solid fa-circle-exclamation text-yellow-500 mr-1.5"></i> ${escapeHTML(activeAnn.category || 'MAKLUMAN')}
-                        </h4>
-                        <p class="text-xs font-bold theme-text-primary uppercase mt-1">${escapeHTML(activeAnn.title || activeAnn.message || '')}</p>
-                        <p class="text-xs theme-text-secondary leading-relaxed mt-0.5">${escapeHTML(activeAnn.content || activeAnn.message || '')}</p>
-                    `;
+                            <div class="text-xs theme-text-secondary leading-relaxed whitespace-pre-line">${escapeHTML(item.content || item.message || '')}</div>
+                        `;
+                        publicContainer.appendChild(annCard);
+                    });
                 }
             }
 
@@ -3003,10 +3030,14 @@
                         else if (catUpper.includes("JADUAL")) catBg = "bg-blue-500/10 text-blue-500 border-blue-500/20";
                         else if (catUpper.includes("KEPUTUSAN")) catBg = "bg-green-500/10 text-green-500 border-green-500/20";
 
+                        const msgContent = item.content || item.message || '';
+                        const isLong = msgContent.length > 140;
+                        const summaryText = isLong ? msgContent.substring(0, 140) + "..." : msgContent;
+
                         const annCard = document.createElement("div");
-                        annCard.className = "border theme-border theme-surface p-4 hover:border-yellow-500/50 transition-all duration-300 relative";
+                        annCard.className = "border theme-border theme-surface p-4 hover:border-yellow-500/50 transition-all duration-300 relative space-y-2";
                         annCard.innerHTML = `
-                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-1">
                                 <div class="flex items-center space-x-2">
                                     <span class="px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-widest border ${catBg} rounded-none">
                                         ${escapeHTML(item.category || 'MAKLUMAN')}
@@ -3018,7 +3049,14 @@
                                     <span><i class="fa-regular fa-clock mr-1"></i>${timeInfo.timeStr}</span>
                                 </div>
                             </div>
-                            <p class="text-xs theme-text-secondary leading-relaxed">${escapeHTML(item.content || item.message || '')}</p>
+                            <p class="text-xs theme-text-secondary leading-relaxed">${escapeHTML(summaryText)}</p>
+                            ${isLong ? `
+                                <div class="pt-1">
+                                    <button onclick="navigateToView('media')" class="text-[10px] font-bold text-yellow-500 hover:text-yellow-400 uppercase tracking-wider inline-flex items-center cursor-pointer">
+                                        BACA SELANJUTNYA <i class="fa-solid fa-arrow-right ml-1"></i>
+                                    </button>
+                                </div>
+                            ` : ''}
                         `;
                         homeContainer.appendChild(annCard);
                     });
