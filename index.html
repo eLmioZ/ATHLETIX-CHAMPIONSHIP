@@ -195,24 +195,24 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <div class="flex items-center space-x-3">
-                    <a href="#utama" class="flex items-center space-x-3 group min-h-[44px] min-w-[44px] py-1">
+                    <button onclick="navigateToView('utama')" class="flex items-center space-x-3 group min-h-[44px] min-w-[44px] py-1 text-left cursor-pointer">
                         <div class="bg-yellow-500 text-navy-950 p-2 transform rotate-45 flex items-center justify-center transition-transform duration-300 group-hover:rotate-90 shadow-md">
                             <i class="fa-solid fa-bolt text-sm transform -rotate-45 group-hover:-rotate-90 transition-transform duration-300"></i>
                         </div>
                         <span class="font-display font-black text-sm sm:text-base md:text-lg tracking-widest uppercase theme-text-primary">
                             ARENA <span class="theme-text-secondary font-light">ATHLETIX</span>
                         </span>
-                    </a>
+                    </button>
                 </div>
 
                 <nav class="hidden xl:flex items-center space-x-3 lg:space-x-4">
-                    <a href="#utama" class="text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-primary hover:text-yellow-500 transition-colors duration-200 py-2">Utama</a>
-                    <a href="#jadual" class="text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-yellow-500 transition-colors duration-200 py-2">Jadual</a>
-                    <a href="#peserta" class="text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-yellow-500 transition-colors duration-200 py-2">Senarai Atlet</a>
-                    <a href="#keputusan" class="text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-yellow-500 transition-colors duration-200 py-2">Podium Pingat</a>
-                    <a href="#pemenang" class="text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-yellow-500 transition-colors duration-200 py-2">Keputusan Rasmi</a>
-                    <a href="#anugerah" class="text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-yellow-500 transition-colors duration-200 py-2">Anugerah</a>
-                    <a href="#media" class="text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-yellow-500 transition-colors duration-200 py-2">Info & Media</a>
+                    <button onclick="navigateToView('utama')" id="nav-btn-utama" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-primary hover:text-yellow-500 transition-colors duration-200 py-2 cursor-pointer">Utama</button>
+                    <button onclick="navigateToView('jadual')" id="nav-btn-jadual" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-yellow-500 transition-colors duration-200 py-2 cursor-pointer">Jadual</button>
+                    <button onclick="navigateToView('peserta')" id="nav-btn-peserta" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-yellow-500 transition-colors duration-200 py-2 cursor-pointer">Senarai Atlet</button>
+                    <button onclick="navigateToView('keputusan')" id="nav-btn-keputusan" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-yellow-500 transition-colors duration-200 py-2 cursor-pointer">Podium Pingat</button>
+                    <button onclick="navigateToView('pemenang')" id="nav-btn-pemenang" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-yellow-500 transition-colors duration-200 py-2 cursor-pointer">Keputusan Rasmi</button>
+                    <button onclick="navigateToView('anugerah')" id="nav-btn-anugerah" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-yellow-500 transition-colors duration-200 py-2 cursor-pointer">Anugerah</button>
+                    <button onclick="navigateToView('media')" id="nav-btn-media" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-yellow-500 transition-colors duration-200 py-2 cursor-pointer">Info & Media</button>
                 </nav>
 
                 <div class="hidden xl:flex items-center space-x-3">
@@ -238,13 +238,13 @@
 
         <div class="hidden xl:hidden theme-surface border-t theme-border transition-all duration-300" id="mobileMenu">
             <div class="px-4 pt-3 pb-6 space-y-2 max-h-[calc(100dvh-5rem)] overflow-y-auto">
-                <a href="#utama" onclick="toggleMobileMenu()" class="block px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-primary hover:bg-yellow-500/10 border-b theme-border min-h-[44px]">Utama</a>
-                <a href="#jadual" onclick="toggleMobileMenu()" class="block px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-yellow-500/10 border-b theme-border min-h-[44px]">Jadual</a>
-                <a href="#peserta" onclick="toggleMobileMenu()" class="block px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-yellow-500/10 border-b theme-border min-h-[44px]">Senarai Atlet</a>
-                <a href="#keputusan" onclick="toggleMobileMenu()" class="block px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-yellow-500/10 border-b theme-border min-h-[44px]">Podium Pingat</a>
-                <a href="#pemenang" onclick="toggleMobileMenu()" class="block px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-yellow-500/10 border-b theme-border min-h-[44px]">Keputusan Rasmi</a>
-                <a href="#anugerah" onclick="toggleMobileMenu()" class="block px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-yellow-500/10 border-b theme-border min-h-[44px]">Anugerah</a>
-                <a href="#media" onclick="toggleMobileMenu()" class="block px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-yellow-500/10 border-b theme-border min-h-[44px]">Info & Media</a>
+                <button onclick="navigateToView('utama'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-primary hover:bg-yellow-500/10 border-b theme-border min-h-[44px]">Utama</button>
+                <button onclick="navigateToView('jadual'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-yellow-500/10 border-b theme-border min-h-[44px]">Jadual</button>
+                <button onclick="navigateToView('peserta'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-yellow-500/10 border-b theme-border min-h-[44px]">Senarai Atlet</button>
+                <button onclick="navigateToView('keputusan'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-yellow-500/10 border-b theme-border min-h-[44px]">Podium Pingat</button>
+                <button onclick="navigateToView('pemenang'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-yellow-500/10 border-b theme-border min-h-[44px]">Keputusan Rasmi</button>
+                <button onclick="navigateToView('anugerah'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-yellow-500/10 border-b theme-border min-h-[44px]">Anugerah</button>
+                <button onclick="navigateToView('media'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-yellow-500/10 border-b theme-border min-h-[44px]">Info & Media</button>
                 <div class="pt-4 space-y-2">
                     <button onclick="toggleMobileMenu(); showAdminLogin();" class="block text-center w-full px-4 py-3.5 bg-yellow-500 text-navy-950 font-display font-extrabold text-xs uppercase tracking-widest cursor-pointer min-h-[48px]">
                         Panel Admin <i class="fa-solid fa-user-shield ml-2"></i>
@@ -254,378 +254,379 @@
         </div>
     </header>
 
-    <section id="utama" class="relative pt-24 pb-12 sm:pt-28 sm:pb-16 md:pt-32 md:pb-20 theme-bg-secondary overflow-hidden flex flex-col justify-start items-center min-h-screen">
-        <div class="absolute inset-0 opacity-10 pointer-events-none">
-            <div class="absolute top-10 left-10 w-48 h-48 sm:w-80 sm:h-80 bg-yellow-500 rounded-full filter blur-[100px] sm:blur-[150px] animate-pulse-slow"></div>
-            <div class="absolute bottom-20 right-20 w-60 h-60 sm:w-96 sm:h-96 bg-blue-500 rounded-full filter blur-[120px] sm:blur-[180px] animate-pulse-slow"></div>
-            <div class="absolute inset-0" style="background-image: linear-gradient(var(--color-border) 1px, transparent 1px), linear-gradient(90deg, var(--color-border) 1px, transparent 1px); background-size: 30px 30px;"></div>
-        </div>
-
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10 w-full flex flex-col items-center">
-            <div class="inline-flex items-center space-x-2 theme-surface border theme-border px-3 py-1.5 rounded-none mb-4 sm:mb-6 shadow-sm">
-                <span class="h-2 w-2 bg-yellow-500 rounded-full animate-ping"></span>
-                <span class="text-[9px] sm:text-[10px] font-semibold theme-text-secondary tracking-[0.25em] sm:tracking-[0.3em] uppercase">SELAMAT DATANG KE PLATFORM RASMI KEJOHANAN</span>
+    <main class="flex-grow pt-20">
+        <section id="utama" class="view-section relative py-12 sm:py-16 md:py-20 theme-bg-secondary overflow-hidden flex flex-col justify-start items-center min-h-[calc(100vh-5rem)]">
+            <div class="absolute inset-0 opacity-10 pointer-events-none">
+                <div class="absolute top-10 left-10 w-48 h-48 sm:w-80 sm:h-80 bg-yellow-500 rounded-full filter blur-[100px] sm:blur-[150px] animate-pulse-slow"></div>
+                <div class="absolute bottom-20 right-20 w-60 h-60 sm:w-96 sm:h-96 bg-blue-500 rounded-full filter blur-[120px] sm:blur-[180px] animate-pulse-slow"></div>
+                <div class="absolute inset-0" style="background-image: linear-gradient(var(--color-border) 1px, transparent 1px), linear-gradient(90deg, var(--color-border) 1px, transparent 1px); background-size: 30px 30px;"></div>
             </div>
 
-            <h1 class="font-display font-extrabold text-3xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-none mb-3 sm:mb-5 uppercase theme-text-primary">
-                SKBK <span class="text-stroke font-extrabold">ATHLETIX</span><br>
-                <span>CHAMPIONSHIP</span>
-            </h1>
-
-            <p class="max-w-xl sm:max-w-2xl mx-auto text-xs sm:text-sm md:text-base theme-text-secondary mb-6 sm:mb-8 font-medium tracking-wider uppercase leading-relaxed px-2">
-                Smart digital maklumat Kejohanan Olahraga melalui platform yang sistematik, efisien dan interaktif.
-            </p>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl mx-auto px-4 w-full">
-                <a href="#jadual" class="w-full px-6 py-3 bg-yellow-500 text-navy-950 font-display font-extrabold text-xs uppercase tracking-[0.2em] hover:bg-yellow-400 transition-all duration-300 flex items-center justify-center min-h-[48px] shadow-md">
-                    <i class="fa-regular fa-calendar-days mr-2.5"></i> Lihat Jadual & Acara
-                </a>
-                <a href="#keputusan" class="w-full px-6 py-3 bg-transparent border theme-border theme-text-primary font-display font-extrabold text-xs uppercase tracking-[0.2em] hover:bg-yellow-500 hover:text-navy-950 transition-all duration-300 flex items-center justify-center min-h-[48px]">
-                    <i class="fa-solid fa-trophy mr-2.5"></i> Lihat Podium Pingat
-                </a>
-                <a href="#peserta" class="w-full px-6 py-3 bg-transparent border theme-border theme-text-primary font-display font-extrabold text-xs uppercase tracking-[0.2em] hover:bg-yellow-500 hover:text-navy-950 transition-all duration-300 flex items-center justify-center min-h-[48px]">
-                    <i class="fa-solid fa-users mr-2.5"></i> Lihat Senarai Atlet
-                </a>
-                <a href="#pemenang" class="w-full px-6 py-3 bg-transparent border theme-border theme-text-primary font-display font-extrabold text-xs uppercase tracking-[0.2em] hover:bg-yellow-500 hover:text-navy-950 transition-all duration-300 flex items-center justify-center min-h-[48px]">
-                    <i class="fa-solid fa-medal mr-2.5"></i> Semak Keputusan Rasmi
-                </a>
-            </div>
-
-            <div id="heroDashboardCardsContainer" class="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto mt-8 sm:mt-12 px-4 w-full">
-            </div>
-        </div>
-    </section>
-
-    <section id="jadual" class="py-16 sm:py-24 theme-bg-secondary border-b theme-border">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
-                <div class="max-w-xl">
-                    <span class="theme-text-muted font-bold uppercase tracking-[0.25em] text-[10px] sm:text-xs">Takwim Kejohanan</span>
-                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl theme-text-primary mt-2 uppercase">Jadual Kejohanan Terkini</h2>
-                    <p class="text-xs sm:text-sm theme-text-secondary mt-2">Pilih tarikh atau hari kejohanan untuk mendapatkan maklumat terkini dengan tepat.</p>
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10 w-full flex flex-col items-center">
+                <div class="inline-flex items-center space-x-2 theme-surface border theme-border px-3 py-1.5 rounded-none mb-4 sm:mb-6 shadow-sm">
+                    <span class="h-2 w-2 bg-yellow-500 rounded-full animate-ping"></span>
+                    <span class="text-[9px] sm:text-[10px] font-semibold theme-text-secondary tracking-[0.25em] sm:tracking-[0.3em] uppercase">SELAMAT DATANG KE PLATFORM RASMI KEJOHANAN</span>
                 </div>
-                
-                <div id="dayFilters" class="flex flex-wrap gap-2 mt-6 md:mt-0 overflow-x-auto pb-2 hide-scroll">
+
+                <h1 class="font-display font-extrabold text-3xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-none mb-3 sm:mb-5 uppercase theme-text-primary">
+                    ARENA <span class="text-stroke font-extrabold">ATHLETIX</span><br>
+                    <span>CHAMPIONSHIP</span>
+                </h1>
+
+                <p class="max-w-xl sm:max-w-2xl mx-auto text-xs sm:text-sm md:text-base theme-text-secondary mb-6 sm:mb-8 font-medium tracking-wider uppercase leading-relaxed px-2">
+                    Hub digital maklumat Kejohanan Olahraga melalui platform yang sistematik, efisien dan interaktif.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl mx-auto px-4 w-full">
+                    <button onclick="navigateToView('jadual')" class="w-full px-6 py-3 bg-yellow-500 text-navy-950 font-display font-extrabold text-xs uppercase tracking-[0.2em] hover:bg-yellow-400 transition-all duration-300 flex items-center justify-center min-h-[48px] shadow-md cursor-pointer">
+                        <i class="fa-regular fa-calendar-days mr-2.5"></i> Lihat Jadual & Acara
+                    </button>
+                    <button onclick="navigateToView('keputusan')" class="w-full px-6 py-3 bg-transparent border theme-border theme-text-primary font-display font-extrabold text-xs uppercase tracking-[0.2em] hover:bg-yellow-500 hover:text-navy-950 transition-all duration-300 flex items-center justify-center min-h-[48px] cursor-pointer">
+                        <i class="fa-solid fa-trophy mr-2.5"></i> Lihat Podium Pingat
+                    </button>
+                    <button onclick="navigateToView('peserta')" class="w-full px-6 py-3 bg-transparent border theme-border theme-text-primary font-display font-extrabold text-xs uppercase tracking-[0.2em] hover:bg-yellow-500 hover:text-navy-950 transition-all duration-300 flex items-center justify-center min-h-[48px] cursor-pointer">
+                        <i class="fa-solid fa-users mr-2.5"></i> Lihat Senarai Atlet
+                    </button>
+                    <button onclick="navigateToView('pemenang')" class="w-full px-6 py-3 bg-transparent border theme-border theme-text-primary font-display font-extrabold text-xs uppercase tracking-[0.2em] hover:bg-yellow-500 hover:text-navy-950 transition-all duration-300 flex items-center justify-center min-h-[48px] cursor-pointer">
+                        <i class="fa-solid fa-medal mr-2.5"></i> Semak Keputusan Rasmi
+                    </button>
+                </div>
+
+                <div id="heroDashboardCardsContainer" class="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto mt-8 sm:mt-12 px-4 w-full">
                 </div>
             </div>
+        </section>
 
-            <div id="publicScheduleContainer" class="border theme-border glass-card overflow-hidden">
-            </div>
-
-            <div id="noScheduleMessage" class="hidden border theme-border theme-surface p-12 text-center mt-6">
-                <i class="fa-regular fa-calendar-xmark text-3xl theme-text-muted mb-3 block"></i>
-                <p class="text-sm font-bold uppercase tracking-wider theme-text-primary">Tiada Acara Dijadualkan</p>
-                <p class="text-xs theme-text-muted mt-1">Tiada sebarang acara direkodkan bagi tarikh kejohanan yang dipilih.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="peserta" class="py-16 sm:py-24 border-b theme-border">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-10 gap-6">
-                <div class="max-w-xl">
-                    <span class="theme-text-muted font-bold uppercase tracking-[0.25em] text-[10px] sm:text-xs">Profil Atlet & Pasukan</span>
-                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl theme-text-primary mt-2 uppercase">Senarai Atlet</h2>
-                    <p class="text-xs sm:text-sm theme-text-secondary mt-2">Pilih acara dan pusingan kejohanan untuk melihat senarai Atlet Lelaki dan Perempuan yang bertanding.</p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                <div class="lg:col-span-4 space-y-6">
-                    <div class="border theme-border theme-surface p-5 rounded-none space-y-2">
-                        <label for="eventSelect" class="text-[10px] uppercase tracking-wider theme-text-muted font-bold block"><i class="fa-solid fa-list-check mr-1.5"></i> Pilihan Acara</label>
-                        <select id="eventSelect" onchange="onEventChanged()" class="w-full theme-input border theme-border py-3 px-4 text-xs font-medium uppercase tracking-wider focus:outline-none transition-colors min-h-[48px] cursor-pointer">
-                        </select>
+        <section id="jadual" class="view-section hidden py-16 sm:py-24 theme-bg-secondary min-h-[calc(100vh-5rem)]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                    <div class="max-w-xl">
+                        <span class="theme-text-muted font-bold uppercase tracking-[0.25em] text-[10px] sm:text-xs">Takwim Kejohanan</span>
+                        <h2 class="font-display font-extrabold text-3xl sm:text-4xl theme-text-primary mt-2 uppercase">Jadual Kejohanan Terkini</h2>
+                        <p class="text-xs sm:text-sm theme-text-secondary mt-2">Pilih tarikh atau hari kejohanan untuk mendapatkan maklumat terkini dengan tepat.</p>
                     </div>
-
-                    <div class="border theme-border theme-surface p-5 rounded-none space-y-3">
-                        <label class="text-[10px] uppercase tracking-wider theme-text-muted font-bold block"><i class="fa-solid fa-rotate mr-1.5"></i> Pilihan Pusingan</label>
-                        <div class="flex flex-col space-y-2" id="roundButtonsGroup">
-                            <button onclick="setRound('saringan_1')" id="btn-round-saringan_1" class="w-full py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 bg-yellow-500 text-navy-950 min-h-[44px]">Saringan 1</button>
-                            <button onclick="setRound('saringan_2')" id="btn-round-saringan_2" class="w-full py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 theme-surface theme-text-primary hover:bg-yellow-500/10 min-h-[44px] border theme-border">Saringan 2</button>
-                            <button onclick="setRound('akhir')" id="btn-round-akhir" class="w-full py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 theme-surface theme-text-primary hover:bg-yellow-500/10 min-h-[44px] border theme-border">Akhir</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-8 space-y-8">
-                    <h3 id="currentRoundLabel" class="text-xs font-bold uppercase tracking-widest theme-text-primary"></h3>
                     
-                    <!-- BAHAGIAN ATAS: ATLET LELAKI -->
-                    <div class="space-y-3">
-                        <div class="flex items-center space-x-2 border-b theme-border pb-2">
-                            <span class="w-3 h-3 bg-blue-500 rounded-none inline-block"></span>
-                            <h4 class="font-display font-extrabold text-sm sm:text-base text-blue-500 uppercase tracking-wider">ATLET LELAKI</h4>
+                    <div id="dayFilters" class="flex flex-wrap gap-2 mt-6 md:mt-0 overflow-x-auto pb-2 hide-scroll">
+                    </div>
+                </div>
+
+                <div id="publicScheduleContainer" class="border theme-border glass-card overflow-hidden">
+                </div>
+
+                <div id="noScheduleMessage" class="hidden border theme-border theme-surface p-12 text-center mt-6">
+                    <i class="fa-regular fa-calendar-xmark text-3xl theme-text-muted mb-3 block"></i>
+                    <p class="text-sm font-bold uppercase tracking-wider theme-text-primary">Tiada Acara Dijadualkan</p>
+                    <p class="text-xs theme-text-muted mt-1">Tiada sebarang acara direkodkan bagi tarikh kejohanan yang dipilih.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="peserta" class="view-section hidden py-16 sm:py-24 min-h-[calc(100vh-5rem)]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-10 gap-6">
+                    <div class="max-w-xl">
+                        <span class="theme-text-muted font-bold uppercase tracking-[0.25em] text-[10px] sm:text-xs">Profil Atlet & Pasukan</span>
+                        <h2 class="font-display font-extrabold text-3xl sm:text-4xl theme-text-primary mt-2 uppercase">Senarai Atlet</h2>
+                        <p class="text-xs sm:text-sm theme-text-secondary mt-2">Pilih acara dan pusingan kejohanan untuk melihat senarai Atlet Lelaki dan Perempuan yang bertanding.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <div class="lg:col-span-4 space-y-6">
+                        <div class="border theme-border theme-surface p-5 rounded-none space-y-2">
+                            <label for="eventSelect" class="text-[10px] uppercase tracking-wider theme-text-muted font-bold block"><i class="fa-solid fa-list-check mr-1.5"></i> Pilihan Acara</label>
+                            <select id="eventSelect" onchange="onEventChanged()" class="w-full theme-input border theme-border py-3 px-4 text-xs font-medium uppercase tracking-wider focus:outline-none transition-colors min-h-[48px] cursor-pointer">
+                            </select>
                         </div>
-                        <div class="border theme-border glass-card overflow-hidden">
-                            <div class="overflow-x-auto min-w-full">
-                                <table class="w-full text-left border-collapse min-w-[500px]">
-                                    <thead>
-                                        <tr class="theme-bg-secondary border-b theme-border text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] theme-text-secondary">
-                                            <th class="py-4 px-6 text-center w-20">Lorong</th>
-                                            <th class="py-4 px-6">Nama Peserta</th>
-                                            <th class="py-4 px-6">Pasukan</th>
-                                            <th class="py-4 px-6 text-center w-28">No. Bib</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-white/5 text-xs uppercase tracking-wider" id="maleStartListTableBody">
-                                    </tbody>
-                                </table>
+
+                        <div class="border theme-border theme-surface p-5 rounded-none space-y-3">
+                            <label class="text-[10px] uppercase tracking-wider theme-text-muted font-bold block"><i class="fa-solid fa-rotate mr-1.5"></i> Pilihan Pusingan</label>
+                            <div class="flex flex-col space-y-2" id="roundButtonsGroup">
+                                <button onclick="setRound('saringan_1')" id="btn-round-saringan_1" class="w-full py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 bg-yellow-500 text-navy-950 min-h-[44px]">Saringan 1</button>
+                                <button onclick="setRound('saringan_2')" id="btn-round-saringan_2" class="w-full py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 theme-surface theme-text-primary hover:bg-yellow-500/10 min-h-[44px] border theme-border">Saringan 2</button>
+                                <button onclick="setRound('akhir')" id="btn-round-akhir" class="w-full py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 theme-surface theme-text-primary hover:bg-yellow-500/10 min-h-[44px] border theme-border">Akhir</button>
                             </div>
                         </div>
-                        <div id="noMaleAthletesMessage" class="hidden border theme-border theme-surface p-8 text-center">
-                            <i class="fa-solid fa-mars text-2xl text-blue-500/50 mb-2 block"></i>
-                            <p class="text-xs font-bold uppercase tracking-wider theme-text-primary">Tiada Peserta Lelaki Ditemui</p>
-                            <p class="text-[10px] theme-text-muted mt-1">Senarai Atlet Lelaki untuk acara/pusingan ini belum disahkan atau tiada pendaftaran.</p>
-                        </div>
                     </div>
 
-                    <!-- BAHAGIAN BAWAH: ATLET PEREMPUAN -->
-                    <div class="space-y-3 pt-4">
-                        <div class="flex items-center space-x-2 border-b theme-border pb-2">
-                            <span class="w-3 h-3 bg-pink-500 rounded-none inline-block"></span>
-                            <h4 class="font-display font-extrabold text-sm sm:text-base text-pink-500 uppercase tracking-wider">ATLET PEREMPUAN</h4>
-                        </div>
-                        <div class="border theme-border glass-card overflow-hidden">
-                            <div class="overflow-x-auto min-w-full">
-                                <table class="w-full text-left border-collapse min-w-[500px]">
-                                    <thead>
-                                        <tr class="theme-bg-secondary border-b theme-border text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] theme-text-secondary">
-                                            <th class="py-4 px-6 text-center w-20">Lorong</th>
-                                            <th class="py-4 px-6">Nama Peserta</th>
-                                            <th class="py-4 px-6">Pasukan</th>
-                                            <th class="py-4 px-6 text-center w-28">No. Bib</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-white/5 text-xs uppercase tracking-wider" id="femaleStartListTableBody">
-                                    </tbody>
-                                </table>
+                    <div class="lg:col-span-8 space-y-8">
+                        <h3 id="currentRoundLabel" class="text-xs font-bold uppercase tracking-widest theme-text-primary"></h3>
+                        
+                        <!-- BAHAGIAN ATAS: ATLET LELAKI -->
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-2 border-b theme-border pb-2">
+                                <span class="w-3 h-3 bg-blue-500 rounded-none inline-block"></span>
+                                <h4 class="font-display font-extrabold text-sm sm:text-base text-blue-500 uppercase tracking-wider">ATLET LELAKI</h4>
+                            </div>
+                            <div class="border theme-border glass-card overflow-hidden">
+                                <div class="overflow-x-auto min-w-full">
+                                    <table class="w-full text-left border-collapse min-w-[500px]">
+                                        <thead>
+                                            <tr class="theme-bg-secondary border-b theme-border text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] theme-text-secondary">
+                                                <th class="py-4 px-6 text-center w-20">Lorong</th>
+                                                <th class="py-4 px-6">Nama Peserta</th>
+                                                <th class="py-4 px-6">Pasukan</th>
+                                                <th class="py-4 px-6 text-center w-28">No. Bib</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-white/5 text-xs uppercase tracking-wider" id="maleStartListTableBody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="noMaleAthletesMessage" class="hidden border theme-border theme-surface p-8 text-center">
+                                <i class="fa-solid fa-mars text-2xl text-blue-500/50 mb-2 block"></i>
+                                <p class="text-xs font-bold uppercase tracking-wider theme-text-primary">Tiada Peserta Lelaki Ditemui</p>
+                                <p class="text-[10px] theme-text-muted mt-1">Senarai Atlet Lelaki untuk acara/pusingan ini belum disahkan atau tiada pendaftaran.</p>
                             </div>
                         </div>
-                        <div id="noFemaleAthletesMessage" class="hidden border theme-border theme-surface p-8 text-center">
-                            <i class="fa-solid fa-venus text-2xl text-pink-500/50 mb-2 block"></i>
-                            <p class="text-xs font-bold uppercase tracking-wider theme-text-primary">Tiada Peserta Perempuan Ditemui</p>
-                            <p class="text-[10px] theme-text-muted mt-1">Senarai Atlet Perempuan untuk acara/pusingan ini belum disahkan atau tiada pendaftaran.</p>
+
+                        <!-- BAHAGIAN BAWAH: ATLET PEREMPUAN -->
+                        <div class="space-y-3 pt-4">
+                            <div class="flex items-center space-x-2 border-b theme-border pb-2">
+                                <span class="w-3 h-3 bg-pink-500 rounded-none inline-block"></span>
+                                <h4 class="font-display font-extrabold text-sm sm:text-base text-pink-500 uppercase tracking-wider">ATLET PEREMPUAN</h4>
+                            </div>
+                            <div class="border theme-border glass-card overflow-hidden">
+                                <div class="overflow-x-auto min-w-full">
+                                    <table class="w-full text-left border-collapse min-w-[500px]">
+                                        <thead>
+                                            <tr class="theme-bg-secondary border-b theme-border text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] theme-text-secondary">
+                                                <th class="py-4 px-6 text-center w-20">Lorong</th>
+                                                <th class="py-4 px-6">Nama Peserta</th>
+                                                <th class="py-4 px-6">Pasukan</th>
+                                                <th class="py-4 px-6 text-center w-28">No. Bib</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-white/5 text-xs uppercase tracking-wider" id="femaleStartListTableBody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="noFemaleAthletesMessage" class="hidden border theme-border theme-surface p-8 text-center">
+                                <i class="fa-solid fa-venus text-2xl text-pink-500/50 mb-2 block"></i>
+                                <p class="text-xs font-bold uppercase tracking-wider theme-text-primary">Tiada Peserta Perempuan Ditemui</p>
+                                <p class="text-[10px] theme-text-muted mt-1">Senarai Atlet Perempuan untuk acara/pusingan ini belum disahkan atau tiada pendaftaran.</p>
+                            </div>
                         </div>
+
                     </div>
-
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- SECTION PODIUM PINGAT -->
-    <section id="keputusan" class="py-16 sm:py-24 theme-bg-secondary border-b theme-border">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12">
-                <div class="max-w-xl">
-                    <span class="theme-text-muted font-bold uppercase tracking-[0.25em] text-[10px] sm:text-xs">Pungutan Pingat Keseluruhan</span>
-                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl theme-text-primary mt-2 uppercase">Podium Pingat</h2>
-                    <p class="text-xs sm:text-sm theme-text-secondary mt-2">Carta visual kegemilangan 4 pasukan teratas kejohanan secara langsung.</p>
-                </div>
-                
-                <div class="mt-6 lg:mt-0 w-full sm:max-w-xs relative">
-                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none theme-text-muted">
-                        <i class="fa-solid fa-filter text-xs"></i>
+        <section id="keputusan" class="view-section hidden py-16 sm:py-24 theme-bg-secondary min-h-[calc(100vh-5rem)]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12">
+                    <div class="max-w-xl">
+                        <span class="theme-text-muted font-bold uppercase tracking-[0.25em] text-[10px] sm:text-xs">Pungutan Pingat Keseluruhan</span>
+                        <h2 class="font-display font-extrabold text-3xl sm:text-4xl theme-text-primary mt-2 uppercase">Podium Pingat</h2>
+                        <p class="text-xs sm:text-sm theme-text-secondary mt-2">Carta visual kegemilangan 4 pasukan teratas kejohanan secara langsung.</p>
                     </div>
-                    <input type="text" id="tallySearch" onkeyup="searchTally()" placeholder="Cari nama pasukan..." class="w-full theme-input border theme-border py-3 pl-10 pr-4 text-xs font-medium uppercase tracking-wider focus:outline-none transition-colors min-h-[48px]">
-                </div>
-            </div>
-
-            <!-- CONTAINER PAPARAN PODIUM VISUAL -->
-            <div id="medalPodiumContainer" class="w-full space-y-8">
-            </div>
-
-            <!-- EMPTY STATE UNTUK PODIUM -->
-            <div id="noPodiumDataMessage" class="hidden border theme-border theme-surface p-12 text-center">
-                <div class="w-16 h-16 theme-surface border theme-border rounded-full flex items-center justify-center theme-text-muted mx-auto mb-4">
-                    <i class="fa-solid fa-trophy text-2xl text-yellow-500"></i>
-                </div>
-                <p class="text-sm font-display font-extrabold uppercase tracking-wider theme-text-primary mb-1">Tiada Kedudukan Tersedia</p>
-                <p class="text-xs theme-text-muted max-w-sm mx-auto">Keputusan pungutan pingat rasmi belum dimuatkan atau tiada padanan pasukan ditemui.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="pemenang" class="py-16 sm:py-24 border-b theme-border">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-10 gap-6">
-                <div class="max-w-xl">
-                    <span class="theme-text-muted font-bold uppercase tracking-[0.25em] text-[10px] sm:text-xs">Podium Kegemilangan</span>
-                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl theme-text-primary mt-2 uppercase">Keputusan Rasmi</h2>
-                    <p class="text-xs sm:text-sm theme-text-secondary mt-2">Senarai pemenang rasmi bagi setiap kategori yang telah dipertandingkan.</p>
-                </div>
-                
-                <div class="mt-6 lg:mt-0 w-full lg:w-auto flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center">
-                    <div class="relative w-full sm:w-64">
+                    
+                    <div class="mt-6 lg:mt-0 w-full sm:max-w-xs relative">
                         <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none theme-text-muted">
-                            <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                            <i class="fa-solid fa-filter text-xs"></i>
                         </div>
-                        <input type="text" id="winnerSearchInput" onkeyup="filterWinnersBySearch()" placeholder="Cari acara, atlet, pasukan..." class="w-full theme-input border theme-border py-3 pl-10 pr-4 text-xs font-medium uppercase tracking-wider focus:outline-none transition-colors min-h-[48px]">
-                    </div>
-
-                    <div class="w-full sm:w-64">
-                        <select id="winnerEventSelect" onchange="filterWinnersBySearch()" class="w-full theme-input border theme-border py-3 px-3 text-xs font-medium uppercase tracking-wider focus:outline-none transition-colors min-h-[48px] cursor-pointer">
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 gap-8" id="winnersGrid">
-            </div>
-        </div>
-    </section>
-
-    <section id="anugerah" class="py-16 sm:py-24 border-b theme-border">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="theme-text-muted font-bold uppercase tracking-[0.25em] text-[10px] sm:text-xs">Arena Kegemilangan</span>
-                <h2 class="font-display font-extrabold text-3xl sm:text-4xl theme-text-primary mt-2 uppercase">Anugerah Ikon Kejohanan</h2>
-                <div class="w-16 h-1 bg-yellow-500 mx-auto mt-4"></div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="border theme-border p-6 sm:p-8 glass-card text-center hover:border-yellow-500 transition-all duration-300 group flex flex-col justify-between">
-                    <div>
-                        <div class="w-16 h-16 theme-surface border theme-border flex items-center justify-center theme-text-primary mx-auto mb-6 transform group-hover:rotate-6 transition-all duration-300">
-                            <i class="fa-solid fa-trophy text-2xl text-yellow-500"></i>
-                        </div>
-                        <h3 class="font-display font-bold text-base sm:text-lg uppercase tracking-wider theme-text-primary mb-4">Atlet Lelaki Terbaik</h3>
-                        
-                        <div class="theme-surface border theme-border p-4 mb-4 text-left rounded-none">
-                            <p id="olahragawanNama" class="text-xs font-bold theme-text-primary uppercase tracking-wider mb-1">Tiada Data Available</p>
-                            <p class="text-[10px] theme-text-muted uppercase tracking-widest leading-relaxed">Pasukan: <span id="olahragawanPasukan" class="theme-text-primary font-semibold">-</span></p>
-                            <p class="text-[10px] theme-text-muted uppercase tracking-widest leading-relaxed mb-2.5">No Bib: <span id="olahragawanBib" class="theme-text-primary font-semibold">-</span></p>
-                            <div class="flex flex-col space-y-1 text-[9px] font-bold uppercase tracking-wider theme-text-secondary border-t theme-border pt-2">
-                                <span class="flex items-center"><i class="fa-solid fa-medal text-yellow-500 mr-1.5"></i> Emas: <span id="olahragawanEmas">0</span></span>
-                                <span class="flex items-center"><i class="fa-solid fa-medal text-slate-400 mr-1.5"></i> Perak: <span id="olahragawanPerak">0</span></span>
-                                <span class="flex items-center"><i class="fa-solid fa-medal text-amber-700 mr-1.5"></i> Gangsa: <span id="olahragawanGangsa">0</span></span>
-                            </div>
-                        </div>
-
-                        <p class="text-xs theme-text-secondary leading-relaxed text-left">
-                            Pengiktirafan ikonik berdasarkan pencapaian data rekod rasmi terkini.
-                        </p>
+                        <input type="text" id="tallySearch" onkeyup="searchTally()" placeholder="Cari nama pasukan..." class="w-full theme-input border theme-border py-3 pl-10 pr-4 text-xs font-medium uppercase tracking-wider focus:outline-none transition-colors min-h-[48px]">
                     </div>
                 </div>
 
-                <div class="border theme-border p-6 sm:p-8 glass-card text-center hover:border-yellow-500 transition-all duration-300 group flex flex-col justify-between">
-                    <div>
-                        <div class="w-16 h-16 theme-surface border theme-border flex items-center justify-center theme-text-primary mx-auto mb-6 transform group-hover:rotate-6 transition-all duration-300">
-                            <i class="fa-solid fa-trophy text-2xl text-yellow-400"></i>
-                        </div>
-                        <h3 class="font-display font-bold text-base sm:text-lg uppercase tracking-wider theme-text-primary mb-4">Atlet Perempuan Terbaik</h3>
-                        
-                        <div class="theme-surface border theme-border p-4 mb-4 text-left rounded-none">
-                            <p id="olahragawatiNama" class="text-xs font-bold theme-text-primary uppercase tracking-wider mb-1">Tiada Data Available</p>
-                            <p class="text-[10px] theme-text-muted uppercase tracking-widest leading-relaxed">Pasukan: <span id="olahragawatiPasukan" class="theme-text-primary font-semibold">-</span></p>
-                            <p class="text-[10px] theme-text-muted uppercase tracking-widest leading-relaxed mb-2.5">No Bib: <span id="olahragawatiBib" class="theme-text-primary font-semibold">-</span></p>
-                            <div class="flex flex-col space-y-1 text-[9px] font-bold uppercase tracking-wider theme-text-secondary border-t theme-border pt-2">
-                                <span class="flex items-center"><i class="fa-solid fa-medal text-yellow-500 mr-1.5"></i> Emas: <span id="olahragawatiEmas">0</span></span>
-                                <span class="flex items-center"><i class="fa-solid fa-medal text-slate-400 mr-1.5"></i> Perak: <span id="olahragawatiPerak">0</span></span>
-                                <span class="flex items-center"><i class="fa-solid fa-medal text-amber-700 mr-1.5"></i> Gangsa: <span id="olahragawatiGangsa">0</span></span>
-                            </div>
-                        </div>
-
-                        <p class="text-xs theme-text-secondary leading-relaxed text-left">
-                            Pengiktirafan ikonik berdasarkan pencapaian data rekod rasmi terkini.
-                        </p>
-                    </div>
+                <!-- CONTAINER PAPARAN PODIUM VISUAL -->
+                <div id="medalPodiumContainer" class="w-full space-y-8">
                 </div>
 
-                <div class="border theme-border p-6 sm:p-8 glass-card text-center hover:border-yellow-500 transition-all duration-300 group flex flex-col justify-between">
-                    <div>
-                        <div class="w-16 h-16 theme-surface border theme-border flex items-center justify-center theme-text-primary mx-auto mb-6 transform group-hover:rotate-6 transition-all duration-300">
-                            <i class="fa-solid fa-star text-2xl text-yellow-300"></i>
-                        </div>
-                        <h3 class="font-display font-bold text-base sm:text-lg uppercase tracking-wider theme-text-primary mb-4">Juara Keseluruhan</h3>
-                        
-                        <div class="theme-surface border theme-border p-4 mb-4 text-left rounded-none">
-                            <p id="juaraNamaPasukan" class="text-xs font-bold theme-text-primary uppercase tracking-wider mb-1">Tiada Data Available</p>
-                            <p class="text-[10px] theme-text-muted uppercase tracking-widest leading-relaxed">Kategori: <span class="theme-text-primary font-semibold">Pasukan Terbaik</span></p>
-                            <p class="text-[10px] theme-text-muted uppercase tracking-widest leading-relaxed mb-2.5">Pencapaian: <span class="theme-text-primary font-semibold">Terbanyak Emas</span></p>
-                            <div class="flex flex-col space-y-1 text-[9px] font-bold uppercase tracking-wider theme-text-secondary border-t theme-border pt-2">
-                                <span class="flex items-center"><i class="fa-solid fa-medal text-yellow-500 mr-1.5"></i> Emas: <span id="juaraEmas">0</span></span>
-                                <span class="flex items-center"><i class="fa-solid fa-medal text-slate-400 mr-1.5"></i> Perak: <span id="juaraPerak">0</span></span>
-                                <span class="flex items-center"><i class="fa-solid fa-medal text-amber-700 mr-1.5"></i> Gangsa: <span id="juaraGangsa">0</span></span>
-                            </div>
-                        </div>
-
-                        <p class="text-xs theme-text-secondary leading-relaxed text-left">
-                            Tahniah diucapkan.
-                        </p>
+                <!-- EMPTY STATE UNTUK PODIUM -->
+                <div id="noPodiumDataMessage" class="hidden border theme-border theme-surface p-12 text-center">
+                    <div class="w-16 h-16 theme-surface border theme-border rounded-full flex items-center justify-center theme-text-muted mx-auto mb-4">
+                        <i class="fa-solid fa-trophy text-2xl text-yellow-500"></i>
                     </div>
+                    <p class="text-sm font-display font-extrabold uppercase tracking-wider theme-text-primary mb-1">Tiada Kedudukan Tersedia</p>
+                    <p class="text-xs theme-text-muted max-w-sm mx-auto">Keputusan pungutan pingat rasmi belum dimuatkan atau tiada padanan pasukan ditemui.</p>
                 </div>
-
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="media" class="py-16 sm:py-24 theme-bg-secondary border-b theme-border">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                <div class="space-y-6">
-                    <div class="space-y-2">
-                        <span class="theme-text-muted font-bold uppercase tracking-[0.25em] text-[10px] sm:text-xs block">HEBAHAN RASMI KEJOHANAN</span>
-                        <h2 class="font-display font-extrabold text-3xl sm:text-4xl theme-text-primary uppercase leading-tight">
-                            INFO & MEDIA
-                        </h2>
+        <section id="pemenang" class="view-section hidden py-16 sm:py-24 min-h-[calc(100vh-5rem)]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-10 gap-6">
+                    <div class="max-w-xl">
+                        <span class="theme-text-muted font-bold uppercase tracking-[0.25em] text-[10px] sm:text-xs">Podium Kegemilangan</span>
+                        <h2 class="font-display font-extrabold text-3xl sm:text-4xl theme-text-primary mt-2 uppercase">Keputusan Rasmi</h2>
+                        <p class="text-xs sm:text-sm theme-text-secondary mt-2">Senarai pemenang rasmi bagi setiap kategori yang telah dipertandingkan.</p>
                     </div>
                     
-                    <div id="publicAnnouncementContainer" class="border theme-border theme-surface p-5 rounded-none space-y-2.5 relative overflow-hidden">
-                    </div>
-
-                    <div class="space-y-3 pt-4 border-t theme-border">
-                        <div class="flex items-center justify-between p-4 theme-surface border theme-border hover:border-yellow-500 transition-all group">
-                            <div class="flex items-center space-x-3">
-                                <i class="fa-regular fa-file-pdf text-red-500 text-lg"></i>
-                                <span class="text-xs font-bold uppercase tracking-wider theme-text-primary">Buku Rasmi Peraturan Kejohanan (PDF)</span>
+                    <div class="mt-6 lg:mt-0 w-full lg:w-auto flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center">
+                        <div class="relative w-full sm:w-64">
+                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none theme-text-muted">
+                                <i class="fa-solid fa-magnifying-glass text-xs"></i>
                             </div>
-                            <a id="publicPdfLink" href="#" target="_blank" class="p-2 theme-text-muted hover:text-yellow-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" title="Muat Turun"><i class="fa-solid fa-download"></i></a>
+                            <input type="text" id="winnerSearchInput" onkeyup="filterWinnersBySearch()" placeholder="Cari acara, atlet, pasukan..." class="w-full theme-input border theme-border py-3 pl-10 pr-4 text-xs font-medium uppercase tracking-wider focus:outline-none transition-colors min-h-[48px]">
+                        </div>
+
+                        <div class="w-full sm:w-64">
+                            <select id="winnerEventSelect" onchange="filterWinnersBySearch()" class="w-full theme-input border theme-border py-3 px-3 text-xs font-medium uppercase tracking-wider focus:outline-none transition-colors min-h-[48px] cursor-pointer">
+                            </select>
                         </div>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="border theme-border theme-surface p-6 flex flex-col justify-between hover:border-yellow-500 transition-all duration-300 group min-h-[180px]">
+                <div class="grid grid-cols-1 gap-8" id="winnersGrid">
+                </div>
+            </div>
+        </section>
+
+        <section id="anugerah" class="view-section hidden py-16 sm:py-24 min-h-[calc(100vh-5rem)]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="theme-text-muted font-bold uppercase tracking-[0.25em] text-[10px] sm:text-xs">Arena Kegemilangan</span>
+                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl theme-text-primary mt-2 uppercase">Anugerah Ikon Kejohanan</h2>
+                    <div class="w-16 h-1 bg-yellow-500 mx-auto mt-4"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="border theme-border p-6 sm:p-8 glass-card text-center hover:border-yellow-500 transition-all duration-300 group flex flex-col justify-between">
                         <div>
-                            <div class="flex justify-between items-start mb-4">
-                                <div class="w-10 h-10 theme-surface border theme-border flex items-center justify-center theme-text-primary transform group-hover:rotate-6 transition-all">
-                                    <i class="fa-regular fa-images text-lg"></i>
-                                </div>
-                                <span class="text-[9px] font-sans theme-text-muted uppercase tracking-widest">GALERI MULTIMEDIA</span>
+                            <div class="w-16 h-16 theme-surface border theme-border flex items-center justify-center theme-text-primary mx-auto mb-6 transform group-hover:rotate-6 transition-all duration-300">
+                                <i class="fa-solid fa-trophy text-2xl text-yellow-500"></i>
                             </div>
-                            <h3 class="font-display font-extrabold text-sm theme-text-primary uppercase tracking-wider mb-2">Pautan Galeri Foto</h3>
-                            <p class="text-[11px] theme-text-secondary leading-relaxed">
-                                Akses foto rasmi, liputan harian, dan detik-detik podium kontinjen yang dirakam lensa kamera.
+                            <h3 class="font-display font-bold text-base sm:text-lg uppercase tracking-wider theme-text-primary mb-4">Atlet Lelaki Terbaik</h3>
+                            
+                            <div class="theme-surface border theme-border p-4 mb-4 text-left rounded-none">
+                                <p id="olahragawanNama" class="text-xs font-bold theme-text-primary uppercase tracking-wider mb-1">Tiada Data Available</p>
+                                <p class="text-[10px] theme-text-muted uppercase tracking-widest leading-relaxed">Pasukan: <span id="olahragawanPasukan" class="theme-text-primary font-semibold">-</span></p>
+                                <p class="text-[10px] theme-text-muted uppercase tracking-widest leading-relaxed mb-2.5">No Bib: <span id="olahragawanBib" class="theme-text-primary font-semibold">-</span></p>
+                                <div class="flex flex-col space-y-1 text-[9px] font-bold uppercase tracking-wider theme-text-secondary border-t theme-border pt-2">
+                                    <span class="flex items-center"><i class="fa-solid fa-medal text-yellow-500 mr-1.5"></i> Emas: <span id="olahragawanEmas">0</span></span>
+                                    <span class="flex items-center"><i class="fa-solid fa-medal text-slate-400 mr-1.5"></i> Perak: <span id="olahragawanPerak">0</span></span>
+                                    <span class="flex items-center"><i class="fa-solid fa-medal text-amber-700 mr-1.5"></i> Gangsa: <span id="olahragawanGangsa">0</span></span>
+                                </div>
+                            </div>
+
+                            <p class="text-xs theme-text-secondary leading-relaxed text-left">
+                                Pengiktirafan ikonik berdasarkan pencapaian data rekod rasmi terkini.
                             </p>
                         </div>
-                        <a id="publicGalleryLink" href="#" target="_blank" class="inline-flex items-center text-[10px] font-bold theme-text-primary uppercase tracking-widest hover:text-yellow-500 transition-colors mt-4 min-h-[44px]">
-                            LIHAT GALERI <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-                        </a>
                     </div>
 
-                    <div class="border theme-border theme-surface p-6 flex flex-col justify-between hover:border-yellow-500 transition-all duration-300 group min-h-[180px]">
+                    <div class="border theme-border p-6 sm:p-8 glass-card text-center hover:border-yellow-500 transition-all duration-300 group flex flex-col justify-between">
                         <div>
-                            <div class="flex justify-between items-start mb-4">
-                                <div class="w-10 h-10 theme-surface border theme-border flex items-center justify-center theme-text-primary transform group-hover:-rotate-6 transition-all">
-                                    <i class="fa-regular fa-comment-dots text-lg"></i>
-                                </div>
-                                <span class="text-[9px] font-sans theme-text-muted uppercase tracking-widest">HUBUNGI URUS SETIA</span>
+                            <div class="w-16 h-16 theme-surface border theme-border flex items-center justify-center theme-text-primary mx-auto mb-6 transform group-hover:rotate-6 transition-all duration-300">
+                                <i class="fa-solid fa-trophy text-2xl text-yellow-400"></i>
                             </div>
-                            <h3 class="font-display font-extrabold text-sm theme-text-primary uppercase tracking-wider mb-2">Maklum Balas</h3>
-                            <p class="text-[11px] theme-text-secondary leading-relaxed">
-                                Mempunyai sebarang cadangan, aduan, atau pertanyaan? Hantar maklum balas terus kepada urusetia kejohanan.
+                            <h3 class="font-display font-bold text-base sm:text-lg uppercase tracking-wider theme-text-primary mb-4">Atlet Perempuan Terbaik</h3>
+                            
+                            <div class="theme-surface border theme-border p-4 mb-4 text-left rounded-none">
+                                <p id="olahragawatiNama" class="text-xs font-bold theme-text-primary uppercase tracking-wider mb-1">Tiada Data Available</p>
+                                <p class="text-[10px] theme-text-muted uppercase tracking-widest leading-relaxed">Pasukan: <span id="olahragawatiPasukan" class="theme-text-primary font-semibold">-</span></p>
+                                <p class="text-[10px] theme-text-muted uppercase tracking-widest leading-relaxed mb-2.5">No Bib: <span id="olahragawatiBib" class="theme-text-primary font-semibold">-</span></p>
+                                <div class="flex flex-col space-y-1 text-[9px] font-bold uppercase tracking-wider theme-text-secondary border-t theme-border pt-2">
+                                    <span class="flex items-center"><i class="fa-solid fa-medal text-yellow-500 mr-1.5"></i> Emas: <span id="olahragawatiEmas">0</span></span>
+                                    <span class="flex items-center"><i class="fa-solid fa-medal text-slate-400 mr-1.5"></i> Perak: <span id="olahragawatiPerak">0</span></span>
+                                    <span class="flex items-center"><i class="fa-solid fa-medal text-amber-700 mr-1.5"></i> Gangsa: <span id="olahragawatiGangsa">0</span></span>
+                                </div>
+                            </div>
+
+                            <p class="text-xs theme-text-secondary leading-relaxed text-left">
+                                Pengiktirafan ikonik berdasarkan pencapaian data rekod rasmi terkini.
                             </p>
                         </div>
-                        <a id="publicFeedbackLink" href="#" target="_blank" class="inline-flex items-center text-[10px] font-bold theme-text-primary uppercase tracking-widest hover:text-yellow-500 transition-colors mt-4 min-h-[44px]">
-                            HANTAR MAKLUM BALAS <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-                        </a>
+                    </div>
+
+                    <div class="border theme-border p-6 sm:p-8 glass-card text-center hover:border-yellow-500 transition-all duration-300 group flex flex-col justify-between">
+                        <div>
+                            <div class="w-16 h-16 theme-surface border theme-border flex items-center justify-center theme-text-primary mx-auto mb-6 transform group-hover:rotate-6 transition-all duration-300">
+                                <i class="fa-solid fa-star text-2xl text-yellow-300"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-base sm:text-lg uppercase tracking-wider theme-text-primary mb-4">Juara Keseluruhan</h3>
+                            
+                            <div class="theme-surface border theme-border p-4 mb-4 text-left rounded-none">
+                                <p id="juaraNamaPasukan" class="text-xs font-bold theme-text-primary uppercase tracking-wider mb-1">Tiada Data Available</p>
+                                <p class="text-[10px] theme-text-muted uppercase tracking-widest leading-relaxed">Kategori: <span class="theme-text-primary font-semibold">Pasukan Terbaik</span></p>
+                                <p class="text-[10px] theme-text-muted uppercase tracking-widest leading-relaxed mb-2.5">Pencapaian: <span class="theme-text-primary font-semibold">Terbanyak Emas</span></p>
+                                <div class="flex flex-col space-y-1 text-[9px] font-bold uppercase tracking-wider theme-text-secondary border-t theme-border pt-2">
+                                    <span class="flex items-center"><i class="fa-solid fa-medal text-yellow-500 mr-1.5"></i> Emas: <span id="juaraEmas">0</span></span>
+                                    <span class="flex items-center"><i class="fa-solid fa-medal text-slate-400 mr-1.5"></i> Perak: <span id="juaraPerak">0</span></span>
+                                    <span class="flex items-center"><i class="fa-solid fa-medal text-amber-700 mr-1.5"></i> Gangsa: <span id="juaraGangsa">0</span></span>
+                                </div>
+                            </div>
+
+                            <p class="text-xs theme-text-secondary leading-relaxed text-left">
+                                Tahniah diucapkan.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="media" class="view-section hidden py-16 sm:py-24 theme-bg-secondary min-h-[calc(100vh-5rem)]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    <div class="space-y-6">
+                        <div class="space-y-2">
+                            <span class="theme-text-muted font-bold uppercase tracking-[0.25em] text-[10px] sm:text-xs block">HEBAHAN RASMI KEJOHANAN</span>
+                            <h2 class="font-display font-extrabold text-3xl sm:text-4xl theme-text-primary uppercase leading-tight">
+                                INFO & MEDIA
+                            </h2>
+                        </div>
+                        
+                        <div id="publicAnnouncementContainer" class="border theme-border theme-surface p-5 rounded-none space-y-2.5 relative overflow-hidden">
+                        </div>
+
+                        <div class="space-y-3 pt-4 border-t theme-border">
+                            <div class="flex items-center justify-between p-4 theme-surface border theme-border hover:border-yellow-500 transition-all group">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fa-regular fa-file-pdf text-red-500 text-lg"></i>
+                                    <span class="text-xs font-bold uppercase tracking-wider theme-text-primary">Buku Rasmi Peraturan Kejohanan (PDF)</span>
+                                </div>
+                                <a id="publicPdfLink" href="#" target="_blank" class="p-2 theme-text-muted hover:text-yellow-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" title="Muat Turun"><i class="fa-solid fa-download"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="border theme-border theme-surface p-6 flex flex-col justify-between hover:border-yellow-500 transition-all duration-300 group min-h-[180px]">
+                            <div>
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="w-10 h-10 theme-surface border theme-border flex items-center justify-center theme-text-primary transform group-hover:rotate-6 transition-all">
+                                        <i class="fa-regular fa-images text-lg"></i>
+                                    </div>
+                                    <span class="text-[9px] font-sans theme-text-muted uppercase tracking-widest">GALERI MULTIMEDIA</span>
+                                </div>
+                                <h3 class="font-display font-extrabold text-sm theme-text-primary uppercase tracking-wider mb-2">Pautan Galeri Foto</h3>
+                                <p class="text-[11px] theme-text-secondary leading-relaxed">
+                                    Akses foto rasmi, liputan harian, dan detik-detik podium kontinjen yang dirakam lensa kamera.
+                                </p>
+                            </div>
+                            <a id="publicGalleryLink" href="#" target="_blank" class="inline-flex items-center text-[10px] font-bold theme-text-primary uppercase tracking-widest hover:text-yellow-500 transition-colors mt-4 min-h-[44px]">
+                                LIHAT GALERI <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+
+                        <div class="border theme-border theme-surface p-6 flex flex-col justify-between hover:border-yellow-500 transition-all duration-300 group min-h-[180px]">
+                            <div>
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="w-10 h-10 theme-surface border theme-border flex items-center justify-center theme-text-primary transform group-hover:-rotate-6 transition-all">
+                                        <i class="fa-regular fa-comment-dots text-lg"></i>
+                                    </div>
+                                    <span class="text-[9px] font-sans theme-text-muted uppercase tracking-widest">HUBUNGI URUS SETIA</span>
+                                </div>
+                                <h3 class="font-display font-extrabold text-sm theme-text-primary uppercase tracking-wider mb-2">Maklum Balas</h3>
+                                <p class="text-[11px] theme-text-secondary leading-relaxed">
+                                    Mempunyai sebarang cadangan, aduan, atau pertanyaan? Hantar maklum balas terus kepada urusetia kejohanan.
+                                </p>
+                            </div>
+                            <a id="publicFeedbackLink" href="#" target="_blank" class="inline-flex items-center text-[10px] font-bold theme-text-primary uppercase tracking-widest hover:text-yellow-500 transition-colors mt-4 min-h-[44px]">
+                                HANTAR MAKLUM BALAS <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- Modal Admin Login -->
     <div id="adminLoginModal" class="fixed inset-0 z-50 hidden glass-card backdrop-blur-md overflow-y-auto flex items-center justify-center p-4 pt-[calc(1rem+var(--sat))] pb-[calc(1rem+var(--sab))]">
@@ -1182,7 +1183,7 @@
                         <span class="font-display font-black text-lg tracking-widest uppercase">ARENA ATHLETIX</span>
                     </div>
                     <p class="theme-text-muted text-xs leading-relaxed max-w-sm">
-                        Smart digital maklumat Kejohanan Olahraga melalui platform yang sistematik, efisien dan interaktif.
+                        Hub digital maklumat Kejohanan Olahraga melalui platform yang sistematik, efisien dan interaktif.
                     </p>
                     <div class="flex space-x-3 pt-2">
                         <a href="#" class="w-9 h-9 theme-surface border theme-border flex items-center justify-center theme-text-secondary hover:text-yellow-500 hover:border-yellow-500 transition-all text-xs" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
@@ -1194,13 +1195,13 @@
                 <div class="space-y-4">
                     <h4 class="font-display font-bold text-xs uppercase tracking-widest border-l-2 border-yellow-500 pl-3">Navigasi Pantas</h4>
                     <ul class="space-y-2 text-xs uppercase tracking-wider">
-                        <li><a href="#utama" class="theme-text-muted hover:text-yellow-500 transition-all py-1 inline-block">Utama</a></li>
-                        <li><a href="#jadual" class="theme-text-muted hover:text-yellow-500 transition-all py-1 inline-block">Jadual</a></li>
-                        <li><a href="#peserta" class="theme-text-muted hover:text-yellow-500 transition-all py-1 inline-block">Senarai Atlet</a></li>
-                        <li><a href="#keputusan" class="theme-text-muted hover:text-yellow-500 transition-all py-1 inline-block">Podium Pingat</a></li>
-                        <li><a href="#pemenang" class="theme-text-muted hover:text-yellow-500 transition-all py-1 inline-block">Keputusan Rasmi</a></li>
-                        <li><a href="#anugerah" class="theme-text-muted hover:text-yellow-500 transition-all py-1 inline-block">Anugerah</a></li>
-                        <li><a href="#media" class="theme-text-muted hover:text-yellow-500 transition-all py-1 inline-block">Info & Media</a></li>
+                        <li><button onclick="navigateToView('utama')" class="theme-text-muted hover:text-yellow-500 transition-all py-1 inline-block text-left cursor-pointer">Utama</button></li>
+                        <li><button onclick="navigateToView('jadual')" class="theme-text-muted hover:text-yellow-500 transition-all py-1 inline-block text-left cursor-pointer">Jadual</button></li>
+                        <li><button onclick="navigateToView('peserta')" class="theme-text-muted hover:text-yellow-500 transition-all py-1 inline-block text-left cursor-pointer">Senarai Atlet</button></li>
+                        <li><button onclick="navigateToView('keputusan')" class="theme-text-muted hover:text-yellow-500 transition-all py-1 inline-block text-left cursor-pointer">Podium Pingat</button></li>
+                        <li><button onclick="navigateToView('pemenang')" class="theme-text-muted hover:text-yellow-500 transition-all py-1 inline-block text-left cursor-pointer">Keputusan Rasmi</button></li>
+                        <li><button onclick="navigateToView('anugerah')" class="theme-text-muted hover:text-yellow-500 transition-all py-1 inline-block text-left cursor-pointer">Anugerah</button></li>
+                        <li><button onclick="navigateToView('media')" class="theme-text-muted hover:text-yellow-500 transition-all py-1 inline-block text-left cursor-pointer">Info & Media</button></li>
                     </ul>
                 </div>
 
@@ -1209,7 +1210,7 @@
                     <ul class="space-y-3 text-xs theme-text-muted">
                         <li class="flex items-start space-x-3">
                             <i class="fa-solid fa-location-dot text-yellow-500 text-sm mt-0.5"></i>
-                            <span>Unit Sukan & Teknikal SKBK</span>
+                            <span>SK Bukit Kalam W.Persekutuan Labuan</span>
                         </li>
                         <li class="flex items-center space-x-3">
                             <i class="fa-solid fa-envelope text-yellow-500 text-sm"></i>
@@ -1217,7 +1218,7 @@
                         </li>
                         <li class="flex items-center space-x-3">
                             <i class="fa-solid fa-phone text-yellow-500 text-sm"></i>
-                            <span>0195362091</span>
+                            <span>01953xxxxx</span>
                         </li>
                     </ul>
                 </div>
@@ -1247,6 +1248,43 @@
             serverTimestamp,
             writeBatch
         } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+        // Router View Navigation Control Function (Single Active View Concept)
+        window.activeView = "utama";
+        window.navigateToView = function(viewId) {
+            if (!viewId) return;
+            window.activeView = viewId;
+
+            // Hide all view sections strictly
+            const sections = document.querySelectorAll(".view-section");
+            sections.forEach(sec => {
+                sec.classList.add("hidden");
+                sec.classList.remove("block");
+            });
+
+            // Show target view section only
+            const targetSec = document.getElementById(viewId);
+            if (targetSec) {
+                targetSec.classList.remove("hidden");
+                targetSec.classList.add("block");
+            }
+
+            // Update Header Navigation Active Button Styling
+            const navButtons = document.querySelectorAll(".nav-link-btn");
+            navButtons.forEach(btn => {
+                btn.classList.remove("theme-text-primary");
+                btn.classList.add("theme-text-secondary");
+            });
+
+            const activeBtn = document.getElementById(`nav-btn-${viewId}`);
+            if (activeBtn) {
+                activeBtn.classList.remove("theme-text-secondary");
+                activeBtn.classList.add("theme-text-primary");
+            }
+
+            // Reset scroll position to absolute top
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        };
 
         // Global Safe HTML Sanitizer Helper for CSV & Input Rendering
         function escapeHTML(str) {
@@ -3197,7 +3235,7 @@
 
         window.setRoundButtonActive = function(roundVal) {
             const label = document.getElementById("currentRoundLabel");
-            if (label) label.textContent = "Pusingan: " + roundVal.toUpperCase().replace("_", " ");
+            if (label) label.textContent = "Pusingan Aktif: " + roundVal.toUpperCase().replace("_", " ");
             
             const rounds = ["saringan_1", "saringan_2", "akhir"];
             rounds.forEach(r => {
@@ -3825,8 +3863,10 @@
             await StorageService.runOneTimeLocalStorageMigration();
             initRealtimeFirestoreListeners();
             AutoSyncManager.init();
+
+            // Set initial router view to 'utama' (Single Active View)
+            navigateToView("utama");
         });
     </script>
 </body>
 </html>
-```e
