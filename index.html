@@ -294,6 +294,28 @@
 
                 <div id="heroDashboardCardsContainer" class="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto mt-8 sm:mt-12 px-4 w-full">
                 </div>
+
+                <!-- KOMPONEN BAHARU: PENGUMUMAN TERKINI -->
+                <div id="homeAnnouncementsSection" class="max-w-5xl mx-auto mt-8 sm:mt-12 px-4 w-full text-left">
+                    <div class="border theme-border glass-card p-5 sm:p-6 shadow-xl">
+                        <div class="flex items-center justify-between border-b theme-border pb-3 mb-4">
+                            <div class="flex items-center space-x-2.5">
+                                <div class="w-8 h-8 bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 flex items-center justify-center rounded-none">
+                                    <i class="fa-solid fa-bullhorn text-sm"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-extrabold text-xs sm:text-sm theme-text-primary uppercase tracking-wider">PENGUMUMAN TERKINI</h3>
+                                    <p class="text-[9px] theme-text-muted uppercase tracking-widest mt-0.5">Hebahan & Makluman Kejohanan</p>
+                                </div>
+                            </div>
+                            <span class="text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 bg-yellow-500/10 text-yellow-500 border border-yellow-500/20">
+                                LIVE UPDATES
+                            </span>
+                        </div>
+                        <div id="homeAnnouncementsContainer" class="space-y-3">
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -453,7 +475,7 @@
                     <div class="max-w-xl">
                         <span class="theme-text-muted font-bold uppercase tracking-[0.25em] text-[10px] sm:text-xs">Podium Kegemilangan</span>
                         <h2 class="font-display font-extrabold text-3xl sm:text-4xl theme-text-primary mt-2 uppercase">Keputusan Rasmi</h2>
-                        <p class="text-xs sm:text-sm theme-text-secondary mt-2">Senarai pemenang rasmi bagi setiap acara & kategori yang telah dipertandingkan.</p>
+                        <p class="text-xs sm:text-sm theme-text-secondary mt-2">Senarai pemenang rasmi bagi setiap kategori yang telah dipertandingkan.</p>
                     </div>
                     
                     <div class="mt-6 lg:mt-0 w-full lg:w-auto flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center">
@@ -671,13 +693,13 @@
                 <div>
                     <h3 class="font-display font-extrabold text-sm sm:text-lg theme-text-primary uppercase tracking-wider">PANEL KAWALAN ADMIN</h3>
                     <p class="text-[9px] sm:text-[10px] text-green-500 font-sans tabular-nums tracking-widest uppercase flex items-center mt-1">
-                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse mr-1.5"></span> Firebase Firestore Live Sync
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse mr-1.5"></span> Live Data Sync
                     </p>
                 </div>
             </div>
             <div class="flex items-center space-x-3">
                 <button onclick="triggerManualSync()" class="px-3 py-2 bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20 border border-yellow-500/20 font-bold text-[10px] uppercase tracking-wider transition-colors flex items-center min-h-[44px]" title="Paksa Penyelarasan Data">
-                    <i class="fa-solid fa-rotate mr-1.5" id="manualSyncIcon"></i> Sync Sekarang
+                    <i class="fa-solid fa-rotate mr-1.5" id="manualSyncIcon"></i> Sync Now
                 </button>
                 <button onclick="closeAdminPanel()" class="px-4 py-2 bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 font-bold text-[10px] uppercase tracking-wider transition-colors flex items-center min-h-[44px]">
                     <i class="fa-solid fa-power-off mr-2"></i> Keluar Admin
@@ -1054,7 +1076,19 @@
                             <div class="space-y-3 theme-bg-secondary p-4 border theme-border">
                                 <div>
                                     <label for="adminAnnouncementCategory" class="text-[9px] uppercase tracking-wider theme-text-muted font-bold block mb-1">Kategori Hebahan</label>
-                                    <input type="text" id="adminAnnouncementCategory" placeholder="Contoh: KESELAMATAN" class="w-full theme-input border theme-border py-2 px-3 text-xs uppercase focus:outline-none">
+                                    <select id="adminAnnouncementCategory" class="w-full theme-input border theme-border py-2 px-3 text-xs uppercase focus:outline-none cursor-pointer">
+                                        <option value="Penting">Penting</option>
+                                        <option value="Makluman">Makluman</option>
+                                        <option value="Jadual">Jadual</option>
+                                        <option value="Keputusan">Keputusan</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="adminAnnouncementStatus" class="text-[9px] uppercase tracking-wider theme-text-muted font-bold block mb-1">Status Terbitan</label>
+                                    <select id="adminAnnouncementStatus" class="w-full theme-input border theme-border py-2 px-3 text-xs uppercase focus:outline-none cursor-pointer">
+                                        <option value="Published">Terbitkan (Papar ke Awam)</option>
+                                        <option value="Draft">Draft (Sembunyikan)</option>
+                                    </select>
                                 </div>
                                 <div>
                                     <label for="adminAnnouncementTitle" class="text-[9px] uppercase tracking-wider theme-text-muted font-bold block mb-1">Tajuk Hebahan</label>
@@ -2071,7 +2105,7 @@
             }
 
             container.classList.remove("hidden");
-            if (emptyMsg) emptyMsg.classList.add("hidden");
+            if (emptyMsg) emptyMsg.add("hidden");
 
             const dateMalay = formatDateMalay(selectedScheduleDate);
 
@@ -2827,18 +2861,100 @@
             renderPublicMedalTable();
         };
 
+        window.getTimestampMillis = function(item) {
+            if (!item) return 0;
+            if (item.publishedAt) {
+                if (typeof item.publishedAt.toMillis === 'function') return item.publishedAt.toMillis();
+                if (typeof item.publishedAt === 'number') return item.publishedAt;
+                if (typeof item.publishedAt === 'string') {
+                    const parsed = Date.parse(item.publishedAt);
+                    if (!isNaN(parsed)) return parsed;
+                }
+            }
+            if (item.createdAt) {
+                if (typeof item.createdAt.toMillis === 'function') return item.createdAt.toMillis();
+                if (typeof item.createdAt === 'number') return item.createdAt;
+                if (typeof item.createdAt === 'string') {
+                    const parsed = Date.parse(item.createdAt);
+                    if (!isNaN(parsed)) return parsed;
+                }
+            }
+            if (item.updatedAt) {
+                if (typeof item.updatedAt.toMillis === 'function') return item.updatedAt.toMillis();
+                if (typeof item.updatedAt === 'number') return item.updatedAt;
+            }
+            return 0;
+        };
+
+        window.formatTimestampMalay = function(item) {
+            const millis = getTimestampMillis(item);
+            if (!millis) return { dateStr: "-", timeStr: "-" };
+            const d = new Date(millis);
+            const months = ["JAN", "FEB", "MAC", "APR", "MEI", "JUN", "JUL", "OGOS", "SEP", "OKT", "NOV", "DIS"];
+            const dateStr = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+            const hours = String(d.getHours()).padStart(2, '0');
+            const minutes = String(d.getMinutes()).padStart(2, '0');
+            return { dateStr, timeStr: `${hours}:${minutes}` };
+        };
+
         window.renderAnnouncements = function() {
             const activeCardsContainer = document.getElementById("adminActiveAnnouncementCards");
             const publicContainer = document.getElementById("publicAnnouncementContainer");
+            const homeContainer = document.getElementById("homeAnnouncementsContainer");
 
             if (activeCardsContainer) activeCardsContainer.innerHTML = "";
             if (publicContainer) publicContainer.innerHTML = "";
+            if (homeContainer) homeContainer.innerHTML = "";
 
-            if (announcementsData.length === 0) {
-                if (activeCardsContainer) {
-                    activeCardsContainer.innerHTML = `<p class="text-xs theme-text-muted py-3 italic">Tiada hebahan aktif.</p>`;
+            // Sort announcements descending by kronologi tarikh/masa
+            const sortedAnnouncements = [...announcementsData].sort((a, b) => {
+                return getTimestampMillis(b) - getTimestampMillis(a);
+            });
+
+            // Filter published only for public views
+            const publishedAnnouncements = sortedAnnouncements.filter(item => {
+                return item.status === "Published" || item.isPublished === true || item.status === undefined;
+            });
+
+            // 1. Render Admin List
+            if (activeCardsContainer) {
+                if (sortedAnnouncements.length === 0) {
+                    activeCardsContainer.innerHTML = `<p class="text-xs theme-text-muted py-3 italic">Tiada pengumuman direkodkan.</p>`;
+                } else {
+                    sortedAnnouncements.forEach((item) => {
+                        const originalIndex = announcementsData.findIndex(a => (a.docId || a.id) === (item.docId || item.id));
+                        const isPub = item.status === "Published" || item.isPublished === true || item.status === undefined;
+                        const statusBadge = isPub 
+                            ? `<span class="px-2 py-0.5 bg-green-500/20 text-green-500 border border-green-500/30 text-[9px] font-bold uppercase rounded">TERBIT</span>`
+                            : `<span class="px-2 py-0.5 bg-red-500/20 text-red-500 border border-red-500/30 text-[9px] font-bold uppercase rounded">DRAFT</span>`;
+                        
+                        const timeInfo = formatTimestampMalay(item);
+
+                        const card = document.createElement("div");
+                        card.className = "theme-surface border theme-border p-3.5 relative rounded-none space-y-1.5";
+                        card.innerHTML = `
+                            <div class="flex justify-between items-start">
+                                <div class="flex items-center space-x-1.5">
+                                    <span class="px-2 py-0.5 bg-yellow-500/20 text-yellow-500 text-[9px] rounded uppercase font-bold inline-block">${escapeHTML(item.category || 'MAKLUMAN')}</span>
+                                    ${statusBadge}
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button onclick="editAnnouncement(${originalIndex})" class="text-blue-500 hover:text-blue-400 p-1 min-h-[32px] min-w-[32px]" title="Sunting"><i class="fa-solid fa-pen-to-square text-xs"></i></button>
+                                    <button onclick="deleteAnnouncement(${originalIndex})" class="text-red-500 hover:text-red-400 p-1 min-h-[32px] min-w-[32px]" title="Hapus"><i class="fa-solid fa-trash text-xs"></i></button>
+                                </div>
+                            </div>
+                            <p class="text-xs font-bold theme-text-primary uppercase">${escapeHTML(item.title || item.message || '')}</p>
+                            <p class="text-[10px] theme-text-muted leading-relaxed">${escapeHTML(item.content || item.message || '')}</p>
+                            <p class="text-[9px] theme-text-muted font-mono tracking-wider pt-1 border-t theme-border">Diterbitkan: ${timeInfo.dateStr} (${timeInfo.timeStr})</p>
+                        `;
+                        activeCardsContainer.appendChild(card);
+                    });
                 }
-                if (publicContainer) {
+            }
+
+            // 2. Render Public Announcement Box (Info & Media Section)
+            if (publicContainer) {
+                if (publishedAnnouncements.length === 0) {
                     publicContainer.innerHTML = `
                         <div class="flex items-center space-x-2">
                             <span class="h-2 w-2 bg-gray-500 rounded-full"></span>
@@ -2847,65 +2963,97 @@
                         <h4 class="font-display font-black text-xs theme-text-primary uppercase tracking-wider">TIADA HEBAHAN AKTIF</h4>
                         <p class="text-xs theme-text-secondary leading-relaxed">Tiada sebarang pengumuman rasmi dikeluarkan pada masa ini.</p>
                     `;
+                } else {
+                    const activeAnn = publishedAnnouncements[0];
+                    const timeInfo = formatTimestampMalay(activeAnn);
+                    publicContainer.innerHTML = `
+                        <div class="absolute right-0 top-0 h-full w-1 bg-yellow-500"></div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <span class="h-2 w-2 bg-red-500 rounded-full animate-pulse"></span>
+                                <span class="text-[10px] font-bold theme-text-muted uppercase tracking-widest">Hebahan Terkini</span>
+                            </div>
+                            <span class="text-[9px] theme-text-muted font-mono">${timeInfo.dateStr}</span>
+                        </div>
+                        <h4 class="font-display font-black text-xs theme-text-primary uppercase tracking-wider flex items-center mt-1">
+                            <i class="fa-solid fa-circle-exclamation text-yellow-500 mr-1.5"></i> ${escapeHTML(activeAnn.category || 'MAKLUMAN')}
+                        </h4>
+                        <p class="text-xs font-bold theme-text-primary uppercase mt-1">${escapeHTML(activeAnn.title || activeAnn.message || '')}</p>
+                        <p class="text-xs theme-text-secondary leading-relaxed mt-0.5">${escapeHTML(activeAnn.content || activeAnn.message || '')}</p>
+                    `;
                 }
-                return;
             }
 
-            announcementsData.forEach((item, index) => {
-                if (activeCardsContainer) {
-                    const card = document.createElement("div");
-                    card.className = "theme-surface border theme-border p-3.5 relative rounded-none space-y-1";
-                    card.innerHTML = `
-                        <div class="flex justify-between items-start">
-                            <span class="px-2 py-0.5 bg-yellow-500/20 text-yellow-500 text-[9px] rounded uppercase font-bold inline-block">${escapeHTML(item.category || '')}</span>
-                            <div class="flex space-x-2">
-                                <button onclick="editAnnouncement(${index})" class="text-blue-500 hover:text-blue-400 p-1 min-h-[32px] min-w-[32px]" title="Sunting"><i class="fa-solid fa-pen-to-square text-xs"></i></button>
-                                <button onclick="deleteAnnouncement(${index})" class="text-red-500 hover:text-red-400 p-1 min-h-[32px] min-w-[32px]" title="Hapus"><i class="fa-solid fa-trash text-xs"></i></button>
-                            </div>
+            // 3. Render Home Announcements Component (#homeAnnouncementsContainer)
+            if (homeContainer) {
+                if (publishedAnnouncements.length === 0) {
+                    homeContainer.innerHTML = `
+                        <div class="p-6 text-center border theme-border theme-surface">
+                            <i class="fa-regular fa-bell-slash text-xl theme-text-muted mb-2 block"></i>
+                            <p class="text-xs font-bold uppercase tracking-wider theme-text-primary">Tiada pengumuman terkini buat masa ini</p>
+                            <p class="text-[10px] theme-text-muted mt-1">Sebarang makluman dan jadual rasmi baharu akan dipaparkan di sini.</p>
                         </div>
-                        <p class="text-xs font-bold theme-text-primary uppercase">${escapeHTML(item.title || '')}</p>
-                        <p class="text-[10px] theme-text-muted leading-relaxed">${escapeHTML(item.message || '')}</p>
                     `;
-                    activeCardsContainer.appendChild(card);
-                }
-            });
+                } else {
+                    publishedAnnouncements.forEach(item => {
+                        const timeInfo = formatTimestampMalay(item);
+                        let catBg = "bg-yellow-500/10 text-yellow-500 border-yellow-500/20";
+                        const catUpper = (item.category || "").toUpperCase();
+                        if (catUpper.includes("PENTING")) catBg = "bg-red-500/10 text-red-500 border-red-500/20";
+                        else if (catUpper.includes("JADUAL")) catBg = "bg-blue-500/10 text-blue-500 border-blue-500/20";
+                        else if (catUpper.includes("KEPUTUSAN")) catBg = "bg-green-500/10 text-green-500 border-green-500/20";
 
-            const activeAnnouncement = announcementsData[0];
-            if (publicContainer && activeAnnouncement) {
-                publicContainer.innerHTML = `
-                    <div class="absolute right-0 top-0 h-full w-1 bg-yellow-500"></div>
-                    <div class="flex items-center space-x-2">
-                        <span class="h-2 w-2 bg-red-500 rounded-full animate-pulse"></span>
-                        <span class="text-[10px] font-bold theme-text-muted uppercase tracking-widest">Hebahan & Pengumuman Terkini</span>
-                    </div>
-                    <h4 class="font-display font-black text-xs theme-text-primary uppercase tracking-wider flex items-center">
-                        <i class="fa-solid fa-circle-exclamation text-yellow-500 mr-1.5"></i> ${escapeHTML(activeAnnouncement.category || '')}
-                    </h4>
-                    <p class="text-xs font-bold theme-text-primary uppercase mt-1">${escapeHTML(activeAnnouncement.title || '')}</p>
-                    <p class="text-xs theme-text-secondary leading-relaxed mt-0.5">${escapeHTML(activeAnnouncement.message || '')}</p>
-                `;
+                        const annCard = document.createElement("div");
+                        annCard.className = "border theme-border theme-surface p-4 hover:border-yellow-500/50 transition-all duration-300 relative";
+                        annCard.innerHTML = `
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                                <div class="flex items-center space-x-2">
+                                    <span class="px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-widest border ${catBg} rounded-none">
+                                        ${escapeHTML(item.category || 'MAKLUMAN')}
+                                    </span>
+                                    <h4 class="font-display font-extrabold text-xs sm:text-sm theme-text-primary uppercase tracking-wider">${escapeHTML(item.title || item.message || '')}</h4>
+                                </div>
+                                <div class="text-[9px] theme-text-muted font-mono tracking-wider flex items-center space-x-2 shrink-0">
+                                    <span><i class="fa-regular fa-calendar mr-1"></i>${timeInfo.dateStr}</span>
+                                    <span><i class="fa-regular fa-clock mr-1"></i>${timeInfo.timeStr}</span>
+                                </div>
+                            </div>
+                            <p class="text-xs theme-text-secondary leading-relaxed">${escapeHTML(item.content || item.message || '')}</p>
+                        `;
+                        homeContainer.appendChild(annCard);
+                    });
+                }
             }
         };
 
         window.saveAnnouncement = async function() {
-            const cat = document.getElementById("adminAnnouncementCategory").value.trim().toUpperCase() || "KESELAMATAN";
+            const cat = document.getElementById("adminAnnouncementCategory").value || "Makluman";
+            const status = document.getElementById("adminAnnouncementStatus").value || "Published";
             const title = document.getElementById("adminAnnouncementTitle").value.trim().toUpperCase();
             const msg = document.getElementById("adminAnnouncementMessage").value.trim();
 
             if (!title || !msg) {
-                showToast("Sila masukkan tajuk dan mesej hebahan!", "error");
+                showToast("Sila masukkan tajuk dan mesej pengumuman!", "error");
                 return;
             }
 
-            const payload = { category: cat, title: title, message: msg };
+            const payload = {
+                category: cat,
+                status: status,
+                isPublished: status === "Published",
+                title: title,
+                content: msg,
+                message: msg,
+                publishedAt: Date.now()
+            };
 
             if (editingAnnouncementIndex >= 0 && editingAnnouncementIndex < announcementsData.length) {
                 const targetId = announcementsData[editingAnnouncementIndex].id || announcementsData[editingAnnouncementIndex].docId;
                 await StorageService.update('announcements', targetId, payload);
-                showToast("Hebahan dikemaskini!", "success");
+                showToast("Pengumuman berjaya dikemaskini!", "success");
             } else {
                 await StorageService.create('announcements', payload);
-                showToast("Hebahan baru disimpan!", "success");
+                showToast("Pengumuman baharu berjaya diterbitkan!", "success");
             }
 
             cancelAnnouncementEdit();
@@ -2916,7 +3064,7 @@
             if (item) {
                 const targetId = item.id || item.docId;
                 await StorageService.delete('announcements', targetId);
-                showToast("Hebahan dipadam.", "info");
+                showToast("Pengumuman dipadam dari Firestore.", "info");
             }
 
             if (editingAnnouncementIndex === index) {
@@ -2928,6 +3076,9 @@
             editingAnnouncementIndex = -1;
             document.getElementById("adminAnnouncementTitle").value = "";
             document.getElementById("adminAnnouncementMessage").value = "";
+            document.getElementById("adminAnnouncementCategory").value = "Penting";
+            document.getElementById("adminAnnouncementStatus").value = "Published";
+
             const btnText = document.getElementById("btnAnnouncementText");
             const cancelBtn = document.getElementById("btnCancelAnnouncementEdit");
             if (btnText) btnText.textContent = "Simpan Hebahan";
@@ -2938,9 +3089,12 @@
             const item = announcementsData[index];
             if (!item) return;
             editingAnnouncementIndex = index;
-            document.getElementById("adminAnnouncementCategory").value = item.category || "";
-            document.getElementById("adminAnnouncementTitle").value = item.title || "";
-            document.getElementById("adminAnnouncementMessage").value = item.message || "";
+
+            document.getElementById("adminAnnouncementCategory").value = item.category || "Makluman";
+            document.getElementById("adminAnnouncementStatus").value = item.status || (item.isPublished === false ? "Draft" : "Published");
+            document.getElementById("adminAnnouncementTitle").value = item.title || item.message || "";
+            document.getElementById("adminAnnouncementMessage").value = item.content || item.message || "";
+
             const btnText = document.getElementById("btnAnnouncementText");
             const cancelBtn = document.getElementById("btnCancelAnnouncementEdit");
             if (btnText) btnText.textContent = "Kemaskini Hebahan";
