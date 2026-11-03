@@ -1719,6 +1719,7 @@
                     renderRealtimeLinks();
                     loadMedalTally();
                     loadAnugerahData();
+                    renderAnugerahConfigTable();
                 }
             }, e => {
                 console.warn("Realtime settings listener access restricted:", e.message);
@@ -1868,24 +1869,24 @@
         window.mapHeadersToFields = function(headers) {
             const fieldMap = {};
             headers.forEach((h, index) => {
-                const header = (h || "").trim().toLowerCase();
+                const header = (h || "").trim().toLowerCase().replace(/[^a-z0-9]/g, "");
                 
-                if (header.includes("acara") || header.includes("event") || header.includes("name")) fieldMap.name = index;
-                if (header.includes("masa") || header.includes("time")) fieldMap.time = index;
+                if (header.includes("acara") || header.includes("event") || header.includes("namaacara")) fieldMap.name = index;
+                if (header.includes("masa") || header.includes("time") || header.includes("catatan")) fieldMap.time = index;
                 if (header.includes("tarikh") || header.includes("date")) fieldMap.date = index;
                 if (header.includes("kategori") || header.includes("category") || header.includes("jantina")) fieldMap.category = index;
                 if (header.includes("pusingan") || header.includes("round") || header.includes("stage")) fieldMap.round = index;
                 
                 if (header.includes("pasukan") || header.includes("team") || header.includes("kontinjen")) fieldMap.team = index;
-                if (header.includes("pemain") || header.includes("player") || header.includes("nama") || header.includes("athlete")) fieldMap.player = index;
-                if (header.includes("bib") || header.includes("no bib")) fieldMap.bib = index;
+                if (header.includes("pemain") || header.includes("player") || header.includes("nama") || header.includes("namaatlet") || header.includes("atlet") || header.includes("athlete")) fieldMap.player = index;
+                if (header.includes("bib") || header.includes("nobib") || header.includes("bibnumber")) fieldMap.bib = index;
                 if (header.includes("lorong") || header.includes("lane")) fieldMap.lane = index;
                 
                 if (header.includes("emas") || header.includes("gold")) fieldMap.emas = index;
                 if (header.includes("perak") || header.includes("silver")) fieldMap.perak = index;
                 if (header.includes("gangsa") || header.includes("bronze")) fieldMap.gangsa = index;
                 if (header.includes("ked") || header.includes("rank") || header.includes("kedudukan")) fieldMap.rank = index;
-                if (header.includes("catatan") || header.includes("score") || header.includes("masa_akhir")) fieldMap.score = index;
+                if (header.includes("score") || header.includes("masaakhir")) fieldMap.score = index;
             });
             return fieldMap;
         };
@@ -3218,11 +3219,15 @@
             const olahragawanInd = document.getElementById("adminOlahragawanGsIndividu").value.trim();
             const olahragawatiInd = document.getElementById("adminOlahragawatiGsIndividu").value.trim();
 
+            appSettings.olahragawanGsIndividu = olahragawanInd;
+            appSettings.olahragawatiGsIndividu = olahragawatiInd;
+
             await StorageService.saveSettings({
                 olahragawanGsIndividu: olahragawanInd,
                 olahragawatiGsIndividu: olahragawatiInd
             });
             showToast("Tetapan anugerah disimpan ke Firestore.", "success");
+            renderAnugerahConfigTable();
             loadAnugerahData();
         };
 
@@ -3276,8 +3281,10 @@
         window.deleteAnugerahConfig = async function(urlKey, inputId) {
             const input = document.getElementById(inputId);
             if (input) input.value = "";
+            appSettings[urlKey] = "";
             await StorageService.saveSettings({ [urlKey]: "" });
             showToast("Pautan anugerah dipadam.", "info");
+            renderAnugerahConfigTable();
             loadAnugerahData();
         };
 
@@ -3290,6 +3297,7 @@
                 document.getElementById("adminOlahragawatiGsIndividu").value = wInd;
             }
 
+            // --- 1. OLAHRAGAWAN TERBAIK ---
             if (!oInd) {
                 document.getElementById("olahragawanNama").textContent = "Tiada Data Available";
                 document.getElementById("olahragawanPasukan").textContent = "-";
@@ -3302,33 +3310,63 @@
                 if (targetUrlOlahragawan) {
                     try {
                         const res = await fetch(targetUrlOlahragawan);
+                        if (!res.ok) {
+                            throw new Error(`HTTP Error Status: ${res.status}`);
+                        }
                         const csvText = await res.text();
                         const rows = parseCSVText(csvText);
+                        
                         if (rows && rows.length > 0) {
                             const headers = rows[0];
                             const map = mapHeadersToFields(headers);
-                            const r = rows.length > 1 ? rows[1] : rows[0];
+                            
+                            // Pengesahan header wajib: Sekurang-kurangnya nama/atlet dan pasukan mesti dipadankan
+                            const hasValidHeaders = map.player !== undefined || map.team !== undefined;
+                            
+                            if (!hasValidHeaders && rows.length === 1) {
+                                throw new Error("Header CSV tidak dapat dikenal pasti.");
+                            }
 
-                            const nama = map.player !== undefined ? r[map.player] : r[0];
-                            const pasukan = map.team !== undefined ? r[map.team] : r[1];
-                            const bib = map.bib !== undefined ? r[map.bib] : r[2];
-                            const emas = map.emas !== undefined ? r[map.emas] : r[3];
-                            const perak = map.perak !== undefined ? r[map.perak] : r[4];
-                            const gangsa = map.gangsa !== undefined ? r[map.gangsa] : r[5];
+                            const r = (hasValidHeaders && rows.length > 1) ? rows[1] : (rows.length > 1 ? rows[1] : rows[0]);
 
-                            if (nama) document.getElementById("olahragawanNama").textContent = nama.toUpperCase();
-                            if (pasukan) document.getElementById("olahragawanPasukan").textContent = pasukan.toUpperCase();
-                            if (bib) document.getElementById("olahragawanBib").textContent = bib.toUpperCase();
-                            if (emas !== undefined) document.getElementById("olahragawanEmas").textContent = emas;
-                            if (perak !== undefined) document.getElementById("olahragawanPerak").textContent = perak;
-                            if (gangsa !== undefined) document.getElementById("olahragawanGangsa").textContent = gangsa;
+                            const nama = map.player !== undefined ? r[map.player] : (hasValidHeaders ? "" : r[0]);
+                            const pasukan = map.team !== undefined ? r[map.team] : (hasValidHeaders ? "" : r[1]);
+                            const bib = map.bib !== undefined ? r[map.bib] : (hasValidHeaders ? "" : r[2]);
+                            const emas = map.emas !== undefined ? r[map.emas] : (hasValidHeaders ? "0" : r[3]);
+                            const perak = map.perak !== undefined ? r[map.perak] : (hasValidHeaders ? "0" : r[4]);
+                            const gangsa = map.gangsa !== undefined ? r[map.gangsa] : (hasValidHeaders ? "0" : r[5]);
+
+                            if (nama && nama.trim() !== "") {
+                                document.getElementById("olahragawanNama").textContent = nama.toUpperCase();
+                                document.getElementById("olahragawanPasukan").textContent = (pasukan || "-").toUpperCase();
+                                document.getElementById("olahragawanBib").textContent = (bib || "-").toUpperCase();
+                                document.getElementById("olahragawanEmas").textContent = parseInt(emas) || 0;
+                                document.getElementById("olahragawanPerak").textContent = parseInt(perak) || 0;
+                                document.getElementById("olahragawanGangsa").textContent = parseInt(gangsa) || 0;
+                            } else {
+                                document.getElementById("olahragawanNama").textContent = "Tiada Data Available";
+                                document.getElementById("olahragawanPasukan").textContent = "-";
+                                document.getElementById("olahragawanBib").textContent = "-";
+                                document.getElementById("olahragawanEmas").textContent = "0";
+                                document.getElementById("olahragawanPerak").textContent = "0";
+                                document.getElementById("olahragawanGangsa").textContent = "0";
+                            }
+                        } else {
+                            document.getElementById("olahragawanNama").textContent = "Tiada Data Available";
                         }
                     } catch (e) {
                         console.error("Gagal muat data Olahragawan:", e);
+                        document.getElementById("olahragawanNama").textContent = "Ralat Sambungan Data";
+                        document.getElementById("olahragawanPasukan").textContent = "-";
+                        document.getElementById("olahragawanBib").textContent = "-";
+                        document.getElementById("olahragawanEmas").textContent = "0";
+                        document.getElementById("olahragawanPerak").textContent = "0";
+                        document.getElementById("olahragawanGangsa").textContent = "0";
                     }
                 }
             }
 
+            // --- 2. OLAHRAGAWATI TERBAIK ---
             if (!wInd) {
                 document.getElementById("olahragawatiNama").textContent = "Tiada Data Available";
                 document.getElementById("olahragawatiPasukan").textContent = "-";
@@ -3341,32 +3379,61 @@
                 if (targetUrlOlahragawati) {
                     try {
                         const res = await fetch(targetUrlOlahragawati);
+                        if (!res.ok) {
+                            throw new Error(`HTTP Error Status: ${res.status}`);
+                        }
                         const csvText = await res.text();
                         const rows = parseCSVText(csvText);
+
                         if (rows && rows.length > 0) {
                             const headers = rows[0];
                             const map = mapHeadersToFields(headers);
-                            const r = rows.length > 1 ? rows[1] : rows[0];
+                            
+                            const hasValidHeaders = map.player !== undefined || map.team !== undefined;
 
-                            const nama = map.player !== undefined ? r[map.player] : r[0];
-                            const pasukan = map.team !== undefined ? r[map.team] : r[1];
-                            const bib = map.bib !== undefined ? r[map.bib] : r[2];
-                            const emas = map.emas !== undefined ? r[map.emas] : r[3];
-                            const perak = map.perak !== undefined ? r[map.perak] : r[4];
-                            const gangsa = map.gangsa !== undefined ? r[map.gangsa] : r[5];
+                            if (!hasValidHeaders && rows.length === 1) {
+                                throw new Error("Header CSV tidak dapat dikenal pasti.");
+                            }
 
-                            if (nama) document.getElementById("olahragawatiNama").textContent = nama.toUpperCase();
-                            if (pasukan) document.getElementById("olahragawatiPasukan").textContent = pasukan.toUpperCase();
-                            if (bib) document.getElementById("olahragawatiBib").textContent = bib.toUpperCase();
-                            if (emas !== undefined) document.getElementById("olahragawatiEmas").textContent = emas;
-                            if (perak !== undefined) document.getElementById("olahragawatiPerak").textContent = perak;
-                            if (gangsa !== undefined) document.getElementById("olahragawatiGangsa").textContent = gangsa;
+                            const r = (hasValidHeaders && rows.length > 1) ? rows[1] : (rows.length > 1 ? rows[1] : rows[0]);
+
+                            const nama = map.player !== undefined ? r[map.player] : (hasValidHeaders ? "" : r[0]);
+                            const pasukan = map.team !== undefined ? r[map.team] : (hasValidHeaders ? "" : r[1]);
+                            const bib = map.bib !== undefined ? r[map.bib] : (hasValidHeaders ? "" : r[2]);
+                            const emas = map.emas !== undefined ? r[map.emas] : (hasValidHeaders ? "0" : r[3]);
+                            const perak = map.perak !== undefined ? r[map.perak] : (hasValidHeaders ? "0" : r[4]);
+                            const gangsa = map.gangsa !== undefined ? r[map.gangsa] : (hasValidHeaders ? "0" : r[5]);
+
+                            if (nama && nama.trim() !== "") {
+                                document.getElementById("olahragawatiNama").textContent = nama.toUpperCase();
+                                document.getElementById("olahragawatiPasukan").textContent = (pasukan || "-").toUpperCase();
+                                document.getElementById("olahragawatiBib").textContent = (bib || "-").toUpperCase();
+                                document.getElementById("olahragawatiEmas").textContent = parseInt(emas) || 0;
+                                document.getElementById("olahragawatiPerak").textContent = parseInt(perak) || 0;
+                                document.getElementById("olahragawatiGangsa").textContent = parseInt(gangsa) || 0;
+                            } else {
+                                document.getElementById("olahragawatiNama").textContent = "Tiada Data Available";
+                                document.getElementById("olahragawatiPasukan").textContent = "-";
+                                document.getElementById("olahragawatiBib").textContent = "-";
+                                document.getElementById("olahragawatiEmas").textContent = "0";
+                                document.getElementById("olahragawatiPerak").textContent = "0";
+                                document.getElementById("olahragawatiGangsa").textContent = "0";
+                            }
+                        } else {
+                            document.getElementById("olahragawatiNama").textContent = "Tiada Data Available";
                         }
                     } catch (e) {
                         console.error("Gagal muat data Olahragawati:", e);
+                        document.getElementById("olahragawatiNama").textContent = "Ralat Sambungan Data";
+                        document.getElementById("olahragawatiPasukan").textContent = "-";
+                        document.getElementById("olahragawatiBib").textContent = "-";
+                        document.getElementById("olahragawatiEmas").textContent = "0";
+                        document.getElementById("olahragawatiPerak").textContent = "0";
+                        document.getElementById("olahragawatiGangsa").textContent = "0";
                     }
                 }
             }
+            renderAnugerahConfigTable();
         };
 
         window.populateEventDropdown = function() {
