@@ -1697,9 +1697,11 @@
                 logDebug("Snapshot received: winnerConfigs");
                 winnerConfigsData = snapshot.docs.map(docSnap => ({ id: docSnap.id, docId: docSnap.id, ...docSnap.data() }));
                 renderWinnerConfigTable();
+                populateWinnerEventDropdown();
                 updateWinnersList();
             }, e => {
                 console.warn("Realtime winnerConfigs listener access restricted:", e.message);
+                populateWinnerEventDropdown();
                 updateWinnersList();
             });
             activeUnsubscribes.push(unsubWin);
@@ -1747,6 +1749,7 @@
 
         window.selectedScheduleDate = "";
         window.selectedEventId = "";
+        window.selectedWinnerEventId = localStorage.getItem('selectedWinnerEventId') || "";
         window.selectedRound = "saringan_1";
         window.editingScheduleIndex = -1;
         window.editingAnnouncementIndex = -1;
@@ -3643,32 +3646,48 @@
                         <p class="text-xs theme-text-muted">Belum ada data keputusan rasmi yang didaftarkan dalam sistem.</p>
                     </div>
                 `;
-                populateWinnerEventDropdown();
                 return;
             }
 
-            for (const config of winnerConfigsData) {
-                if (!config) continue;
+            // Dapatkan ID acara aktif daripada state atau fallback selamat
+            let activeConfigId = window.selectedWinnerEventId;
+            let currentConfig = winnerConfigsData.find(c => (c.id || c.docId) === activeConfigId);
 
-                const urlLelaki = config.gsLelaki || config.gsIndividu || "";
-                const urlPerempuan = config.gsPerempuan || config.gsKumpulan || "";
-                const targetId = config.id || config.docId;
-
-                let winnersLelakiObj = { data: [], error: false };
-                let winnersPerempuanObj = { data: [], error: false };
-
-                if (urlLelaki) {
-                    winnersLelakiObj = await fetchSheetWinnersData(urlLelaki, targetId, "LELAKI");
-                }
-                if (urlPerempuan) {
-                    winnersPerempuanObj = await fetchSheetWinnersData(urlPerempuan, targetId, "PEREMPUAN");
-                }
-
-                const combinedCard = createCombinedWinnerCard(config, winnersLelakiObj, winnersPerempuanObj);
-                if (combinedCard) grid.appendChild(combinedCard);
+            if (!currentConfig && winnerConfigsData.length > 0) {
+                const sortedWinnerConfigs = [...winnerConfigsData].sort((a, b) => naturalSortCompare(a.name, b.name));
+                currentConfig = sortedWinnerConfigs[0];
+                activeConfigId = currentConfig.id || currentConfig.docId;
+                window.selectedWinnerEventId = activeConfigId;
+                localStorage.setItem('selectedWinnerEventId', activeConfigId);
             }
 
-            populateWinnerEventDropdown();
+            if (!currentConfig) {
+                grid.innerHTML = `
+                    <div class="col-span-full border theme-border theme-surface p-12 text-center">
+                        <p class="text-xs font-bold uppercase tracking-wider theme-text-primary">Tiada Acara Dipilih</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Logik 1 Selected Event = 1 Result Display
+            const urlLelaki = currentConfig.gsLelaki || currentConfig.gsIndividu || "";
+            const urlPerempuan = currentConfig.gsPerempuan || currentConfig.gsKumpulan || "";
+            const targetId = currentConfig.id || currentConfig.docId;
+
+            let winnersLelakiObj = { data: [], error: false };
+            let winnersPerempuanObj = { data: [], error: false };
+
+            if (urlLelaki) {
+                winnersLelakiObj = await fetchSheetWinnersData(urlLelaki, targetId, "LELAKI");
+            }
+            if (urlPerempuan) {
+                winnersPerempuanObj = await fetchSheetWinnersData(urlPerempuan, targetId, "PEREMPUAN");
+            }
+
+            const combinedCard = createCombinedWinnerCard(currentConfig, winnersLelakiObj, winnersPerempuanObj);
+            if (combinedCard) grid.appendChild(combinedCard);
+
             filterWinnersBySearch();
         };
 
@@ -3788,11 +3807,10 @@
             const select = document.getElementById("winnerEventSelect");
             if (!select) return;
 
-            const previousVal = select.value;
             select.innerHTML = "";
 
             if (winnerConfigsData && winnerConfigsData.length > 0) {
-                // Sort winner event configurations alphabetically and numerically (natural sort)
+                // Susun konfigurasi acara mengikut natural alphanumeric
                 const sortedWinnerConfigs = [...winnerConfigsData].sort((a, b) => naturalSortCompare(a.name, b.name));
 
                 sortedWinnerConfigs.forEach(config => {
@@ -3805,10 +3823,16 @@
                     select.appendChild(opt);
                 });
 
-                if (previousVal && select.querySelector(`option[value="${previousVal}"]`)) {
-                    select.value = previousVal;
-                } else if (sortedWinnerConfigs.length > 0) {
-                    select.value = sortedWinnerConfigs[0].id || sortedWinnerConfigs[0].docId;
+                // Pulihkan pilihan daripada localStorage atau fallback ke acara pertama
+                let savedId = localStorage.getItem('selectedWinnerEventId');
+                if (savedId && sortedWinnerConfigs.some(c => (c.id || c.docId) === savedId)) {
+                    window.selectedWinnerEventId = savedId;
+                    select.value = savedId;
+                } else {
+                    const defaultId = sortedWinnerConfigs[0].id || sortedWinnerConfigs[0].docId;
+                    window.selectedWinnerEventId = defaultId;
+                    localStorage.setItem('selectedWinnerEventId', defaultId);
+                    select.value = defaultId;
                 }
             } else {
                 const opt = document.createElement("option");
@@ -3823,19 +3847,27 @@
             const eventSelect = document.getElementById("winnerEventSelect");
 
             const queryText = searchInput ? searchInput.value.trim().toUpperCase() : "";
-            const selectedEventId = eventSelect ? eventSelect.value : "";
+
+            // Jika pengguna menukar acara melalui dropdown, kemaskini state & simpan ke localStorage
+            if (eventSelect && eventSelect.value && eventSelect.value !== window.selectedWinnerEventId) {
+                window.selectedWinnerEventId = eventSelect.value;
+                localStorage.setItem('selectedWinnerEventId', eventSelect.value);
+                updateWinnersList();
+                return;
+            }
 
             const cards = document.querySelectorAll(".winner-event-card");
             let visibleCount = 0;
 
             cards.forEach(card => {
                 const cardEventId = card.getAttribute("data-event-id") || "";
-                const cardFullText = card.textContent.toUpperCase();
-
-                let matchesSelect = (selectedEventId !== "" && cardEventId === selectedEventId);
+                
+                // Pastikan padanan Event ID tepat
+                let matchesSelect = (window.selectedWinnerEventId !== "" && cardEventId === window.selectedWinnerEventId);
 
                 let matchesQuery = true;
                 if (queryText !== "") {
+                    const cardFullText = card.textContent.toUpperCase();
                     matchesQuery = cardFullText.includes(queryText);
                 }
 
