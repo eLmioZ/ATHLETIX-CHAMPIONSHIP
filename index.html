@@ -793,9 +793,8 @@
                             <div>
                                 <label for="adminScheduleRound" class="text-[9px] uppercase tracking-wider theme-text-muted font-bold block mb-1">5. Pusingan</label>
                                 <select id="adminScheduleRound" class="w-full theme-input border theme-border py-2.5 px-3 text-xs focus:outline-none cursor-pointer">
-                                    <option value="Saringan 1">Saringan 1</option>
-                                    <option value="Saringan 2">Saringan 2</option>
-                                    <option value="Akhir">Akhir</option>
+                                    <option value="SARINGAN 1 & 2">SARINGAN 1 & 2</option>
+                                    <option value="AKHIR">AKHIR</option>
                                 </select>
                             </div>
                         </div>
@@ -2253,9 +2252,30 @@
             tbody.innerHTML = "";
 
             const sortedSchedule = [...scheduleData].sort((a, b) => {
-                const timeDiff = parseTimeToMinutes(a ? a.time : "") - parseTimeToMinutes(b ? b.time : "");
-                if (timeDiff !== 0) return timeDiff;
-                return 0; // Stable sorting
+                // 1. Keutamaan Pertama: Tarikh (Ascending YYYY-MM-DD)
+                const dateA = String(a && a.date ? a.date : '').trim();
+                const dateB = String(b && b.date ? b.date : '').trim();
+                if (dateA !== dateB) {
+                    return dateA.localeCompare(dateB);
+                }
+
+                // 2. Keutamaan Kedua: Masa (Ascending Chronological)
+                const timeA = parseTimeToMinutes(a ? a.time : "");
+                const timeB = parseTimeToMinutes(b ? b.time : "");
+                if (timeA !== timeB) {
+                    return timeA - timeB;
+                }
+
+                // 3. Keutamaan Ketiga: Nama Acara (Alphabetical A-Z Natural Sort)
+                const nameA = String(a && a.name ? a.name : '').trim();
+                const nameB = String(b && b.name ? b.name : '').trim();
+                const nameDiff = naturalSortCompare(nameA, nameB);
+                if (nameDiff !== 0) {
+                    return nameDiff;
+                }
+
+                // 4. Stable sort (Kekalkan susunan asal rekod)
+                return 0;
             });
 
             sortedSchedule.forEach((item) => {
@@ -2299,7 +2319,17 @@
             document.getElementById("adminScheduleTime").value = item.time || "";
             document.getElementById("adminScheduleName").value = item.name || "";
             document.getElementById("adminScheduleCategory").value = item.category || "";
-            document.getElementById("adminScheduleRound").value = item.round || "Saringan 1";
+            
+            // Map / fallback selected round safely for edit mode
+            const roundSelect = document.getElementById("adminScheduleRound");
+            const roundVal = String(item.round || "").trim();
+            if (roundVal === "Saringan 1" || roundVal === "Saringan 2" || roundVal === "SARINGAN 1 & 2") {
+                roundSelect.value = "SARINGAN 1 & 2";
+            } else if (roundVal.toUpperCase() === "AKHIR") {
+                roundSelect.value = "AKHIR";
+            } else {
+                roundSelect.value = "SARINGAN 1 & 2";
+            }
 
             const btnText = document.getElementById("btnScheduleText");
             const cancelBtn = document.getElementById("btnCancelScheduleEdit");
