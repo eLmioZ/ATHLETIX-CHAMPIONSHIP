@@ -2067,43 +2067,11 @@
             return `${day} ${months[monthIndex] || parts[1]} ${year}`;
         };
 
-        window.parseTimeToMinutes = function(timeStr) {
-            if (timeStr === null || timeStr === undefined) return 99999;
-            const clean = String(timeStr).trim().toUpperCase();
-            if (!clean) return 99999;
-
-            const isPM = clean.includes("PM");
-            const isAM = clean.includes("AM");
-
-            // Padankan format HH:MM atau HH:MM:SS bersama penanda AM/PM elektif
-            const match = clean.match(/^(\d{1,2}):(\d{2})(?::\d{2})?\s*(AM|PM)?$/);
-            if (!match) return 99999; // Sentinel bagi format tidak sah supaya data dikekalkan tanpa merosakkan susunan
-
-            let hours = parseInt(match[1], 10);
-            const minutes = parseInt(match[2], 10);
-
-            if (isNaN(hours) || isNaN(minutes) || minutes < 0 || minutes > 59) return 99999;
-
-            if (isAM || isPM) {
-                // Pengesahan julat format 12 jam
-                if (hours < 1 || hours > 12) return 99999;
-                if (isAM && hours === 12) hours = 0; // 12:00 AM -> 00:00 (0 minit)
-                if (isPM && hours < 12) hours += 12; // 01:00 PM -> 13:00, 12:00 PM -> 12:00
-            } else {
-                // Pengesahan julat format 24 jam
-                if (hours < 0 || hours > 23) return 99999;
-            }
-
-            return hours * 60 + minutes;
-        };
-
-        // Helper untuk format pewarnaan kategori (Lelaki -> Biru, Perempuan -> Pink) & Campuran (e.g. LELAKI / P)
+        // Helper Format Kategori: LELAKI / L -> Biru, PEREMPUAN / P -> Pink
         window.formatCategoryHTML = function(categoryStr) {
-            if (!categoryStr) return '-';
-            const escapedStr = escapeHTML(categoryStr);
-            
-            // Format token/perkataan LELAKI, PEREMPUAN, L, P secara berasingan menggunakan Regex Word Boundary
-            return escapedStr.replace(/\b(LELAKI|PEREMPUAN|L|P)\b/gi, function(match) {
+            if (categoryStr === null || categoryStr === undefined) return '-';
+            const escaped = escapeHTML(String(categoryStr));
+            return escaped.replace(/\b(LELAKI|PEREMPUAN|L|P)\b/gi, function(match) {
                 const upper = match.toUpperCase();
                 if (upper === 'LELAKI' || upper === 'L') {
                     return `<span class="text-blue-500 font-bold">${match}</span>`;
@@ -2114,16 +2082,44 @@
             });
         };
 
-        // Helper untuk format pewarnaan saringan (SARINGAN 1, SARINGAN 2, SARINGAN 1 & 2 -> Hijau)
+        // Helper Format Pusingan Saringan: SARINGAN 1, SARINGAN 2, SARINGAN 1 & 2 -> Hijau
         window.formatRoundHTML = function(roundStr) {
-            if (!roundStr) return '';
-            const escapedStr = escapeHTML(roundStr);
-            const upperStr = escapedStr.toUpperCase();
-            
-            if (upperStr.includes('SARINGAN')) {
-                return `<span class="text-green-500 font-bold">${escapedStr}</span>`;
+            if (roundStr === null || roundStr === undefined) return '-';
+            const escaped = escapeHTML(String(roundStr));
+            if (/SARINGAN/i.test(escaped)) {
+                return `<span class="text-green-500 font-bold">${escaped}</span>`;
             }
-            return escapedStr;
+            return escaped;
+        };
+
+        window.parseTimeToMinutes = function(timeStr) {
+            if (timeStr === null || timeStr === undefined) return 99999;
+            const clean = String(timeStr).trim().toUpperCase();
+            if (!clean) return 99999;
+
+            const isPM = clean.includes("PM");
+            const isAM = clean.includes("AM");
+
+            // Extract HH:MM or HH:MM:SS pattern safely
+            const match = clean.match(/^(\d{1,2}):(\d{2})(?::\d{2})?\s*(AM|PM)?$/);
+            if (!match) return 99999; // Sentinel value for invalid format
+
+            let hours = parseInt(match[1], 10);
+            const minutes = parseInt(match[2], 10);
+
+            if (isNaN(hours) || isNaN(minutes) || minutes < 0 || minutes > 59) return 99999;
+
+            if (isAM || isPM) {
+                // 12-hour format validation
+                if (hours < 1 || hours > 12) return 99999;
+                if (isAM && hours === 12) hours = 0; // 12:00 AM -> 00:00
+                if (isPM && hours < 12) hours += 12; // 01:00 PM -> 13:00, 12:00 PM -> 12:00
+            } else {
+                // 24-hour format validation
+                if (hours < 0 || hours > 23) return 99999;
+            }
+
+            return hours * 60 + minutes;
         };
 
         window.renderScheduleFilters = function() {
@@ -2131,13 +2127,18 @@
             if (!container) return;
             container.innerHTML = "";
 
-            const uniqueDates = [...new Set(scheduleData.map(item => item && item.date ? String(item.date).trim() : "").filter(Boolean))].sort();
+            if (!Array.isArray(scheduleData)) {
+                selectedScheduleDate = "";
+                return;
+            }
+
+            const uniqueDates = [...new Set(scheduleData.map(item => (item && item.date) ? String(item.date).trim() : "").filter(Boolean))].sort();
             if (uniqueDates.length === 0) {
                 selectedScheduleDate = "";
                 return;
             }
 
-            // Kestabilan Pilihan Tarikh: mengekalkan selectedScheduleDate jika wujud, jika tidak guna tarikh pertama tersedia
+            // Date stability check: preserve selectedScheduleDate if still available, else default safely
             if (!selectedScheduleDate || !uniqueDates.includes(selectedScheduleDate)) {
                 selectedScheduleDate = uniqueDates[0];
             }
@@ -2162,16 +2163,19 @@
             if (!container) return;
             container.innerHTML = "";
 
+            if (!Array.isArray(scheduleData)) {
+                container.classList.add("hidden");
+                if (emptyMsg) emptyMsg.classList.remove("hidden");
+                return;
+            }
+
             const filtered = scheduleData.filter(item => item && item.date && String(item.date).trim() === selectedScheduleDate);
 
-            // Pengisihan Kronologi Masa (Ascending Chronological Order) dengan Stable Sorting
+            // Stable Chronological Sorting (Ascending: Paling Awal -> Paling Lewat)
             filtered.sort((a, b) => {
-                const timeA = parseTimeToMinutes(a ? a.time : "");
-                const timeB = parseTimeToMinutes(b ? b.time : "");
-                const timeDiff = timeA - timeB;
+                const timeDiff = parseTimeToMinutes(a ? a.time : "") - parseTimeToMinutes(b ? b.time : "");
                 if (timeDiff !== 0) return timeDiff;
-                // Stable sort jika masa sama atau tidak sah
-                return 0;
+                return 0; // Stable sorting jika masa sama
             });
 
             if (filtered.length === 0) {
@@ -2188,17 +2192,21 @@
             let tableRowsHTML = "";
             filtered.forEach(item => {
                 if (!item) return;
-                const formattedCat = formatCategoryHTML(item.category || '');
-                const formattedRound = formatRoundHTML(item.round || '');
-                const roundBadgeClass = (item.round && item.round.toString().trim().toUpperCase() === "AKHIR") 
+                const formattedCategory = formatCategoryHTML(item.category);
+                const isAkhir = String(item.round || '').trim().toLowerCase() === "akhir";
+                const roundBadgeClass = isAkhir 
                     ? "bg-yellow-500/20 text-yellow-500 border-yellow-500/30" 
                     : "theme-surface theme-text-primary border-theme-border";
+
+                const formattedRound = isAkhir 
+                    ? escapeHTML(item.round || '') 
+                    : formatRoundHTML(item.round);
 
                 tableRowsHTML += `
                     <tr class="hover:bg-yellow-500/10 transition-colors border-b theme-border">
                         <td class="py-4 px-6 font-sans tabular-nums font-bold theme-text-secondary w-28">${escapeHTML(item.time || '-')}</td>
                         <td class="py-4 px-6 font-display font-bold theme-text-primary uppercase">${escapeHTML(item.name || '')}</td>
-                        <td class="py-4 px-6 text-center font-bold">${formattedCat}</td>
+                        <td class="py-4 px-6 text-center font-bold">${formattedCategory}</td>
                         <td class="py-4 px-6 text-center">
                             <span class="px-2.5 py-1 border text-[9px] font-bold uppercase rounded ${roundBadgeClass}">${formattedRound}</span>
                         </td>
@@ -2245,11 +2253,9 @@
             tbody.innerHTML = "";
 
             const sortedSchedule = [...scheduleData].sort((a, b) => {
-                const timeA = parseTimeToMinutes(a ? a.time : "");
-                const timeB = parseTimeToMinutes(b ? b.time : "");
-                const timeDiff = timeA - timeB;
+                const timeDiff = parseTimeToMinutes(a ? a.time : "") - parseTimeToMinutes(b ? b.time : "");
                 if (timeDiff !== 0) return timeDiff;
-                return 0;
+                return 0; // Stable sorting
             });
 
             sortedSchedule.forEach((item) => {
@@ -2258,17 +2264,21 @@
                 const tr = document.createElement("tr");
                 tr.className = "hover:bg-yellow-500/10 transition-colors border-b theme-border";
 
-                const formattedCat = formatCategoryHTML(item.category || '');
-                const formattedRound = formatRoundHTML(item.round || '');
-                const roundBadgeClass = (item.round && item.round.toString().trim().toUpperCase() === "AKHIR") 
+                const formattedCategory = formatCategoryHTML(item.category);
+                const isAkhir = String(item.round || '').trim().toLowerCase() === "akhir";
+                const roundBadgeClass = isAkhir 
                     ? "bg-yellow-500/20 border-yellow-500/30 text-yellow-500" 
                     : "theme-surface border-theme-border theme-text-secondary";
+
+                const formattedRound = isAkhir 
+                    ? escapeHTML(item.round || '') 
+                    : formatRoundHTML(item.round);
 
                 tr.innerHTML = `
                     <td class="p-3 font-sans tabular-nums theme-text-secondary">${escapeHTML(item.date || '')}</td>
                     <td class="p-3 font-sans tabular-nums font-bold theme-text-primary">${escapeHTML(item.time || '-')}</td>
                     <td class="p-3 font-bold theme-text-primary uppercase">${escapeHTML(item.name || '')}</td>
-                    <td class="p-3 font-bold">${formattedCat}</td>
+                    <td class="p-3 font-bold">${formattedCategory}</td>
                     <td class="p-3"><span class="px-2 py-0.5 border text-[9px] font-bold uppercase rounded ${roundBadgeClass}">${formattedRound}</span></td>
                     <td class="p-3 text-right space-x-2">
                         <button onclick="editScheduleEntry(${index})" class="text-blue-500 hover:text-blue-400 p-1 min-h-[36px] min-w-[36px]" title="Sunting"><i class="fa-solid fa-pen-to-square"></i></button>
@@ -3124,7 +3134,10 @@
                         </div>
                     `;
                 } else {
-                    publishedAnnouncements.forEach(item => {
+                    // SURGICAL FIX: Hadkan paparan pengumuman pada Dashboard Hero kepada tepat 3 pengumuman Published paling terkini
+                    const homeAnnouncementsLimit3 = publishedAnnouncements.slice(0, 3);
+
+                    homeAnnouncementsLimit3.forEach(item => {
                         const timeInfo = formatTimestampMalay(item);
                         let catBg = "bg-yellow-500/10 text-yellow-500 border-yellow-500/20";
                         const catUpper = (item.category || "").toUpperCase();
