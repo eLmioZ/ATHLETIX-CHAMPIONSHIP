@@ -1331,6 +1331,27 @@
             window.scrollTo({ top: 0, behavior: 'instant' });
         };
 
+        // Mobile Menu Toggle Function Fix
+        window.toggleMobileMenu = function() {
+            const mobileMenu = document.getElementById("mobileMenu");
+            const menuIcon = document.getElementById("menuIcon");
+            if (!mobileMenu) return;
+
+            if (mobileMenu.classList.contains("hidden")) {
+                mobileMenu.classList.remove("hidden");
+                if (menuIcon) {
+                    menuIcon.classList.remove("fa-bars-staggered");
+                    menuIcon.classList.add("fa-xmark");
+                }
+            } else {
+                mobileMenu.classList.add("hidden");
+                if (menuIcon) {
+                    menuIcon.classList.remove("fa-xmark");
+                    menuIcon.classList.add("fa-bars-staggered");
+                }
+            }
+        };
+
         // Global Safe HTML Sanitizer Helper for CSV & Input Rendering
         function escapeHTML(str) {
             if (str === null || str === undefined) return '';
@@ -3877,106 +3898,31 @@
                     const opt = document.createElement("option");
                     const targetId = config.id || config.docId;
                     opt.value = targetId;
-                    opt.textContent = config.name || "Acara Tanpa Nama";
+                    opt.textContent = config.name || 'Acara Tanpa Nama';
                     select.appendChild(opt);
                 });
 
-                // Pulihkan pilihan daripada localStorage atau fallback ke acara pertama
-                let savedId = localStorage.getItem('selectedWinnerEventId');
-                if (savedId && sortedWinnerConfigs.some(c => (c.id || c.docId) === savedId)) {
-                    window.selectedWinnerEventId = savedId;
-                    select.value = savedId;
+                if (window.selectedWinnerEventId && sortedWinnerConfigs.some(c => (c.id || c.docId) === window.selectedWinnerEventId)) {
+                    select.value = window.selectedWinnerEventId;
                 } else {
-                    const defaultId = sortedWinnerConfigs[0].id || sortedWinnerConfigs[0].docId;
-                    window.selectedWinnerEventId = defaultId;
-                    localStorage.setItem('selectedWinnerEventId', defaultId);
-                    select.value = defaultId;
+                    window.selectedWinnerEventId = sortedWinnerConfigs[0].id || sortedWinnerConfigs[0].docId;
+                    select.value = window.selectedWinnerEventId;
                 }
             } else {
                 const opt = document.createElement("option");
                 opt.value = "";
-                opt.textContent = "Tiada Acara Didaftarkan";
+                opt.textContent = "Tiada Acara Keputusan Didaftarkan";
                 select.appendChild(opt);
             }
         };
 
         window.onWinnerEventChanged = function() {
-            const eventSelect = document.getElementById("winnerEventSelect");
-            if (!eventSelect || !eventSelect.value) return;
-
-            window.selectedWinnerEventId = eventSelect.value;
-            localStorage.setItem('selectedWinnerEventId', eventSelect.value);
+            const selectEl = document.getElementById("winnerEventSelect");
+            if (!selectEl || !selectEl.value) return;
+            
+            window.selectedWinnerEventId = selectEl.value;
+            localStorage.setItem('selectedWinnerEventId', selectEl.value);
             updateWinnersList();
-        };
-
-        window.exportApplicationData = async function() {
-            const dump = await StorageService.exportAll();
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dump, null, 2));
-            const dlAnchorElem = document.createElement('a');
-            dlAnchorElem.setAttribute("href", dataStr);
-            dlAnchorElem.setAttribute("download", `athletix_firestore_backup_${new Date().toISOString().slice(0, 10)}.json`);
-            document.body.appendChild(dlAnchorElem);
-            dlAnchorElem.click();
-            dlAnchorElem.remove();
-            showToast("Data Firestore berjaya dieksport!", "success");
-        };
-
-        window.importApplicationData = function(event) {
-            const fileReader = new FileReader();
-            if (!event.target.files || !event.target.files[0]) return;
-
-            fileReader.onload = async function (e) {
-                try {
-                    const parsed = JSON.parse(e.target.result);
-                    await StorageService.importAll(parsed);
-                    showToast("Data Firestore berjaya dipulihkan!", "success");
-                } catch (err) {
-                    showToast("Gagal mengimport JSON! Fail rosak.", "error");
-                }
-            };
-            fileReader.readAsText(event.target.files[0]);
-        };
-
-        window.resetAllDataToDefaults = async function() {
-            if (confirm("Adakah anda pasti mahu set semula semua data Firestore ke laluan asal? Data sedia ada akan dipadam.")) {
-                await StorageService.importAll({
-                    data: {
-                        heroCards: [],
-                        schedule: [],
-                        participantConfigs: [],
-                        winnerConfigs: [],
-                        announcements: [],
-                        settings: {
-                            realtimeLinksData: { pdfUrl: "", galleryUrl: "", feedbackUrl: "" },
-                            medalTallyData: [],
-                            sheetUrlPingat: "",
-                            olahragawanGsIndividu: "",
-                            olahragawatiGsIndividu: "",
-                            theme: "dark"
-                        }
-                    }
-                });
-                showToast("Semua data Firestore telah di-reset ke laluan asal.", "info");
-            }
-        };
-
-        window.toggleMobileMenu = function() {
-            const menu = document.getElementById("mobileMenu");
-            const icon = document.getElementById("menuIcon");
-            if (!menu) return;
-            if (menu.classList.contains("hidden")) {
-                menu.classList.remove("hidden");
-                if (icon) {
-                    icon.classList.remove("fa-bars-staggered");
-                    icon.classList.add("fa-xmark");
-                }
-            } else {
-                menu.classList.add("hidden");
-                if (icon) {
-                    icon.classList.remove("fa-xmark");
-                    icon.classList.add("fa-bars-staggered");
-                }
-            }
         };
 
         window.verifyAdminPassword = function() {
