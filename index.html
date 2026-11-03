@@ -899,8 +899,8 @@
                         
                         <div class="grid grid-cols-1 gap-3">
                             <div>
-                                <label for="adminPingatSheetUrl" class="text-[10px] font-bold uppercase tracking-widest theme-text-muted block mb-1">Pautan URL Google Sheet (.csv atau /edit)</label>
-                                <input type="text" id="adminPingatSheetUrl" placeholder="Tampal Pautan Edit (https://docs.google.com/spreadsheets/d/.../edit#gid=0) ATAU Pautan CSV" class="w-full theme-input border theme-border py-2.5 px-4 text-xs focus:outline-none">
+                                <label for="adminPingatSheetUrl" class="text-[10px] font-bold uppercase tracking-widest text-[#2563EB] block mb-1">Pautan URL Google Sheet (.csv atau /edit)</label>
+                                <input type="text" id="adminPingatSheetUrl" placeholder="Tampal Pautan Edit (https://docs.google.com/spreadsheets/d/.../edit#gid=0) ATAU Pautan CSV" class="w-full theme-input border theme-border py-2.5 px-4 text-xs text-[#2563EB] focus:outline-none font-medium">
                             </div>
                         </div>
                         
@@ -952,16 +952,16 @@
                                 <input type="text" id="adminWinnerName" placeholder="Contoh: LOMPAT TINGGI / 100M" class="w-full theme-input border theme-border py-2.5 px-3 text-xs focus:outline-none">
                             </div>
                             <div>
-                                <label for="adminWinnerGsLelaki" class="text-[9px] uppercase tracking-wider theme-text-muted font-bold block mb-1">
+                                <label for="adminWinnerGsLelaki" class="text-[9px] uppercase tracking-wider text-[#2563EB] font-bold block mb-1">
                                     2. Pautan Google Sheet Lelaki <span class="theme-text-muted font-normal lowercase">(Lajur A: Ranking | Lajur B & C: Nama | Lajur D: Pasukan | Lajur E: No Bib | Lajur F: Catatan Masa)</span>
                                 </label>
-                                <input type="text" id="adminWinnerGsLelaki" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv atau /edit#gid=0" class="w-full theme-input border theme-border py-2.5 px-3 text-xs focus:outline-none">
+                                <input type="text" id="adminWinnerGsLelaki" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv atau /edit#gid=0" class="w-full theme-input border theme-border py-2.5 px-3 text-xs text-[#2563EB] font-medium focus:outline-none">
                             </div>
                             <div>
-                                <label for="adminWinnerGsPerempuan" class="text-[9px] uppercase tracking-wider theme-text-muted font-bold block mb-1">
+                                <label for="adminWinnerGsPerempuan" class="text-[9px] uppercase tracking-wider text-[#EC4899] font-bold block mb-1">
                                     3. Pautan Google Sheet Perempuan <span class="theme-text-muted font-normal lowercase">(Lajur A: Ranking | Lajur B & C: Nama | Lajur D: Pasukan | Lajur E: No Bib | Lajur F: Catatan Masa)</span>
                                 </label>
-                                <input type="text" id="adminWinnerGsPerempuan" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv atau /edit#gid=0" class="w-full theme-input border theme-border py-2.5 px-3 text-xs focus:outline-none">
+                                <input type="text" id="adminWinnerGsPerempuan" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv atau /edit#gid=0" class="w-full theme-input border theme-border py-2.5 px-3 text-xs text-[#EC4899] font-medium focus:outline-none">
                             </div>
                         </div>
                         <div class="pt-2 flex justify-end">
@@ -2978,7 +2978,7 @@
 
             tr.innerHTML = `
                 <td class="p-3 font-bold theme-text-primary uppercase">Kedudukan Pingat Rasmi</td>
-                <td class="p-3 truncate max-w-[280px] font-sans tabular-nums text-[11px] theme-text-secondary">${escapeHTML(url) || '<span class="theme-text-muted italic">Belum Ditetapkan</span>'}</td>
+                <td class="p-3 truncate max-w-[280px] font-sans tabular-nums text-[11px] text-[#2563EB] font-bold">${escapeHTML(url) || '<span class="theme-text-muted italic font-normal">Belum Ditetapkan</span>'}</td>
                 <td class="p-3 text-right space-x-1.5">
                     <button onclick="editPingatConfig()" class="px-2 py-1 bg-blue-500/10 text-blue-500 hover:bg-blue-500/20 border border-blue-500/20 text-[10px] font-bold uppercase rounded transition-colors min-h-[32px]" title="Edit / Fokus">
                         <i class="fa-solid fa-pen-to-square mr-1"></i> Edit
@@ -3304,29 +3304,25 @@
             const tbody = document.getElementById("adminRealtimeConfigTableBody");
             if (!tbody) return;
 
+            tbody.innerHTML = "";
+
             const items = [
-                { id: "pdfUrl", name: "Buku Peraturan (PDF)", url: realtimeLinksData.pdfUrl, inputId: "adminRealtimePdfUrl" },
-                { id: "galleryUrl", name: "Galeri Foto Lensa", url: realtimeLinksData.galleryUrl, inputId: "adminRealtimeGalleryUrl" },
-                { id: "feedbackUrl", name: "Borang Maklum Balas", url: realtimeLinksData.feedbackUrl, inputId: "adminRealtimeFeedbackUrl" }
+                { id: "pdf", name: "Buku Peraturan PDF", urlKey: "pdfUrl", inputId: "adminRealtimePdfUrl" },
+                { id: "gallery", name: "Galeri Foto Lensa", urlKey: "galleryUrl", inputId: "adminRealtimeGalleryUrl" },
+                { id: "feedback", name: "Borang Maklum Balas", urlKey: "feedbackUrl", inputId: "adminRealtimeFeedbackUrl" }
             ];
 
-            tbody.innerHTML = "";
             items.forEach(item => {
+                const url = realtimeLinksData[item.urlKey] || "";
                 const tr = document.createElement("tr");
                 tr.className = "hover:bg-yellow-500/10 transition-colors border-b theme-border text-xs";
+
                 tr.innerHTML = `
                     <td class="p-2.5 font-bold theme-text-primary uppercase">${escapeHTML(item.name)}</td>
-                    <td class="p-2.5 font-sans tabular-nums text-[11px] theme-text-secondary truncate max-w-[180px]">${escapeHTML(item.url) || '<span class="theme-text-muted italic">Kosong</span>'}</td>
+                    <td class="p-2.5 truncate max-w-[200px] font-sans tabular-nums text-[11px] theme-text-secondary">${escapeHTML(url) || '<span class="theme-text-muted italic">Belum Ditetapkan</span>'}</td>
                     <td class="p-2.5 text-right space-x-1">
-                        <button onclick="editRealtimeLink('${item.inputId}')" class="px-2 py-1 bg-blue-500/10 text-blue-500 hover:bg-blue-500/20 border border-blue-500/20 text-[10px] font-bold uppercase rounded transition-colors min-h-[32px]" title="Edit / Fokus">
-                            <i class="fa-solid fa-pen-to-square mr-1"></i> Edit
-                        </button>
-                        <button onclick="saveRealtimeLinks()" class="px-2 py-1 bg-yellow-500 text-navy-950 font-bold text-[10px] uppercase rounded transition-colors min-h-[32px]" title="Simpan">
-                            <i class="fa-solid fa-floppy-disk mr-1"></i> Simpan
-                        </button>
-                        <button onclick="clearRealtimeLink('${item.id}','${item.inputId}')" class="px-2 py-1 bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 text-[10px] font-bold uppercase rounded transition-colors min-h-[32px]" title="Hapus">
-                            <i class="fa-solid fa-trash mr-1"></i> Hapus
-                        </button>
+                        <button onclick="editRealtimeLink('${item.inputId}')" class="px-2 py-1 bg-blue-500/10 text-blue-500 hover:bg-blue-500/20 border border-blue-500/20 text-[9px] font-bold uppercase rounded transition-colors" title="Edit">Edit</button>
+                        <button onclick="clearRealtimeLink('${item.urlKey}', '${item.inputId}')" class="px-2 py-1 bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 text-[9px] font-bold uppercase rounded transition-colors" title="Hapus">Hapus</button>
                     </td>
                 `;
                 tbody.appendChild(tr);
