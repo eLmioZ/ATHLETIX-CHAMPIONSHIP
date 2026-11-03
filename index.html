@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>ATHLETIX CHAMPIONSHIP - Platform Maklumat Rasmi</title>
+    <title>ATHLETIX CHAMPIONSHIP - Platform Kejohanan Rasmi</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Montserrat & Inter -->
@@ -2056,32 +2056,44 @@
         };
 
         window.formatDateMalay = function(dateStr) {
-            if (!dateStr) return "";
-            const parts = dateStr.split("-");
+            if (!dateStr || typeof dateStr !== 'string') return "";
+            const parts = dateStr.trim().split("-");
             if (parts.length !== 3) return escapeHTML(dateStr);
             const year = parts[0];
             const monthIndex = parseInt(parts[1], 10) - 1;
             const day = parseInt(parts[2], 10);
+            if (isNaN(day) || monthIndex < 0 || monthIndex > 11) return escapeHTML(dateStr);
             const months = ["JAN", "FEB", "MAC", "APR", "MEI", "JUN", "JUL", "OGOS", "SEP", "OKT", "NOV", "DIS"];
             return `${day} ${months[monthIndex] || parts[1]} ${year}`;
         };
 
         window.parseTimeToMinutes = function(timeStr) {
-            if (!timeStr) return 9999;
-            const clean = timeStr.trim().toUpperCase();
-            let hours = 0, minutes = 0;
-            
+            if (timeStr === null || timeStr === undefined) return 99999;
+            const clean = String(timeStr).trim().toUpperCase();
+            if (!clean) return 99999;
+
             const isPM = clean.includes("PM");
             const isAM = clean.includes("AM");
-            const timeDigits = clean.replace(/(AM|PM|\s)/g, "");
-            const parts = timeDigits.split(":");
-            
-            if (parts.length >= 1) hours = parseInt(parts[0], 10) || 0;
-            if (parts.length >= 2) minutes = parseInt(parts[1], 10) || 0;
-            
-            if (isPM && hours < 12) hours += 12;
-            if (isAM && hours === 12) hours = 0;
-            
+
+            // Extract HH:MM or HH:MM:SS pattern
+            const match = clean.match(/^(\d{1,2}):(\d{2})(?::\d{2})?\s*(AM|PM)?$/);
+            if (!match) return 99999; // Invalid format sentinel value (keeps record intact without breaking display or sort)
+
+            let hours = parseInt(match[1], 10);
+            const minutes = parseInt(match[2], 10);
+
+            if (isNaN(hours) || isNaN(minutes) || minutes < 0 || minutes > 59) return 99999;
+
+            if (isAM || isPM) {
+                // 12-hour format validation
+                if (hours < 1 || hours > 12) return 99999;
+                if (isAM && hours === 12) hours = 0; // 12:00 AM -> 00:00
+                if (isPM && hours < 12) hours += 12; // 01:00 PM -> 13:00, 12:00 PM -> 12:00
+            } else {
+                // 24-hour format validation
+                if (hours < 0 || hours > 23) return 99999;
+            }
+
             return hours * 60 + minutes;
         };
 
@@ -2090,9 +2102,13 @@
             if (!container) return;
             container.innerHTML = "";
 
-            const uniqueDates = [...new Set(scheduleData.map(item => item.date))].sort();
-            if (uniqueDates.length === 0) return;
+            const uniqueDates = [...new Set(scheduleData.map(item => item && item.date ? String(item.date).trim() : "").filter(Boolean))].sort();
+            if (uniqueDates.length === 0) {
+                selectedScheduleDate = "";
+                return;
+            }
 
+            // Date stability: maintain currently selected date if valid, otherwise fallback to first available date
             if (!selectedScheduleDate || !uniqueDates.includes(selectedScheduleDate)) {
                 selectedScheduleDate = uniqueDates[0];
             }
@@ -2117,12 +2133,12 @@
             if (!container) return;
             container.innerHTML = "";
 
-            const filtered = scheduleData.filter(item => item.date === selectedScheduleDate);
+            const filtered = scheduleData.filter(item => item && item.date && String(item.date).trim() === selectedScheduleDate);
 
             filtered.sort((a, b) => {
-                const timeDiff = parseTimeToMinutes(a.time) - parseTimeToMinutes(b.time);
+                const timeDiff = parseTimeToMinutes(a ? a.time : "") - parseTimeToMinutes(b ? b.time : "");
                 if (timeDiff !== 0) return timeDiff;
-                return (a.name || '').localeCompare(b.name || '', undefined, { numeric: true, sensitivity: 'base' });
+                return (a && a.name ? String(a.name) : '').localeCompare(b && b.name ? String(b.name) : '', undefined, { numeric: true, sensitivity: 'base' });
             });
 
             if (filtered.length === 0) {
@@ -2138,7 +2154,9 @@
 
             let tableRowsHTML = "";
             filtered.forEach(item => {
-                const catColorClass = item.category && item.category.toUpperCase().includes("LELAKI") ? "text-blue-500" : (item.category && item.category.toUpperCase().includes("PEREMPUAN") ? "text-pink-500" : "theme-text-secondary");
+                if (!item) return;
+                const catUpper = item.category ? String(item.category).toUpperCase() : "";
+                const catColorClass = catUpper.includes("LELAKI") ? "text-blue-500" : (catUpper.includes("PEREMPUAN") ? "text-pink-500" : "theme-text-secondary");
                 const roundBadgeClass = item.round === "Akhir" 
                     ? "bg-yellow-500/20 text-yellow-500 border-yellow-500/30" 
                     : "theme-surface theme-text-primary border-theme-border";
@@ -2194,17 +2212,19 @@
             tbody.innerHTML = "";
 
             const sortedSchedule = [...scheduleData].sort((a, b) => {
-                const timeDiff = parseTimeToMinutes(a.time) - parseTimeToMinutes(b.time);
+                const timeDiff = parseTimeToMinutes(a ? a.time : "") - parseTimeToMinutes(b ? b.time : "");
                 if (timeDiff !== 0) return timeDiff;
-                return (a.name || '').localeCompare(b.name || '', undefined, { numeric: true, sensitivity: 'base' });
+                return (a && a.name ? String(a.name) : '').localeCompare(b && b.name ? String(b.name) : '', undefined, { numeric: true, sensitivity: 'base' });
             });
 
             sortedSchedule.forEach((item) => {
-                const index = scheduleData.findIndex(s => s.docId === item.docId);
+                if (!item) return;
+                const index = scheduleData.findIndex(s => s && s.docId === item.docId);
                 const tr = document.createElement("tr");
                 tr.className = "hover:bg-yellow-500/10 transition-colors border-b theme-border";
 
-                const catClass = item.category && item.category.toUpperCase().includes("LELAKI") ? "text-blue-500" : (item.category && item.category.toUpperCase().includes("PEREMPUAN") ? "text-pink-500" : "theme-text-secondary");
+                const catUpper = item.category ? String(item.category).toUpperCase() : "";
+                const catClass = catUpper.includes("LELAKI") ? "text-blue-500" : (catUpper.includes("PEREMPUAN") ? "text-pink-500" : "theme-text-secondary");
                 const roundBadgeClass = item.round === "Akhir" 
                     ? "bg-yellow-500/20 border-yellow-500/30 text-yellow-500" 
                     : "theme-surface border-theme-border theme-text-secondary";
