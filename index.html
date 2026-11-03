@@ -439,19 +439,10 @@
 
         <section id="keputusan" class="view-section hidden py-16 sm:py-24 theme-bg-secondary min-h-[calc(100vh-5rem)]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12">
-                    <div class="max-w-xl">
-                        <span class="theme-text-muted font-bold uppercase tracking-[0.25em] text-[10px] sm:text-xs">Pungutan Pingat Keseluruhan</span>
-                        <h2 class="font-display font-extrabold text-3xl sm:text-4xl theme-text-primary mt-2 uppercase">Podium Pingat</h2>
-                        <p class="text-xs sm:text-sm theme-text-secondary mt-2">Carta visual kegemilangan pasukan teratas kejohanan secara langsung.</p>
-                    </div>
-                    
-                    <div class="mt-6 lg:mt-0 w-full sm:max-w-xs relative">
-                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none theme-text-muted">
-                            <i class="fa-solid fa-filter text-xs"></i>
-                        </div>
-                        <input type="text" id="tallySearch" onkeyup="searchTally()" placeholder="Cari nama pasukan..." class="w-full theme-input border theme-border py-3 pl-10 pr-4 text-xs font-medium uppercase tracking-wider focus:outline-none transition-colors min-h-[48px]">
-                    </div>
+                <div class="mb-12 text-center max-w-xl mx-auto">
+                    <span class="theme-text-muted font-bold uppercase tracking-[0.25em] text-[10px] sm:text-xs">Pungutan Pingat Keseluruhan</span>
+                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl theme-text-primary mt-2 uppercase">Podium Pingat</h2>
+                    <p class="text-xs sm:text-sm theme-text-secondary mt-2">Carta visual kegemilangan pasukan teratas kejohanan secara langsung.</p>
                 </div>
 
                 <!-- CONTAINER PAPARAN PODIUM VISUAL -->
@@ -2631,8 +2622,7 @@
             const emptyMsg = document.getElementById("noPodiumDataMessage");
             if (!container) return;
 
-            const searchQuery = (document.getElementById("tallySearch")?.value || "").trim().toUpperCase();
-
+            // Isih data mengikut Emas -> Perak -> Gangsa -> Abjad (abjad sebagai tie-breaker susunan paparan sahaja)
             let sortedData = [...medalTallyData].sort((a, b) => {
                 if ((b.emas || 0) !== (a.emas || 0)) return (b.emas || 0) - (a.emas || 0);
                 if ((b.perak || 0) !== (a.perak || 0)) return (b.perak || 0) - (a.perak || 0);
@@ -2640,19 +2630,45 @@
                 return (a.team || '').localeCompare(b.team || '');
             });
 
-            if (searchQuery !== "") {
-                sortedData = sortedData.filter(item => (item.team || "").toUpperCase().includes(searchQuery));
-            }
+            // Pengiraan Kedudukan Rasmi (Standard Competition Ranking 1224 System)
+            let currentRank = 1;
+            const rankedData = sortedData.map((item, index, array) => {
+                if (index > 0) {
+                    const prev = array[index - 1];
+                    const isSameMedals = (item.emas || 0) === (prev.emas || 0) &&
+                                         (item.perak || 0) === (prev.perak || 0) &&
+                                         (item.gangsa || 0) === (prev.gangsa || 0);
+                    if (!isSameMedals) {
+                        currentRank = index + 1;
+                    }
+                } else {
+                    currentRank = 1;
+                }
 
-            if (sortedData.length > 0) {
-                updateOverallChampionAward(sortedData[0]);
+                // Semak jika ada pasukan lain berkongsi jumlah pingat yang sama persis
+                const isTie = array.some((other, otherIdx) => 
+                    otherIdx !== index &&
+                    (other.emas || 0) === (item.emas || 0) &&
+                    (other.perak || 0) === (item.perak || 0) &&
+                    (other.gangsa || 0) === (item.gangsa || 0)
+                );
+
+                return {
+                    ...item,
+                    officialRank: currentRank,
+                    isTie: isTie
+                };
+            });
+
+            if (rankedData.length > 0) {
+                updateOverallChampionAward(rankedData[0]);
             } else {
                 updateOverallChampionAward(null);
             }
 
             container.innerHTML = "";
 
-            if (sortedData.length === 0) {
+            if (rankedData.length === 0) {
                 container.classList.add("hidden");
                 if (emptyMsg) emptyMsg.classList.remove("hidden");
                 return;
@@ -2661,17 +2677,34 @@
             container.classList.remove("hidden");
             if (emptyMsg) emptyMsg.classList.add("hidden");
 
-            const rank1 = sortedData[0] || null;
-            const rank2 = sortedData[1] || null;
-            const rank3 = sortedData[2] || null;
-            const rank4 = sortedData[3] || null;
+            const rank1 = rankedData[0] || null;
+            const rank2 = rankedData[1] || null;
+            const rank3 = rankedData[2] || null;
+            const rank4 = rankedData[3] || null;
+
+            // Pembentukan label paparan dinamik mengikut status ikatan keputusan (Tie Position)
+            const getRankBadgeText = (item, defaultNumber, defaultTitle) => {
+                if (!item) return { badge: `NO. ${defaultNumber}`, title: defaultTitle };
+                const r = item.officialRank;
+                const tie = item.isTie;
+
+                if (r === 1) return { badge: tie ? "NO. 1 SERI" : "NO. 1", title: tie ? "SERI JUARA" : "JUARA" };
+                if (r === 2) return { badge: tie ? "NO. 2 SERI" : "NO. 2", title: tie ? "SERI NAIB JUARA" : "NAIB JUARA" };
+                if (r === 3) return { badge: tie ? "NO. 3 SERI" : "NO. 3", title: tie ? "SERI KETIGA" : "KETIGA" };
+                return { badge: tie ? `NO. ${r} SERI` : `NO. ${r}`, title: tie ? `SERI TEMPAT KE-${r}` : `TEMPAT KE-${r}` };
+            };
+
+            const r1Label = getRankBadgeText(rank1, 1, "JUARA");
+            const r2Label = getRankBadgeText(rank2, 2, "NAIB JUARA");
+            const r3Label = getRankBadgeText(rank3, 3, "KETIGA");
+            const r4Label = getRankBadgeText(rank4, 4, "TEMPAT KE-4");
 
             let podiumHTML = `
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4 items-end max-w-5xl mx-auto pt-4 pb-2">
                     ${rank2 ? `
                     <div class="order-2 md:order-1 border-2 border-slate-400/40 glass-card p-6 text-center transform hover:-translate-y-1 transition-all duration-300 relative flex flex-col justify-between shadow-lg">
-                        <div class="absolute -top-5 left-1/2 transform -translate-x-1/2 bg-slate-400 text-navy-950 font-display font-black text-xs px-3 py-1 uppercase tracking-widest shadow-md flex items-center space-x-1">
-                            <span>NO. 2</span>
+                        <div class="absolute -top-5 left-1/2 transform -translate-x-1/2 bg-slate-400 text-navy-950 font-display font-black text-xs px-3 py-1 uppercase tracking-widest shadow-md flex items-center space-x-1 whitespace-nowrap">
+                            <span>${r2Label.badge}</span>
                         </div>
                         <div class="pt-4 pb-2">
                             <div class="w-14 h-14 bg-slate-400/20 border border-slate-400/40 rounded-full flex items-center justify-center mx-auto mb-3 text-slate-300 shadow-inner">
@@ -2679,7 +2712,7 @@
                             </div>
                             <h3 class="font-display font-black text-base sm:text-lg theme-text-primary uppercase tracking-wider mb-2">${escapeHTML(rank2.team)}</h3>
                             <div class="inline-block px-3 py-1 bg-slate-400/10 border border-slate-400/20 rounded text-[10px] font-extrabold uppercase theme-text-secondary tracking-widest mb-4">
-                                NAIB JUARA
+                                ${r2Label.title}
                             </div>
                         </div>
                         <div class="theme-surface border theme-border p-3 grid grid-cols-3 gap-1 text-center text-xs">
@@ -2705,9 +2738,9 @@
 
                     ${rank1 ? `
                     <div class="order-1 md:order-2 border-2 border-yellow-500 glass-card p-6 sm:p-8 text-center transform hover:-translate-y-2 transition-all duration-300 relative flex flex-col justify-between shadow-2xl bg-yellow-500/5">
-                        <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-navy-950 font-display font-black text-sm px-4 py-1.5 uppercase tracking-widest shadow-xl flex items-center space-x-1.5">
+                        <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-navy-950 font-display font-black text-sm px-4 py-1.5 uppercase tracking-widest shadow-xl flex items-center space-x-1.5 whitespace-nowrap">
                             <i class="fa-solid fa-crown text-xs"></i>
-                            <span>NO. 1</span>
+                            <span>${r1Label.badge}</span>
                         </div>
                         <div class="pt-6 pb-2">
                             <div class="w-20 h-20 bg-yellow-500/20 border-2 border-yellow-500/50 rounded-full flex items-center justify-center mx-auto mb-4 text-yellow-500 shadow-xl animate-pulse">
@@ -2715,7 +2748,7 @@
                             </div>
                             <h3 class="font-display font-black text-xl sm:text-2xl theme-text-primary uppercase tracking-wider mb-2">${escapeHTML(rank1.team)}</h3>
                             <div class="inline-block px-4 py-1.5 bg-yellow-500 text-navy-950 rounded text-xs font-black uppercase tracking-widest mb-5 shadow">
-                                JUARA
+                                ${r1Label.title}
                             </div>
                         </div>
                         <div class="theme-surface border border-yellow-500/30 p-4 grid grid-cols-3 gap-2 text-center text-xs shadow-inner">
@@ -2741,8 +2774,8 @@
 
                     ${rank3 ? `
                     <div class="order-3 md:order-3 border-2 border-amber-700/40 glass-card p-6 text-center transform hover:-translate-y-1 transition-all duration-300 relative flex flex-col justify-between shadow-lg">
-                        <div class="absolute -top-5 left-1/2 transform -translate-x-1/2 bg-amber-700 text-white font-display font-black text-xs px-3 py-1 uppercase tracking-widest shadow-md flex items-center space-x-1">
-                            <span>NO. 3</span>
+                        <div class="absolute -top-5 left-1/2 transform -translate-x-1/2 bg-amber-700 text-white font-display font-black text-xs px-3 py-1 uppercase tracking-widest shadow-md flex items-center space-x-1 whitespace-nowrap">
+                            <span>${r3Label.badge}</span>
                         </div>
                         <div class="pt-4 pb-2">
                             <div class="w-14 h-14 bg-amber-700/20 border border-amber-700/40 rounded-full flex items-center justify-center mx-auto mb-3 text-amber-600 shadow-inner">
@@ -2750,7 +2783,7 @@
                             </div>
                             <h3 class="font-display font-black text-base sm:text-lg theme-text-primary uppercase tracking-wider mb-2">${escapeHTML(rank3.team)}</h3>
                             <div class="inline-block px-3 py-1 bg-amber-700/10 border border-amber-700/20 rounded text-[10px] font-extrabold uppercase theme-text-secondary tracking-widest mb-4">
-                                KETIGA
+                                ${r3Label.title}
                             </div>
                         </div>
                         <div class="theme-surface border theme-border p-3 grid grid-cols-3 gap-1 text-center text-xs">
@@ -2782,11 +2815,11 @@
                         <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
                             <div class="flex items-center space-x-4 text-center sm:text-left">
                                 <div class="w-10 h-10 theme-surface border border-blue-500/30 rounded-full flex items-center justify-center font-display font-black text-sm text-blue-400 shrink-0">
-                                    4
+                                    ${rank4.officialRank}
                                 </div>
                                 <div>
                                     <div class="flex items-center space-x-2 justify-center sm:justify-start">
-                                        <span class="text-[9px] font-extrabold uppercase tracking-widest px-2 py-0.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded">TEMPAT KE-4</span>
+                                        <span class="text-[9px] font-extrabold uppercase tracking-widest px-2 py-0.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded">${r4Label.badge}</span>
                                         <h4 class="font-display font-black text-sm sm:text-base theme-text-primary uppercase tracking-wider">${escapeHTML(rank4.team)}</h4>
                                     </div>
                                     <p class="text-[10px] theme-text-muted uppercase tracking-wider mt-0.5">Pencapaian kontinjen kejohanan</p>
@@ -2891,10 +2924,6 @@
 
         window.syncPingatFromGoogleSheet = function() {
             savePingatConfig();
-        };
-
-        window.searchTally = function() {
-            renderPublicMedalTable();
         };
 
         window.getTimestampMillis = function(item) {
