@@ -1740,10 +1740,10 @@
         window.realtimeLinksData = { pdfUrl: "", galleryUrl: "", feedbackUrl: "" };
         window.appSettings = {};
 
-        // Cache with Time-To-Live (TTL = 3 Minutes)
+        // Cache with Time-To-Live (TTL = 45 Seconds synchronized with AutoSyncManager cycle)
         window.fetchedAthletesCache = {};
         window.fetchedWinnersCache = {};
-        const CACHE_TTL_MS = 3 * 60 * 1000; // 3 Minutes
+        const CACHE_TTL_MS = 45 * 1000; // Synchronized 45 Seconds
 
         window.selectedScheduleDate = "";
         window.selectedEventId = "";
@@ -3569,9 +3569,9 @@
         };
 
         window.fetchSheetWinnersData = async function(url, configDocId, genderLabel) {
-            if (!url) return [];
+            if (!url) return { data: [], error: false };
             const targetUrl = normalizeGoogleSheetUrl(url);
-            if (!targetUrl) return [];
+            if (!targetUrl) return { data: [], error: false };
 
             const cacheKey = `${configDocId}_${genderLabel}_${targetUrl}`;
             const now = Date.now();
@@ -3582,7 +3582,7 @@
 
             try {
                 const res = await fetch(targetUrl);
-                if (!res.ok) throw new Error("Gagal memuat turun CSV");
+                if (!res.ok) throw new Error(`HTTP Error Status: ${res.status}`);
                 const csvText = await res.text();
                 const rows = parseCSVText(csvText);
 
@@ -3596,6 +3596,7 @@
                         const row = rows[i];
                         if (!row || row.length < 2) continue;
 
+                        // Fallback mapping guard checking valid non-empty fields
                         const rank = map.rank !== undefined ? parseInt(row[map.rank]) : (parseInt(row[0]) || (i - startIndex + 1));
                         const name = map.player !== undefined ? row[map.player] : [row[1], row[2]].filter(Boolean).join(" ").trim();
                         const team = map.team !== undefined ? row[map.team] : (row[3] || "");
@@ -3604,7 +3605,7 @@
 
                         if (name || team) {
                             winnersList.push({
-                                rank: rank,
+                                rank: isNaN(rank) ? (i - startIndex + 1) : rank,
                                 name: (name || "").toUpperCase(),
                                 team: (team || "").toUpperCase(),
                                 bib: bib,
@@ -3612,12 +3613,17 @@
                             });
                         }
                     }
-                    fetchedWinnersCache[cacheKey] = { data: winnersList, timestamp: now };
+                    const resultObj = { data: winnersList, error: false };
+                    fetchedWinnersCache[cacheKey] = { data: resultObj, timestamp: now };
+                    return resultObj;
                 }
-                return winnersList;
+                const emptyObj = { data: [], error: false };
+                fetchedWinnersCache[cacheKey] = { data: emptyObj, timestamp: now };
+                return emptyObj;
             } catch (err) {
                 console.warn("Gagal muat data pemenang dari URL:", targetUrl, err);
-                return [];
+                const errorObj = { data: [], error: true, errorMessage: err.message || "Ralat Sambungan" };
+                return errorObj;
             }
         };
 
@@ -3648,17 +3654,17 @@
                 const urlPerempuan = config.gsPerempuan || config.gsKumpulan || "";
                 const targetId = config.id || config.docId;
 
-                let winnersLelaki = [];
-                let winnersPerempuan = [];
+                let winnersLelakiObj = { data: [], error: false };
+                let winnersPerempuanObj = { data: [], error: false };
 
                 if (urlLelaki) {
-                    winnersLelaki = await fetchSheetWinnersData(urlLelaki, targetId, "LELAKI");
+                    winnersLelakiObj = await fetchSheetWinnersData(urlLelaki, targetId, "LELAKI");
                 }
                 if (urlPerempuan) {
-                    winnersPerempuan = await fetchSheetWinnersData(urlPerempuan, targetId, "PEREMPUAN");
+                    winnersPerempuanObj = await fetchSheetWinnersData(urlPerempuan, targetId, "PEREMPUAN");
                 }
 
-                const combinedCard = createCombinedWinnerCard(config, winnersLelaki, winnersPerempuan);
+                const combinedCard = createCombinedWinnerCard(config, winnersLelakiObj, winnersPerempuanObj);
                 if (combinedCard) grid.appendChild(combinedCard);
             }
 
@@ -3666,7 +3672,7 @@
             filterWinnersBySearch();
         };
 
-        window.createCombinedWinnerCard = function(config, winnersLelaki, winnersPerempuan) {
+        window.createCombinedWinnerCard = function(config, winnersLelakiObj, winnersPerempuanObj) {
             if (!config) return null;
 
             const cardWrapper = document.createElement("div");
@@ -3683,9 +3689,20 @@
                 </div>
             `;
 
-            const generateListHTML = (winners, gender) => {
+            const generateListHTML = (winnersObj, gender) => {
                 let html = "";
-                if (!winners || winners.length === 0) {
+                const winners = (winnersObj && winnersObj.data) ? winnersObj.data : [];
+                const isError = winnersObj && winnersObj.error;
+
+                if (isError) {
+                    html = `
+                        <div class="py-8 px-4 text-center">
+                            <i class="fa-solid fa-triangle-exclamation text-xl text-red-500 mb-2 block"></i>
+                            <p class="text-xs font-bold text-red-500 uppercase tracking-wider">Gagal Menghubungi Sumber CSV</p>
+                            <p class="text-[10px] theme-text-muted mt-1">Terdapat ralat rangkaian atau pautan Google Sheet tidak dapat diakses.</p>
+                        </div>
+                    `;
+                } else if (!winners || winners.length === 0) {
                     html = `
                         <div class="py-8 px-4 text-center">
                             <i class="fa-solid fa-hourglass-half text-xl theme-text-muted mb-2 block"></i>
@@ -3753,8 +3770,8 @@
                 `;
             };
 
-            const lelakiHTML = generateListHTML(winnersLelaki, "LELAKI");
-            const perempuanHTML = generateListHTML(winnersPerempuan, "PEREMPUAN");
+            const lelakiHTML = generateListHTML(winnersLelakiObj, "LELAKI");
+            const perempuanHTML = generateListHTML(winnersPerempuanObj, "PEREMPUAN");
 
             cardWrapper.innerHTML = `
                 ${headerHTML}
