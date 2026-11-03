@@ -2075,9 +2075,9 @@
             const isPM = clean.includes("PM");
             const isAM = clean.includes("AM");
 
-            // Extract HH:MM or HH:MM:SS pattern
+            // Padankan format HH:MM atau HH:MM:SS bersama penanda AM/PM elektif
             const match = clean.match(/^(\d{1,2}):(\d{2})(?::\d{2})?\s*(AM|PM)?$/);
-            if (!match) return 99999; // Invalid format sentinel value (keeps record intact without breaking display or sort)
+            if (!match) return 99999; // Sentinel bagi format tidak sah supaya data dikekalkan tanpa merosakkan susunan
 
             let hours = parseInt(match[1], 10);
             const minutes = parseInt(match[2], 10);
@@ -2085,16 +2085,45 @@
             if (isNaN(hours) || isNaN(minutes) || minutes < 0 || minutes > 59) return 99999;
 
             if (isAM || isPM) {
-                // 12-hour format validation
+                // Pengesahan julat format 12 jam
                 if (hours < 1 || hours > 12) return 99999;
-                if (isAM && hours === 12) hours = 0; // 12:00 AM -> 00:00
+                if (isAM && hours === 12) hours = 0; // 12:00 AM -> 00:00 (0 minit)
                 if (isPM && hours < 12) hours += 12; // 01:00 PM -> 13:00, 12:00 PM -> 12:00
             } else {
-                // 24-hour format validation
+                // Pengesahan julat format 24 jam
                 if (hours < 0 || hours > 23) return 99999;
             }
 
             return hours * 60 + minutes;
+        };
+
+        // Helper untuk format pewarnaan kategori (Lelaki -> Biru, Perempuan -> Pink) & Campuran (e.g. LELAKI / P)
+        window.formatCategoryHTML = function(categoryStr) {
+            if (!categoryStr) return '-';
+            const escapedStr = escapeHTML(categoryStr);
+            
+            // Format token/perkataan LELAKI, PEREMPUAN, L, P secara berasingan menggunakan Regex Word Boundary
+            return escapedStr.replace(/\b(LELAKI|PEREMPUAN|L|P)\b/gi, function(match) {
+                const upper = match.toUpperCase();
+                if (upper === 'LELAKI' || upper === 'L') {
+                    return `<span class="text-blue-500 font-bold">${match}</span>`;
+                } else if (upper === 'PEREMPUAN' || upper === 'P') {
+                    return `<span class="text-pink-500 font-bold">${match}</span>`;
+                }
+                return match;
+            });
+        };
+
+        // Helper untuk format pewarnaan saringan (SARINGAN 1, SARINGAN 2, SARINGAN 1 & 2 -> Hijau)
+        window.formatRoundHTML = function(roundStr) {
+            if (!roundStr) return '';
+            const escapedStr = escapeHTML(roundStr);
+            const upperStr = escapedStr.toUpperCase();
+            
+            if (upperStr.includes('SARINGAN')) {
+                return `<span class="text-green-500 font-bold">${escapedStr}</span>`;
+            }
+            return escapedStr;
         };
 
         window.renderScheduleFilters = function() {
@@ -2108,7 +2137,7 @@
                 return;
             }
 
-            // Date stability: maintain currently selected date if valid, otherwise fallback to first available date
+            // Kestabilan Pilihan Tarikh: mengekalkan selectedScheduleDate jika wujud, jika tidak guna tarikh pertama tersedia
             if (!selectedScheduleDate || !uniqueDates.includes(selectedScheduleDate)) {
                 selectedScheduleDate = uniqueDates[0];
             }
@@ -2135,10 +2164,14 @@
 
             const filtered = scheduleData.filter(item => item && item.date && String(item.date).trim() === selectedScheduleDate);
 
+            // Pengisihan Kronologi Masa (Ascending Chronological Order) dengan Stable Sorting
             filtered.sort((a, b) => {
-                const timeDiff = parseTimeToMinutes(a ? a.time : "") - parseTimeToMinutes(b ? b.time : "");
+                const timeA = parseTimeToMinutes(a ? a.time : "");
+                const timeB = parseTimeToMinutes(b ? b.time : "");
+                const timeDiff = timeA - timeB;
                 if (timeDiff !== 0) return timeDiff;
-                return (a && a.name ? String(a.name) : '').localeCompare(b && b.name ? String(b.name) : '', undefined, { numeric: true, sensitivity: 'base' });
+                // Stable sort jika masa sama atau tidak sah
+                return 0;
             });
 
             if (filtered.length === 0) {
@@ -2155,9 +2188,9 @@
             let tableRowsHTML = "";
             filtered.forEach(item => {
                 if (!item) return;
-                const catUpper = item.category ? String(item.category).toUpperCase() : "";
-                const catColorClass = catUpper.includes("LELAKI") ? "text-blue-500" : (catUpper.includes("PEREMPUAN") ? "text-pink-500" : "theme-text-secondary");
-                const roundBadgeClass = item.round === "Akhir" 
+                const formattedCat = formatCategoryHTML(item.category || '');
+                const formattedRound = formatRoundHTML(item.round || '');
+                const roundBadgeClass = (item.round && item.round.toString().trim().toUpperCase() === "AKHIR") 
                     ? "bg-yellow-500/20 text-yellow-500 border-yellow-500/30" 
                     : "theme-surface theme-text-primary border-theme-border";
 
@@ -2165,9 +2198,9 @@
                     <tr class="hover:bg-yellow-500/10 transition-colors border-b theme-border">
                         <td class="py-4 px-6 font-sans tabular-nums font-bold theme-text-secondary w-28">${escapeHTML(item.time || '-')}</td>
                         <td class="py-4 px-6 font-display font-bold theme-text-primary uppercase">${escapeHTML(item.name || '')}</td>
-                        <td class="py-4 px-6 text-center font-bold ${catColorClass}">${escapeHTML(item.category || '-')}</td>
+                        <td class="py-4 px-6 text-center font-bold">${formattedCat}</td>
                         <td class="py-4 px-6 text-center">
-                            <span class="px-2.5 py-1 border text-[9px] font-bold uppercase rounded ${roundBadgeClass}">${escapeHTML(item.round || '')}</span>
+                            <span class="px-2.5 py-1 border text-[9px] font-bold uppercase rounded ${roundBadgeClass}">${formattedRound}</span>
                         </td>
                     </tr>
                 `;
@@ -2212,9 +2245,11 @@
             tbody.innerHTML = "";
 
             const sortedSchedule = [...scheduleData].sort((a, b) => {
-                const timeDiff = parseTimeToMinutes(a ? a.time : "") - parseTimeToMinutes(b ? b.time : "");
+                const timeA = parseTimeToMinutes(a ? a.time : "");
+                const timeB = parseTimeToMinutes(b ? b.time : "");
+                const timeDiff = timeA - timeB;
                 if (timeDiff !== 0) return timeDiff;
-                return (a && a.name ? String(a.name) : '').localeCompare(b && b.name ? String(b.name) : '', undefined, { numeric: true, sensitivity: 'base' });
+                return 0;
             });
 
             sortedSchedule.forEach((item) => {
@@ -2223,9 +2258,9 @@
                 const tr = document.createElement("tr");
                 tr.className = "hover:bg-yellow-500/10 transition-colors border-b theme-border";
 
-                const catUpper = item.category ? String(item.category).toUpperCase() : "";
-                const catClass = catUpper.includes("LELAKI") ? "text-blue-500" : (catUpper.includes("PEREMPUAN") ? "text-pink-500" : "theme-text-secondary");
-                const roundBadgeClass = item.round === "Akhir" 
+                const formattedCat = formatCategoryHTML(item.category || '');
+                const formattedRound = formatRoundHTML(item.round || '');
+                const roundBadgeClass = (item.round && item.round.toString().trim().toUpperCase() === "AKHIR") 
                     ? "bg-yellow-500/20 border-yellow-500/30 text-yellow-500" 
                     : "theme-surface border-theme-border theme-text-secondary";
 
@@ -2233,8 +2268,8 @@
                     <td class="p-3 font-sans tabular-nums theme-text-secondary">${escapeHTML(item.date || '')}</td>
                     <td class="p-3 font-sans tabular-nums font-bold theme-text-primary">${escapeHTML(item.time || '-')}</td>
                     <td class="p-3 font-bold theme-text-primary uppercase">${escapeHTML(item.name || '')}</td>
-                    <td class="p-3 ${catClass} font-bold">${escapeHTML(item.category || '-')}</td>
-                    <td class="p-3"><span class="px-2 py-0.5 border text-[9px] font-bold uppercase rounded ${roundBadgeClass}">${escapeHTML(item.round || '')}</span></td>
+                    <td class="p-3 font-bold">${formattedCat}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 border text-[9px] font-bold uppercase rounded ${roundBadgeClass}">${formattedRound}</span></td>
                     <td class="p-3 text-right space-x-2">
                         <button onclick="editScheduleEntry(${index})" class="text-blue-500 hover:text-blue-400 p-1 min-h-[36px] min-w-[36px]" title="Sunting"><i class="fa-solid fa-pen-to-square"></i></button>
                         <button onclick="deleteScheduleEntry(${index})" class="text-red-500 hover:text-red-400 p-1 min-h-[36px] min-w-[36px]" title="Hapus"><i class="fa-solid fa-trash"></i></button>
