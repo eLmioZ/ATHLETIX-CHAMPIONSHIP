@@ -479,15 +479,8 @@
                     </div>
                     
                     <div class="mt-6 lg:mt-0 w-full lg:w-auto flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center">
-                        <div class="relative w-full sm:w-64">
-                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none theme-text-muted">
-                                <i class="fa-solid fa-magnifying-glass text-xs"></i>
-                            </div>
-                            <input type="text" id="winnerSearchInput" onkeyup="filterWinnersBySearch()" placeholder="Cari acara, atlet, pasukan..." class="w-full theme-input border theme-border py-3 pl-10 pr-4 text-xs font-medium uppercase tracking-wider focus:outline-none transition-colors min-h-[48px]">
-                        </div>
-
                         <div class="w-full sm:w-64">
-                            <select id="winnerEventSelect" onchange="filterWinnersBySearch()" class="w-full theme-input border theme-border py-3 px-3 text-xs font-medium uppercase tracking-wider focus:outline-none transition-colors min-h-[48px] cursor-pointer">
+                            <select id="winnerEventSelect" onchange="onWinnerEventChanged()" class="w-full theme-input border theme-border py-3 px-3 text-xs font-medium uppercase tracking-wider focus:outline-none transition-colors min-h-[48px] cursor-pointer">
                             </select>
                         </div>
                     </div>
@@ -3687,8 +3680,6 @@
 
             const combinedCard = createCombinedWinnerCard(currentConfig, winnersLelakiObj, winnersPerempuanObj);
             if (combinedCard) grid.appendChild(combinedCard);
-
-            filterWinnersBySearch();
         };
 
         window.createCombinedWinnerCard = function(config, winnersLelakiObj, winnersPerempuanObj) {
@@ -3842,62 +3833,13 @@
             }
         };
 
-        window.filterWinnersBySearch = function() {
-            const searchInput = document.getElementById("winnerSearchInput");
+        window.onWinnerEventChanged = function() {
             const eventSelect = document.getElementById("winnerEventSelect");
+            if (!eventSelect || !eventSelect.value) return;
 
-            const queryText = searchInput ? searchInput.value.trim().toUpperCase() : "";
-
-            // Jika pengguna menukar acara melalui dropdown, kemaskini state & simpan ke localStorage
-            if (eventSelect && eventSelect.value && eventSelect.value !== window.selectedWinnerEventId) {
-                window.selectedWinnerEventId = eventSelect.value;
-                localStorage.setItem('selectedWinnerEventId', eventSelect.value);
-                updateWinnersList();
-                return;
-            }
-
-            const cards = document.querySelectorAll(".winner-event-card");
-            let visibleCount = 0;
-
-            cards.forEach(card => {
-                const cardEventId = card.getAttribute("data-event-id") || "";
-                
-                // Pastikan padanan Event ID tepat
-                let matchesSelect = (window.selectedWinnerEventId !== "" && cardEventId === window.selectedWinnerEventId);
-
-                let matchesQuery = true;
-                if (queryText !== "") {
-                    const cardFullText = card.textContent.toUpperCase();
-                    matchesQuery = cardFullText.includes(queryText);
-                }
-
-                if (matchesSelect && matchesQuery) {
-                    card.classList.remove("hidden");
-                    card.classList.add("block");
-                    visibleCount++;
-                } else {
-                    card.classList.remove("block");
-                    card.classList.add("hidden");
-                }
-            });
-
-            const grid = document.getElementById("winnersGrid");
-            const existingMsg = document.getElementById("no-winner-msg");
-            if (existingMsg) existingMsg.remove();
-
-            if (visibleCount === 0 && grid) {
-                const msgDiv = document.createElement("div");
-                msgDiv.id = "no-winner-msg";
-                msgDiv.className = "col-span-full border theme-border theme-surface p-12 text-center";
-                msgDiv.innerHTML = `
-                    <div class="w-12 h-12 theme-surface border theme-border rounded-full flex items-center justify-center theme-text-muted mx-auto mb-3">
-                        <i class="fa-solid fa-magnifying-glass text-lg"></i>
-                    </div>
-                    <p class="text-xs sm:text-sm font-bold uppercase tracking-wider theme-text-primary mb-1">Tiada Padanan Keputusan</p>
-                    <p class="text-xs theme-text-muted">Tiada keputusan rasmi ditemui mengikut kriteria carian atau acara yang anda pilih.</p>
-                `;
-                grid.appendChild(msgDiv);
-            }
+            window.selectedWinnerEventId = eventSelect.value;
+            localStorage.setItem('selectedWinnerEventId', eventSelect.value);
+            updateWinnersList();
         };
 
         window.exportApplicationData = async function() {
