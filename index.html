@@ -81,28 +81,6 @@
             --color-modal-overlay: rgba(3, 7, 18, 0.95);
         }
 
-        [data-theme="light"] {
-            --color-bg: #f8fafc;
-            --color-bg-secondary: #f1f5f9;
-            --color-surface: rgba(255, 255, 255, 0.85);
-            --color-surface-elevated: #ffffff;
-            --color-glass: rgba(255, 255, 255, 0.75);
-            --color-glass-hover: rgba(0, 0, 0, 0.04);
-            --color-border: rgba(15, 23, 42, 0.12);
-            --color-border-strong: rgba(15, 23, 42, 0.25);
-            --color-text: #0f172a;
-            --color-text-secondary: #334155;
-            --color-text-muted: #64748b;
-            --color-accent: #d97706;
-            --color-accent-hover: #b45309;
-            --color-success: #16a34a;
-            --color-warning: #d97706;
-            --color-danger: #dc2626;
-            --color-info: #2563eb;
-            --color-table-header: #e2e8f0;
-            --color-modal-overlay: rgba(248, 250, 252, 0.95);
-        }
-
         body {
             background-color: var(--color-bg);
             color: var(--color-text);
@@ -218,19 +196,12 @@
                 </nav>
 
                 <div class="hidden xl:flex items-center space-x-3">
-                    <button onclick="toggleTheme()" id="themeToggleBtn" aria-label="Tukar Tema Warna" class="p-2.5 border theme-border theme-text-primary hover:border-yellow-500 transition-all duration-300 rounded-none cursor-pointer flex items-center justify-center min-h-[44px] min-w-[44px]" title="Tukar Tema (Dark/Light)">
-                        <i class="fa-solid fa-moon text-sm" id="themeToggleIcon" aria-hidden="true"></i>
-                    </button>
-
                     <button onclick="showAdminLogin()" id="headerAdminBtn" class="px-4 py-2.5 border theme-border theme-text-primary hover:bg-yellow-500 hover:text-navy-950 font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 rounded-none cursor-pointer min-h-[44px] flex items-center" aria-label="Buka Dialog Pentadbir">
                         Panel Admin <i class="fa-solid fa-user-shield ml-1.5" aria-hidden="true"></i>
                     </button>
                 </div>
 
                 <div class="xl:hidden flex items-center space-x-2">
-                    <button onclick="toggleTheme()" id="mobileThemeToggleBtn" aria-label="Tukar Tema Peranti Mobil" class="theme-text-primary hover:text-yellow-500 focus:outline-none p-3 flex items-center justify-center min-h-[48px] min-w-[48px]" title="Tukar Tema">
-                        <i class="fa-solid fa-moon text-lg" id="mobileThemeToggleIcon" aria-hidden="true"></i>
-                    </button>
                     <button onclick="toggleMobileMenu()" class="theme-text-primary hover:text-yellow-500 focus:outline-none p-3 flex items-center justify-center min-h-[48px] min-w-[48px]" aria-label="Buka Menu Navigasi">
                         <i class="fa-solid fa-bars-staggered text-2xl" id="menuIcon" aria-hidden="true"></i>
                     </button>
@@ -2008,41 +1979,7 @@
         };
 
         window.initTheme = function() {
-            let savedTheme = appSettings.theme;
-            if (!savedTheme) {
-                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-                    savedTheme = 'light';
-                } else {
-                    savedTheme = 'dark';
-                }
-            }
-            applyTheme(savedTheme, false);
-        };
-
-        window.applyTheme = function(theme, saveToStorage = true) {
-            const html = document.documentElement;
-            html.setAttribute('data-theme', theme);
-
-            const icon = document.getElementById("themeToggleIcon");
-            const mobileIcon = document.getElementById("mobileThemeToggleIcon");
-
-            if (theme === 'light') {
-                if (icon) icon.className = "fa-solid fa-sun text-yellow-600 text-sm";
-                if (mobileIcon) mobileIcon.className = "fa-solid fa-sun text-yellow-600 text-lg";
-            } else {
-                if (icon) icon.className = "fa-solid fa-moon text-sm";
-                if (mobileIcon) mobileIcon.className = "fa-solid fa-moon text-lg";
-            }
-
-            if (saveToStorage && auth.currentUser) {
-                StorageService.saveSettings({ theme: theme });
-            }
-        };
-
-        window.toggleTheme = function() {
-            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-            const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            applyTheme(nextTheme, true);
+            document.documentElement.setAttribute('data-theme', 'dark');
         };
 
         window.normalizeGoogleSheetUrl = function(url) {
