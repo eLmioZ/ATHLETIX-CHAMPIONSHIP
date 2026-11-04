@@ -60,25 +60,25 @@
             --sal: env(safe-area-inset-left, 0px);
             --sar: env(safe-area-inset-right, 0px);
 
-            --color-bg: #030712;
-            --color-bg-secondary: #0f172a;
-            --color-surface: rgba(15, 23, 42, 0.7);
-            --color-surface-elevated: #1e293b;
-            --color-glass: rgba(15, 23, 42, 0.6);
-            --color-glass-hover: rgba(255, 255, 255, 0.08);
-            --color-border: rgba(255, 255, 255, 0.1);
-            --color-border-strong: rgba(255, 255, 255, 0.2);
-            --color-text: #ffffff;
-            --color-text-secondary: #cbd5e1;
-            --color-text-muted: #94a3b8;
-            --color-accent: #eab308;
-            --color-accent-hover: #facc15;
+            --color-bg: #080D18;
+            --color-bg-secondary: #111827;
+            --color-surface: rgba(17, 24, 39, 0.85);
+            --color-surface-elevated: #1B2535;
+            --color-glass: rgba(17, 24, 39, 0.75);
+            --color-glass-hover: rgba(22, 119, 255, 0.15);
+            --color-border: rgba(148, 163, 184, 0.15);
+            --color-border-strong: rgba(148, 163, 184, 0.25);
+            --color-text: #F8FAFC;
+            --color-text-secondary: #CBD5E1;
+            --color-text-muted: #94A3B8;
+            --color-accent: #1677FF;
+            --color-accent-hover: #2585FF;
             --color-success: #22c55e;
             --color-warning: #f59e0b;
             --color-danger: #ef4444;
-            --color-info: #3b82f6;
-            --color-table-header: #030712;
-            --color-modal-overlay: rgba(3, 7, 18, 0.95);
+            --color-info: #00C2FF;
+            --color-table-header: #080D18;
+            --color-modal-overlay: rgba(8, 13, 24, 0.95);
         }
 
         body {
@@ -169,14 +169,14 @@
         }
     </style>
 </head>
-<body class="font-sans antialiased selection:bg-yellow-500 selection:text-navy-950 min-h-screen flex flex-col">
+<body class="font-sans antialiased selection:bg-[#1677FF] selection:text-white min-h-screen flex flex-col">
 
     <header id="mainHeader" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b theme-border theme-surface backdrop-blur-md pt-[var(--sat)]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <div class="flex items-center space-x-3">
                     <button onclick="navigateToView('utama')" class="flex items-center space-x-3 group min-h-[44px] min-w-[44px] py-1 text-left cursor-pointer" aria-label="Halaman Utama Athletix">
-                        <div class="bg-yellow-500 text-navy-950 p-2 transform rotate-45 flex items-center justify-center transition-transform duration-300 group-hover:rotate-90 shadow-md">
+                        <div class="bg-[#1677FF] text-white p-2 transform rotate-45 flex items-center justify-center transition-transform duration-300 group-hover:rotate-90 shadow-md">
                             <i class="fa-solid fa-bolt text-sm transform -rotate-45 group-hover:-rotate-90 transition-transform duration-300" aria-hidden="true"></i>
                         </div>
                         <span class="font-display font-black text-sm sm:text-base md:text-lg tracking-widest uppercase theme-text-primary">
@@ -186,23 +186,23 @@
                 </div>
 
                 <nav class="hidden xl:flex items-center space-x-3 lg:space-x-4" aria-label="Navigasi Utama">
-                    <button onclick="navigateToView('utama')" id="nav-btn-utama" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-primary hover:text-yellow-500 transition-colors duration-200 py-2 cursor-pointer">Utama</button>
-                    <button onclick="navigateToView('jadual')" id="nav-btn-jadual" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-yellow-500 transition-colors duration-200 py-2 cursor-pointer">Jadual</button>
-                    <button onclick="navigateToView('peserta')" id="nav-btn-peserta" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-yellow-500 transition-colors duration-200 py-2 cursor-pointer">Senarai Atlet</button>
-                    <button onclick="navigateToView('keputusan')" id="nav-btn-keputusan" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-yellow-500 transition-colors duration-200 py-2 cursor-pointer">Podium Pingat</button>
-                    <button onclick="navigateToView('pemenang')" id="nav-btn-pemenang" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-yellow-500 transition-colors duration-200 py-2 cursor-pointer">Keputusan Rasmi</button>
-                    <button onclick="navigateToView('anugerah')" id="nav-btn-anugerah" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-yellow-500 transition-colors duration-200 py-2 cursor-pointer">Anugerah</button>
-                    <button onclick="navigateToView('media')" id="nav-btn-media" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-yellow-500 transition-colors duration-200 py-2 cursor-pointer">Info & Media</button>
+                    <button onclick="navigateToView('utama')" id="nav-btn-utama" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-primary hover:text-[#1677FF] transition-colors duration-200 py-2 cursor-pointer">Utama</button>
+                    <button onclick="navigateToView('jadual')" id="nav-btn-jadual" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-[#1677FF] transition-colors duration-200 py-2 cursor-pointer">Jadual</button>
+                    <button onclick="navigateToView('peserta')" id="nav-btn-peserta" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-[#1677FF] transition-colors duration-200 py-2 cursor-pointer">Senarai Atlet</button>
+                    <button onclick="navigateToView('keputusan')" id="nav-btn-keputusan" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-[#1677FF] transition-colors duration-200 py-2 cursor-pointer">Podium Pingat</button>
+                    <button onclick="navigateToView('pemenang')" id="nav-btn-pemenang" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-[#1677FF] transition-colors duration-200 py-2 cursor-pointer">Keputusan Rasmi</button>
+                    <button onclick="navigateToView('anugerah')" id="nav-btn-anugerah" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-[#1677FF] transition-colors duration-200 py-2 cursor-pointer">Anugerah</button>
+                    <button onclick="navigateToView('media')" id="nav-btn-media" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-[#1677FF] transition-colors duration-200 py-2 cursor-pointer">Info & Media</button>
                 </nav>
 
                 <div class="hidden xl:flex items-center space-x-3">
-                    <button onclick="showAdminLogin()" id="headerAdminBtn" class="px-4 py-2.5 border theme-border theme-text-primary hover:bg-yellow-500 hover:text-navy-950 font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 rounded-none cursor-pointer min-h-[44px] flex items-center" aria-label="Buka Dialog Pentadbir">
+                    <button onclick="showAdminLogin()" id="headerAdminBtn" class="px-4 py-2.5 border theme-border theme-text-primary hover:bg-[#1677FF] hover:text-white font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 rounded-none cursor-pointer min-h-[44px] flex items-center" aria-label="Buka Dialog Pentadbir">
                         Panel Admin <i class="fa-solid fa-user-shield ml-1.5" aria-hidden="true"></i>
                     </button>
                 </div>
 
                 <div class="xl:hidden flex items-center space-x-2">
-                    <button onclick="toggleMobileMenu()" class="theme-text-primary hover:text-yellow-500 focus:outline-none p-3 flex items-center justify-center min-h-[48px] min-w-[48px]" aria-label="Buka Menu Navigasi">
+                    <button onclick="toggleMobileMenu()" class="theme-text-primary hover:text-[#1677FF] focus:outline-none p-3 flex items-center justify-center min-h-[48px] min-w-[48px]" aria-label="Buka Menu Navigasi">
                         <i class="fa-solid fa-bars-staggered text-2xl" id="menuIcon" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -211,15 +211,15 @@
 
         <div class="hidden xl:hidden theme-surface border-t theme-border transition-all duration-300" id="mobileMenu">
             <div class="px-4 pt-3 pb-6 space-y-2 max-h-[calc(100dvh-5rem)] overflow-y-auto">
-                <button onclick="navigateToView('utama'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-primary hover:bg-yellow-500/10 border-b theme-border min-h-[44px]">Utama</button>
-                <button onclick="navigateToView('jadual'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-yellow-500/10 border-b theme-border min-h-[44px]">Jadual</button>
-                <button onclick="navigateToView('peserta'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-yellow-500/10 border-b theme-border min-h-[44px]">Senarai Atlet</button>
-                <button onclick="navigateToView('keputusan'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-yellow-500/10 border-b theme-border min-h-[44px]">Podium Pingat</button>
-                <button onclick="navigateToView('pemenang'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-yellow-500/10 border-b theme-border min-h-[44px]">Keputusan Rasmi</button>
-                <button onclick="navigateToView('anugerah'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-yellow-500/10 border-b theme-border min-h-[44px]">Anugerah</button>
-                <button onclick="navigateToView('media'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-yellow-500/10 border-b theme-border min-h-[44px]">Info & Media</button>
+                <button onclick="navigateToView('utama'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-primary hover:bg-[#1677FF]/10 border-b theme-border min-h-[44px]">Utama</button>
+                <button onclick="navigateToView('jadual'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-[#1677FF]/10 border-b theme-border min-h-[44px]">Jadual</button>
+                <button onclick="navigateToView('peserta'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-[#1677FF]/10 border-b theme-border min-h-[44px]">Senarai Atlet</button>
+                <button onclick="navigateToView('keputusan'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-[#1677FF]/10 border-b theme-border min-h-[44px]">Podium Pingat</button>
+                <button onclick="navigateToView('pemenang'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-[#1677FF]/10 border-b theme-border min-h-[44px]">Keputusan Rasmi</button>
+                <button onclick="navigateToView('anugerah'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-[#1677FF]/10 border-b theme-border min-h-[44px]">Anugerah</button>
+                <button onclick="navigateToView('media'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-[#1677FF]/10 border-b theme-border min-h-[44px]">Info & Media</button>
                 <div class="pt-4 space-y-2">
-                    <button onclick="toggleMobileMenu(); showAdminLogin();" class="block text-center w-full px-4 py-3.5 bg-yellow-500 text-navy-950 font-display font-extrabold text-xs uppercase tracking-widest cursor-pointer min-h-[48px]">
+                    <button onclick="toggleMobileMenu(); showAdminLogin();" class="block text-center w-full px-4 py-3.5 bg-[#1677FF] text-white font-display font-extrabold text-xs uppercase tracking-widest cursor-pointer min-h-[48px]">
                         Panel Admin <i class="fa-solid fa-user-shield ml-2" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -230,14 +230,14 @@
     <main class="flex-grow pt-20">
         <section id="utama" class="view-section relative py-12 sm:py-16 md:py-20 theme-bg-secondary overflow-hidden flex flex-col justify-start items-center min-h-[calc(100vh-5rem)]">
             <div class="absolute inset-0 opacity-10 pointer-events-none">
-                <div class="absolute top-10 left-10 w-48 h-48 sm:w-80 sm:h-80 bg-yellow-500 rounded-full filter blur-[100px] sm:blur-[150px] animate-pulse-slow"></div>
-                <div class="absolute bottom-20 right-20 w-60 h-60 sm:w-96 sm:h-96 bg-blue-500 rounded-full filter blur-[120px] sm:blur-[180px] animate-pulse-slow"></div>
+                <div class="absolute top-10 left-10 w-48 h-48 sm:w-80 sm:h-80 bg-[#1677FF] rounded-full filter blur-[100px] sm:blur-[150px] animate-pulse-slow"></div>
+                <div class="absolute bottom-20 right-20 w-60 h-60 sm:w-96 sm:h-96 bg-[#00C2FF] rounded-full filter blur-[120px] sm:blur-[180px] animate-pulse-slow"></div>
                 <div class="absolute inset-0" style="background-image: linear-gradient(var(--color-border) 1px, transparent 1px), linear-gradient(90deg, var(--color-border) 1px, transparent 1px); background-size: 30px 30px;"></div>
             </div>
 
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10 w-full flex flex-col items-center">
                 <div class="inline-flex items-center space-x-2 theme-surface border theme-border px-3 py-1.5 rounded-none mb-4 sm:mb-6 shadow-sm">
-                    <span class="h-2 w-2 bg-yellow-500 rounded-full animate-ping"></span>
+                    <span class="h-2 w-2 bg-[#1677FF] rounded-full animate-ping"></span>
                     <span class="text-[9px] sm:text-[10px] font-semibold theme-text-secondary tracking-[0.25em] sm:tracking-[0.3em] uppercase">SELAMAT DATANG KE PLATFORM RASMI KEJOHANAN</span>
                 </div>
 
@@ -251,16 +251,16 @@
                 </p>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl mx-auto px-4 w-full">
-                    <button onclick="navigateToView('jadual')" class="w-full px-6 py-3 bg-yellow-500 text-navy-950 font-display font-extrabold text-xs uppercase tracking-[0.2em] hover:bg-yellow-400 transition-all duration-300 flex items-center justify-center min-h-[48px] shadow-md cursor-pointer">
+                    <button onclick="navigateToView('jadual')" class="w-full px-6 py-3 bg-[#1677FF] text-white font-display font-extrabold text-xs uppercase tracking-[0.2em] hover:bg-[#2585FF] transition-all duration-300 flex items-center justify-center min-h-[48px] shadow-md cursor-pointer">
                         <i class="fa-regular fa-calendar-days mr-2.5" aria-hidden="true"></i> Lihat Jadual & Acara
                     </button>
-                    <button onclick="navigateToView('keputusan')" class="w-full px-6 py-3 bg-transparent border theme-border theme-text-primary font-display font-extrabold text-xs uppercase tracking-[0.2em] hover:bg-yellow-500 hover:text-navy-950 transition-all duration-300 flex items-center justify-center min-h-[48px] cursor-pointer">
+                    <button onclick="navigateToView('keputusan')" class="w-full px-6 py-3 bg-transparent border theme-border theme-text-primary font-display font-extrabold text-xs uppercase tracking-[0.2em] hover:bg-[#1677FF] hover:text-white transition-all duration-300 flex items-center justify-center min-h-[48px] cursor-pointer">
                         <i class="fa-solid fa-trophy mr-2.5" aria-hidden="true"></i> Lihat Podium Pingat
                     </button>
-                    <button onclick="navigateToView('peserta')" class="w-full px-6 py-3 bg-transparent border theme-border theme-text-primary font-display font-extrabold text-xs uppercase tracking-[0.2em] hover:bg-yellow-500 hover:text-navy-950 transition-all duration-300 flex items-center justify-center min-h-[48px] cursor-pointer">
+                    <button onclick="navigateToView('peserta')" class="w-full px-6 py-3 bg-transparent border theme-border theme-text-primary font-display font-extrabold text-xs uppercase tracking-[0.2em] hover:bg-[#1677FF] hover:text-white transition-all duration-300 flex items-center justify-center min-h-[48px] cursor-pointer">
                         <i class="fa-solid fa-users mr-2.5" aria-hidden="true"></i> Lihat Senarai Atlet
                     </button>
-                    <button onclick="navigateToView('pemenang')" class="w-full px-6 py-3 bg-transparent border theme-border theme-text-primary font-display font-extrabold text-xs uppercase tracking-[0.2em] hover:bg-yellow-500 hover:text-navy-950 transition-all duration-300 flex items-center justify-center min-h-[48px] cursor-pointer">
+                    <button onclick="navigateToView('pemenang')" class="w-full px-6 py-3 bg-transparent border theme-border theme-text-primary font-display font-extrabold text-xs uppercase tracking-[0.2em] hover:bg-[#1677FF] hover:text-white transition-all duration-300 flex items-center justify-center min-h-[48px] cursor-pointer">
                         <i class="fa-solid fa-medal mr-2.5" aria-hidden="true"></i> Semak Keputusan Rasmi
                     </button>
                 </div>
@@ -273,7 +273,7 @@
                     <div class="border theme-border glass-card p-5 sm:p-6 shadow-xl">
                         <div class="flex items-center justify-between border-b theme-border pb-3 mb-4">
                             <div class="flex items-center space-x-2.5">
-                                <div class="w-8 h-8 bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 flex items-center justify-center rounded-none">
+                                <div class="w-8 h-8 bg-[#1677FF]/10 border border-[#1677FF]/25 text-[#1677FF] flex items-center justify-center rounded-none">
                                     <i class="fa-solid fa-bullhorn text-sm" aria-hidden="true"></i>
                                 </div>
                                 <div>
@@ -281,7 +281,7 @@
                                     <p class="text-[9px] theme-text-muted uppercase tracking-widest mt-0.5">Hebahan & Makluman Kejohanan</p>
                                 </div>
                             </div>
-                            <button onclick="navigateToView('media')" class="text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500 hover:text-navy-950 border border-yellow-500/20 transition-all flex items-center cursor-pointer">
+                            <button onclick="navigateToView('media')" class="text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 bg-[#1677FF]/10 text-[#1677FF] hover:bg-[#1677FF] hover:text-white border border-[#1677FF]/25 transition-all flex items-center cursor-pointer">
                                 PAPARAN LENGKAP <i class="fa-solid fa-arrow-right ml-1.5 text-[8px]" aria-hidden="true"></i>
                             </button>
                         </div>
@@ -337,9 +337,9 @@
                         <div class="border theme-border theme-surface p-5 rounded-none space-y-3">
                             <label class="text-[10px] uppercase tracking-wider theme-text-muted font-bold block"><i class="fa-solid fa-rotate mr-1.5" aria-hidden="true"></i> Pilihan Pusingan</label>
                             <div class="flex flex-col space-y-2" id="roundButtonsGroup">
-                                <button onclick="setRound('saringan_1')" id="btn-round-saringan_1" class="w-full py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 bg-yellow-500 text-navy-950 min-h-[44px]">Saringan 1</button>
-                                <button onclick="setRound('saringan_2')" id="btn-round-saringan_2" class="w-full py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 theme-surface theme-text-primary hover:bg-yellow-500/10 min-h-[44px] border theme-border">Saringan 2</button>
-                                <button onclick="setRound('akhir')" id="btn-round-akhir" class="w-full py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 theme-surface theme-text-primary hover:bg-yellow-500/10 min-h-[44px] border theme-border">Akhir</button>
+                                <button onclick="setRound('saringan_1')" id="btn-round-saringan_1" class="w-full py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 bg-[#1677FF] text-white min-h-[44px]">Saringan 1</button>
+                                <button onclick="setRound('saringan_2')" id="btn-round-saringan_2" class="w-full py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 theme-surface theme-text-primary hover:bg-[#1677FF]/10 min-h-[44px] border theme-border">Saringan 2</button>
+                                <button onclick="setRound('akhir')" id="btn-round-akhir" class="w-full py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 theme-surface theme-text-primary hover:bg-[#1677FF]/10 min-h-[44px] border theme-border">Akhir</button>
                             </div>
                         </div>
                     </div>
@@ -461,11 +461,11 @@
                 <div class="text-center max-w-2xl mx-auto mb-16">
                     <span class="theme-text-muted font-bold uppercase tracking-[0.25em] text-[10px] sm:text-xs">Arena Kegemilangan</span>
                     <h2 class="font-display font-extrabold text-2xl sm:text-3xl theme-text-primary mt-2 uppercase">Anugerah Ikon Kejohanan</h2>
-                    <div class="w-16 h-1 bg-yellow-500 mx-auto mt-4"></div>
+                    <div class="w-16 h-1 bg-[#1677FF] mx-auto mt-4"></div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="border theme-border p-6 sm:p-8 glass-card text-center hover:border-yellow-500 transition-all duration-300 group flex flex-col justify-between">
+                    <div class="border theme-border p-6 sm:p-8 glass-card text-center hover:border-[#1677FF] transition-all duration-300 group flex flex-col justify-between">
                         <div>
                             <div class="w-16 h-16 theme-surface border theme-border flex items-center justify-center theme-text-primary mx-auto mb-6 transform group-hover:rotate-6 transition-all duration-300">
                                 <i class="fa-solid fa-trophy text-2xl text-yellow-500" aria-hidden="true"></i>
@@ -489,7 +489,7 @@
                         </div>
                     </div>
 
-                    <div class="border theme-border p-6 sm:p-8 glass-card text-center hover:border-yellow-500 transition-all duration-300 group flex flex-col justify-between">
+                    <div class="border theme-border p-6 sm:p-8 glass-card text-center hover:border-[#1677FF] transition-all duration-300 group flex flex-col justify-between">
                         <div>
                             <div class="w-16 h-16 theme-surface border theme-border flex items-center justify-center theme-text-primary mx-auto mb-6 transform group-hover:rotate-6 transition-all duration-300">
                                 <i class="fa-solid fa-trophy text-2xl text-yellow-400" aria-hidden="true"></i>
@@ -513,10 +513,10 @@
                         </div>
                     </div>
 
-                    <div class="border theme-border p-6 sm:p-8 glass-card text-center hover:border-yellow-500 transition-all duration-300 group flex flex-col justify-between">
+                    <div class="border theme-border p-6 sm:p-8 glass-card text-center hover:border-[#1677FF] transition-all duration-300 group flex flex-col justify-between">
                         <div>
                             <div class="w-16 h-16 theme-surface border theme-border flex items-center justify-center theme-text-primary mx-auto mb-6 transform group-hover:rotate-6 transition-all duration-300">
-                                <i class="fa-solid fa-star text-2xl text-yellow-300" aria-hidden="true"></i>
+                                <i class="fa-solid fa-star text-2xl text-[#00C2FF]" aria-hidden="true"></i>
                             </div>
                             <h3 class="font-display font-bold text-base sm:text-lg uppercase tracking-wider theme-text-primary mb-4">Juara Keseluruhan</h3>
                             
@@ -556,7 +556,7 @@
                         <div class="border theme-border glass-card p-5 sm:p-6 shadow-xl space-y-4">
                             <div class="flex items-center justify-between border-b theme-border pb-3">
                                 <div class="flex items-center space-x-2.5">
-                                    <div class="w-8 h-8 bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 flex items-center justify-center rounded-none">
+                                    <div class="w-8 h-8 bg-[#1677FF]/10 border border-[#1677FF]/25 text-[#1677FF] flex items-center justify-center rounded-none">
                                         <i class="fa-solid fa-bullhorn text-sm" aria-hidden="true"></i>
                                     </div>
                                     <div>
@@ -574,22 +574,22 @@
                         </div>
 
                         <div class="space-y-3 pt-4 border-t theme-border">
-                            <div class="flex items-center justify-between p-4 theme-surface border theme-border hover:border-yellow-500 transition-all group">
+                            <div class="flex items-center justify-between p-4 theme-surface border theme-border hover:border-[#1677FF] transition-all group">
                                 <div class="flex items-center space-x-3">
                                     <i class="fa-regular fa-file-pdf text-red-500 text-lg" aria-hidden="true"></i>
                                     <span class="text-xs font-bold uppercase tracking-wider theme-text-primary">Buku Rasmi Peraturan Kejohanan (PDF)</span>
                                 </div>
-                                <a id="publicPdfLink" href="#" target="_blank" rel="noopener noreferrer" class="p-2 theme-text-muted hover:text-yellow-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Muat Turun Buku Rasmi Peraturan PDF" title="Muat Turun"><i class="fa-solid fa-download" aria-hidden="true"></i></a>
+                                <a id="publicPdfLink" href="#" target="_blank" rel="noopener noreferrer" class="p-2 theme-text-muted hover:text-[#1677FF] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Muat Turun Buku Rasmi Peraturan PDF" title="Muat Turun"><i class="fa-solid fa-download" aria-hidden="true"></i></a>
                             </div>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="border theme-border theme-surface p-6 flex flex-col justify-between hover:border-yellow-500 transition-all duration-300 group min-h-[180px]">
+                        <div class="border theme-border theme-surface p-6 flex flex-col justify-between hover:border-[#1677FF] transition-all duration-300 group min-h-[180px]">
                             <div>
                                 <div class="flex justify-between items-start mb-4">
                                     <div class="w-10 h-10 theme-surface border theme-border flex items-center justify-center theme-text-primary transform group-hover:rotate-6 transition-all">
-                                        <i class="fa-regular fa-images text-lg" aria-hidden="true"></i>
+                                        <i class="fa-regular fa-images text-lg text-[#1677FF]" aria-hidden="true"></i>
                                     </div>
                                     <span class="text-[9px] font-sans theme-text-muted uppercase tracking-widest">GALERI MULTIMEDIA</span>
                                 </div>
@@ -598,16 +598,16 @@
                                     Akses foto rasmi, liputan harian, dan detik-detik podium kontinjen yang dirakam lensa kamera.
                                 </p>
                             </div>
-                            <a id="publicGalleryLink" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[10px] font-bold theme-text-primary uppercase tracking-widest hover:text-yellow-500 transition-colors mt-4 min-h-[44px]">
+                            <a id="publicGalleryLink" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[10px] font-bold theme-text-primary uppercase tracking-widest hover:text-[#1677FF] transition-colors mt-4 min-h-[44px]">
                                 LIHAT GALERI <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i>
                             </a>
                         </div>
 
-                        <div class="border theme-border theme-surface p-6 flex flex-col justify-between hover:border-yellow-500 transition-all duration-300 group min-h-[180px]">
+                        <div class="border theme-border theme-surface p-6 flex flex-col justify-between hover:border-[#1677FF] transition-all duration-300 group min-h-[180px]">
                             <div>
                                 <div class="flex justify-between items-start mb-4">
                                     <div class="w-10 h-10 theme-surface border theme-border flex items-center justify-center theme-text-primary transform group-hover:-rotate-6 transition-all">
-                                        <i class="fa-regular fa-comment-dots text-lg" aria-hidden="true"></i>
+                                        <i class="fa-regular fa-comment-dots text-lg text-[#00C2FF]" aria-hidden="true"></i>
                                     </div>
                                     <span class="text-[9px] font-sans theme-text-muted uppercase tracking-widest">HUBUNGI URUS SETIA</span>
                                 </div>
@@ -616,7 +616,7 @@
                                     Mempunyai sebarang cadangan, aduan, atau pertanyaan? Hantar maklum balas terus kepada urusetia kejohanan.
                                 </p>
                             </div>
-                            <a id="publicFeedbackLink" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[10px] font-bold theme-text-primary uppercase tracking-widest hover:text-yellow-500 transition-colors mt-4 min-h-[44px]">
+                            <a id="publicFeedbackLink" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[10px] font-bold theme-text-primary uppercase tracking-widest hover:text-[#1677FF] transition-colors mt-4 min-h-[44px]">
                                 HANTAR MAKLUM BALAS <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i>
                             </a>
                         </div>
@@ -626,15 +626,15 @@
         </section>
     </main>
 
-    <!-- Modal Admin Login (SEC-01 Fix: Firebase Authentication Integrated) -->
+    <!-- Modal Admin Login -->
     <div id="adminLoginModal" class="fixed inset-0 z-50 hidden glass-card backdrop-blur-md overflow-y-auto flex items-center justify-center p-4 pt-[calc(1rem+var(--sat))] pb-[calc(1rem+var(--sab))]" role="dialog" aria-modal="true" aria-labelledby="adminLoginModalTitle">
         <div class="border theme-border theme-surface p-6 flex flex-col justify-between max-w-md w-full relative shadow-2xl">
-            <button onclick="closeAdminLoginModal()" class="absolute top-4 right-4 theme-text-muted hover:text-yellow-500 p-2 min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Tutup Modal Log Masuk">
+            <button onclick="closeAdminLoginModal()" class="absolute top-4 right-4 theme-text-muted hover:text-[#1677FF] p-2 min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Tutup Modal Log Masuk">
                 <i class="fa-solid fa-xmark text-lg" aria-hidden="true"></i>
             </button>
             <div>
                 <h3 id="adminLoginModalTitle" class="font-display font-bold text-xs uppercase tracking-wider theme-text-primary mb-2 border-b theme-border pb-3 flex items-center">
-                    <i class="fa-solid fa-shield-halved mr-2 text-yellow-500" aria-hidden="true"></i> Log Masuk Pentadbir
+                    <i class="fa-solid fa-shield-halved mr-2 text-[#1677FF]" aria-hidden="true"></i> Log Masuk Pentadbir
                 </h3>
                 <p class="text-[11px] theme-text-secondary leading-relaxed mb-4">
                     Masukkan Emel Rasmi Pentadbir dan Kata Laluan untuk mengesahkan identiti melalui Firebase Authentication SDK.
@@ -652,18 +652,18 @@
                 </div>
                 <p id="passwordFeedback" class="hidden text-[9px] font-bold uppercase tracking-widest"></p>
                 
-                <button onclick="verifyAdminPassword()" id="btnAdminLoginSubmit" class="w-full py-3 bg-yellow-500 text-navy-950 hover:bg-yellow-400 font-display font-extrabold text-[10px] uppercase tracking-widest flex items-center justify-center transition-all duration-300 min-h-[44px]">
+                <button onclick="verifyAdminPassword()" id="btnAdminLoginSubmit" class="w-full py-3 bg-[#1677FF] text-white hover:bg-[#2585FF] font-display font-extrabold text-[10px] uppercase tracking-widest flex items-center justify-center transition-all duration-300 min-h-[44px]">
                     Pengesahan Identiti <i class="fa-solid fa-arrow-right-to-bracket ml-2" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Modal Panel Kawalan Admin (UI-01 & ACC-01 Fix: Overflow & ARIA Dialog) -->
+    <!-- Modal Panel Kawalan Admin -->
     <div id="adminPanelModal" class="fixed inset-0 z-50 hidden glass-card backdrop-blur-md overflow-hidden flex flex-col pt-[var(--sat)] pb-[var(--sab)]" role="dialog" aria-modal="true" aria-labelledby="adminPanelModalTitle">
         <div class="flex items-center justify-between border-b theme-border p-4 sm:p-6 theme-surface shadow-md z-10 shrink-0">
             <div class="flex items-center space-x-4">
-                <div class="p-2.5 bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 rounded">
+                <div class="p-2.5 bg-[#1677FF]/10 border border-[#1677FF]/25 text-[#1677FF] rounded">
                     <i class="fa-solid fa-user-shield text-xl" aria-hidden="true"></i>
                 </div>
                 <div>
@@ -674,7 +674,7 @@
                 </div>
             </div>
             <div class="flex items-center space-x-3">
-                <button onclick="triggerManualSync()" class="px-3 py-2 bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20 border border-yellow-500/20 font-bold text-[10px] uppercase tracking-wider transition-colors flex items-center min-h-[44px]" title="Paksa Penyelarasan Data">
+                <button onclick="triggerManualSync()" class="px-3 py-2 bg-[#1677FF]/10 text-[#1677FF] hover:bg-[#1677FF]/20 border border-[#1677FF]/25 font-bold text-[10px] uppercase tracking-wider transition-colors flex items-center min-h-[44px]" title="Paksa Penyelarasan Data">
                     <i class="fa-solid fa-rotate mr-1.5" id="manualSyncIcon" aria-hidden="true"></i> Sync Now
                 </button>
                 <button onclick="handleAdminLogout()" class="px-4 py-2 bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 font-bold text-[10px] uppercase tracking-wider transition-colors flex items-center min-h-[44px]">
@@ -685,36 +685,36 @@
 
         <div class="flex flex-1 overflow-hidden flex-col md:flex-row">
             <div class="w-full md:w-64 border-r theme-border theme-surface flex flex-row md:flex-col overflow-x-auto md:overflow-y-auto shrink-0 hide-scroll border-b md:border-b-0 p-2 sm:p-4 gap-2">
-                <button onclick="switchAdminTab('tab-utama')" class="admin-tab-btn active flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-yellow-500/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-utama">
+                <button onclick="switchAdminTab('tab-utama')" class="admin-tab-btn active flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-[#1677FF]/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-utama">
                     <i class="fa-solid fa-house w-5 text-center mr-2 md:mr-3 theme-text-muted" aria-hidden="true"></i>
                     <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider theme-text-primary">Utama</span>
                 </button>
-                <button onclick="switchAdminTab('tab-jadual')" class="admin-tab-btn flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-yellow-500/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-jadual">
+                <button onclick="switchAdminTab('tab-jadual')" class="admin-tab-btn flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-[#1677FF]/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-jadual">
                     <i class="fa-regular fa-calendar-days w-5 text-center mr-2 md:mr-3 theme-text-muted" aria-hidden="true"></i>
                     <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider theme-text-primary">Jadual</span>
                 </button>
-                <button onclick="switchAdminTab('tab-peserta')" class="admin-tab-btn flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-yellow-500/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-peserta">
+                <button onclick="switchAdminTab('tab-peserta')" class="admin-tab-btn flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-[#1677FF]/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-peserta">
                     <i class="fa-solid fa-users w-5 text-center mr-2 md:mr-3 theme-text-muted" aria-hidden="true"></i>
                     <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider theme-text-primary">Senarai Atlet</span>
                 </button>
-                <button onclick="switchAdminTab('tab-pingat')" class="admin-tab-btn flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-yellow-500/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-pingat">
+                <button onclick="switchAdminTab('tab-pingat')" class="admin-tab-btn flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-[#1677FF]/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-pingat">
                     <i class="fa-solid fa-ranking-star w-5 text-center mr-2 md:mr-3 theme-text-muted" aria-hidden="true"></i>
                     <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider theme-text-primary">Podium Pingat</span>
                 </button>
-                <button onclick="switchAdminTab('tab-pemenang')" class="admin-tab-btn flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-yellow-500/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-pemenang">
+                <button onclick="switchAdminTab('tab-pemenang')" class="admin-tab-btn flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-[#1677FF]/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-pemenang">
                     <i class="fa-solid fa-medal w-5 text-center mr-2 md:mr-3 theme-text-muted" aria-hidden="true"></i>
                     <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider theme-text-primary">Keputusan Rasmi</span>
                 </button>
-                <button onclick="switchAdminTab('tab-anugerah')" class="admin-tab-btn flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-yellow-500/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-anugerah">
+                <button onclick="switchAdminTab('tab-anugerah')" class="admin-tab-btn flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-[#1677FF]/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-anugerah">
                     <i class="fa-solid fa-trophy w-5 text-center mr-2 md:mr-3 theme-text-muted" aria-hidden="true"></i>
                     <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider theme-text-primary">Anugerah</span>
                 </button>
-                <button onclick="switchAdminTab('tab-media')" class="admin-tab-btn flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-yellow-500/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-media">
+                <button onclick="switchAdminTab('tab-media')" class="admin-tab-btn flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-[#1677FF]/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-media">
                     <i class="fa-solid fa-bullhorn w-5 text-center mr-2 md:mr-3 theme-text-muted" aria-hidden="true"></i>
                     <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider theme-text-primary">Info & Media</span>
                 </button>
                 <div class="h-px theme-border my-2 hidden md:block"></div>
-                <button onclick="switchAdminTab('tab-tetapan')" class="admin-tab-btn flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-yellow-500/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-tetapan">
+                <button onclick="switchAdminTab('tab-tetapan')" class="admin-tab-btn flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-[#1677FF]/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-tetapan">
                     <i class="fa-solid fa-gear w-5 text-center mr-2 md:mr-3 theme-text-muted" aria-hidden="true"></i>
                     <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider theme-text-primary">Tetapan Data</span>
                 </button>
@@ -725,10 +725,10 @@
                     <div class="border theme-border theme-surface p-6 space-y-4">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b theme-border pb-3">
                             <div>
-                                <h3 class="font-display text-sm font-bold theme-text-primary uppercase"><i class="fa-solid fa-sliders text-yellow-500 mr-2" aria-hidden="true"></i>Pengurusan Dashboard Utama</h3>
+                                <h3 class="font-display text-sm font-bold theme-text-primary uppercase"><i class="fa-solid fa-sliders text-[#1677FF] mr-2" aria-hidden="true"></i>Pengurusan Dashboard Utama</h3>
                                 <p class="text-[10px] theme-text-muted mt-0.5">Pengurusan maklumat yang dipaparkan pada bahagian halaman utama.</p>
                             </div>
-                            <button onclick="addNewDashCard()" class="px-3 py-1.5 border theme-border theme-text-primary hover:bg-yellow-500 hover:text-navy-950 font-bold text-[10px] uppercase tracking-wider transition-colors self-start sm:self-auto flex items-center min-h-[40px]">
+                            <button onclick="addNewDashCard()" class="px-3 py-1.5 border theme-border theme-text-primary hover:bg-[#1677FF] hover:text-white font-bold text-[10px] uppercase tracking-wider transition-colors self-start sm:self-auto flex items-center min-h-[40px]">
                                 <i class="fa-solid fa-plus mr-1.5" aria-hidden="true"></i> Tambah Kad
                             </button>
                         </div>
@@ -745,7 +745,7 @@
 
                     <div class="border theme-border theme-surface p-5 space-y-4">
                         <h3 class="font-display text-xs font-bold theme-text-primary uppercase tracking-wider mb-2">
-                            <i class="fa-solid fa-calendar-plus text-yellow-500 mr-2" aria-hidden="true"></i> Tetapan Pengurusan Jadual Kejohanan
+                            <i class="fa-solid fa-calendar-plus text-[#1677FF] mr-2" aria-hidden="true"></i> Tetapan Pengurusan Jadual Kejohanan
                         </h3>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
                             <div>
@@ -776,7 +776,7 @@
                             <button id="btnCancelScheduleEdit" onclick="cancelScheduleEdit()" class="hidden px-4 py-2.5 bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 flex items-center min-h-[40px]">
                                 <i class="fa-solid fa-xmark mr-2" aria-hidden="true"></i> Batal
                             </button>
-                            <button id="btnAddSchedule" onclick="addScheduleEntry()" class="px-5 py-2.5 bg-yellow-500 text-navy-950 hover:bg-yellow-400 font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 flex items-center min-h-[40px]">
+                            <button id="btnAddSchedule" onclick="addScheduleEntry()" class="px-5 py-2.5 bg-[#1677FF] text-white hover:bg-[#2585FF] font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 flex items-center min-h-[40px]">
                                 <i class="fa-solid fa-plus mr-2" id="btnScheduleIcon" aria-hidden="true"></i> <span id="btnScheduleText">Tambah Acara Ke Jadual</span>
                             </button>
                         </div>
@@ -833,7 +833,7 @@
                             </div>
                         </div>
                         <div class="pt-2 flex justify-end">
-                            <button onclick="saveParticipantEventConfig()" class="px-5 py-2.5 bg-yellow-500 text-navy-950 hover:bg-yellow-400 font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 flex items-center min-h-[40px]">
+                            <button onclick="saveParticipantEventConfig()" class="px-5 py-2.5 bg-[#1677FF] text-white hover:bg-[#2585FF] font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 flex items-center min-h-[40px]">
                                 <i class="fa-solid fa-floppy-disk mr-2" aria-hidden="true"></i> Simpan Data Peserta
                             </button>
                         </div>
@@ -867,14 +867,14 @@
 
                     <div class="border theme-border theme-surface p-6 space-y-4">
                         <h3 class="font-display text-sm font-bold theme-text-primary uppercase tracking-wider mb-1 flex items-center">
-                            <i class="fa-solid fa-file-csv text-yellow-500 mr-2" aria-hidden="true"></i> Pautan Live Data Podium Pingat
+                            <i class="fa-solid fa-file-csv text-[#1677FF] mr-2" aria-hidden="true"></i> Pautan Live Data Podium Pingat
                         </h3>
                         <p class="text-[11px] theme-text-muted">Sokongan automatik pautan URL Edit Google Sheet atau pautan CSV terbitan (Publish to Web).</p>
                         
                         <div class="grid grid-cols-1 gap-3">
                             <div>
-                                <label for="adminPingatSheetUrl" class="text-[10px] font-bold uppercase tracking-widest text-[#2563EB] block mb-1">Pautan URL Google Sheet (.csv atau /edit)</label>
-                                <input type="text" id="adminPingatSheetUrl" placeholder="Tampal Pautan Edit (https://docs.google.com/spreadsheets/d/.../edit#gid=0) ATAU Pautan CSV" class="w-full theme-input border theme-border py-2.5 px-4 text-xs text-[#2563EB] focus:outline-none font-medium">
+                                <label for="adminPingatSheetUrl" class="text-[10px] font-bold uppercase tracking-widest text-[#1677FF] block mb-1">Pautan URL Google Sheet (.csv atau /edit)</label>
+                                <input type="text" id="adminPingatSheetUrl" placeholder="Tampal Pautan Edit (https://docs.google.com/spreadsheets/d/.../edit#gid=0) ATAU Pautan CSV" class="w-full theme-input border theme-border py-2.5 px-4 text-xs text-[#1677FF] focus:outline-none font-medium">
                             </div>
                         </div>
                         
@@ -885,7 +885,7 @@
                             <button onclick="syncPingatFromGoogleSheet()" class="px-4 py-2 bg-blue-500/10 text-blue-500 hover:bg-blue-500/20 border border-blue-500/20 font-bold text-[10px] uppercase tracking-wider transition-colors flex items-center min-h-[40px]">
                                 <i class="fa-solid fa-rotate mr-1.5" aria-hidden="true"></i> Muat &amp; Sinkroni Pautan
                             </button>
-                            <button onclick="savePingatConfig()" class="px-5 py-2 bg-yellow-500 text-navy-950 hover:bg-yellow-400 font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 flex items-center min-h-[40px]">
+                            <button onclick="savePingatConfig()" class="px-5 py-2 bg-[#1677FF] text-white hover:bg-[#2585FF] font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 flex items-center min-h-[40px]">
                                 <i class="fa-solid fa-floppy-disk mr-1.5" aria-hidden="true"></i> Simpan Pautan
                             </button>
                         </div>
@@ -918,7 +918,7 @@
 
                     <div class="border theme-border theme-surface p-5 space-y-4">
                         <h3 class="font-display text-xs font-bold theme-text-primary uppercase tracking-wider mb-2">
-                            <i class="fa-solid fa-trophy text-yellow-500 mr-2" aria-hidden="true"></i> Tetapan Keputusan Rasmi Pemenang
+                            <i class="fa-solid fa-trophy text-[#1677FF] mr-2" aria-hidden="true"></i> Tetapan Keputusan Rasmi Pemenang
                         </h3>
                         <div class="grid grid-cols-1 gap-3">
                             <div>
@@ -926,20 +926,20 @@
                                 <input type="text" id="adminWinnerName" placeholder="Contoh: LOMPAT TINGGI / 100M" class="w-full theme-input border theme-border py-2.5 px-3 text-xs focus:outline-none">
                             </div>
                             <div>
-                                <label for="adminWinnerGsLelaki" class="text-[9px] uppercase tracking-wider text-[#2563EB] font-bold block mb-1">
+                                <label for="adminWinnerGsLelaki" class="text-[9px] uppercase tracking-wider text-blue-500 font-bold block mb-1">
                                     2. Pautan Google Sheet Lelaki <span class="theme-text-muted font-normal lowercase">(Lajur A: Ranking | Lajur B & C: Nama | Lajur D: Pasukan | Lajur E: No Bib | Lajur F: Catatan Masa)</span>
                                 </label>
-                                <input type="text" id="adminWinnerGsLelaki" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv atau /edit#gid=0" class="w-full theme-input border theme-border py-2.5 px-3 text-xs text-[#2563EB] font-medium focus:outline-none">
+                                <input type="text" id="adminWinnerGsLelaki" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv atau /edit#gid=0" class="w-full theme-input border theme-border py-2.5 px-3 text-xs text-blue-500 font-medium focus:outline-none">
                             </div>
                             <div>
-                                <label for="adminWinnerGsPerempuan" class="text-[9px] uppercase tracking-wider text-[#EC4899] font-bold block mb-1">
+                                <label for="adminWinnerGsPerempuan" class="text-[9px] uppercase tracking-wider text-pink-500 font-bold block mb-1">
                                     3. Pautan Google Sheet Perempuan <span class="theme-text-muted font-normal lowercase">(Lajur A: Ranking | Lajur B & C: Nama | Lajur D: Pasukan | Lajur E: No Bib | Lajur F: Catatan Masa)</span>
                                 </label>
-                                <input type="text" id="adminWinnerGsPerempuan" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv atau /edit#gid=0" class="w-full theme-input border theme-border py-2.5 px-3 text-xs text-[#EC4899] font-medium focus:outline-none">
+                                <input type="text" id="adminWinnerGsPerempuan" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv atau /edit#gid=0" class="w-full theme-input border theme-border py-2.5 px-3 text-xs text-pink-500 font-medium focus:outline-none">
                             </div>
                         </div>
                         <div class="pt-2 flex justify-end">
-                            <button onclick="saveWinnerEventConfig()" class="px-5 py-2.5 bg-yellow-500 text-navy-950 hover:bg-yellow-400 font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 flex items-center min-h-[40px]">
+                            <button onclick="saveWinnerEventConfig()" class="px-5 py-2.5 bg-[#1677FF] text-white hover:bg-[#2585FF] font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 flex items-center min-h-[40px]">
                                 <i class="fa-solid fa-floppy-disk mr-2" aria-hidden="true"></i> Simpan Tetapan Keputusan Rasmi
                             </button>
                         </div>
@@ -972,7 +972,7 @@
                     </div>
 
                     <div class="border theme-border theme-surface p-4 flex items-center space-x-3">
-                        <div class="p-2.5 bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 shrink-0">
+                        <div class="p-2.5 bg-[#1677FF]/10 border border-[#1677FF]/25 text-[#1677FF] shrink-0">
                             <i class="fa-solid fa-star text-lg" aria-hidden="true"></i>
                         </div>
                         <div>
@@ -1012,7 +1012,7 @@
                     </div>
 
                     <div class="flex justify-end pt-2">
-                        <button onclick="saveAnugerahConfig()" class="px-5 py-2.5 bg-yellow-500 text-navy-950 hover:bg-yellow-400 font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 flex items-center min-h-[40px]">
+                        <button onclick="saveAnugerahConfig()" class="px-5 py-2.5 bg-[#1677FF] text-white hover:bg-[#2585FF] font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 flex items-center min-h-[40px]">
                             <i class="fa-solid fa-floppy-disk mr-2" aria-hidden="true"></i> Simpan Tetapan Anugerah
                         </button>
                     </div>
@@ -1045,7 +1045,7 @@
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <div class="border theme-border theme-surface p-5 space-y-4">
                             <h3 class="font-display text-xs font-bold theme-text-primary uppercase tracking-wider border-b theme-border pb-2 flex items-center">
-                                <i class="fa-solid fa-bullhorn text-yellow-500 mr-2" aria-hidden="true"></i> Pengurusan Hebahan Semasa
+                                <i class="fa-solid fa-bullhorn text-[#1677FF] mr-2" aria-hidden="true"></i> Pengurusan Hebahan Semasa
                             </h3>
 
                             <div class="space-y-3 theme-bg-secondary p-4 border theme-border">
@@ -1077,7 +1077,7 @@
                                     <button id="btnCancelAnnouncementEdit" onclick="cancelAnnouncementEdit()" class="hidden px-3 py-1.5 bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 text-[10px] font-bold uppercase transition-colors min-h-[40px]">
                                         Batal
                                     </button>
-                                    <button onclick="saveAnnouncement()" class="px-4 py-2 bg-yellow-500 text-navy-950 hover:bg-yellow-400 font-bold text-[10px] uppercase tracking-wider transition-colors flex items-center min-h-[40px]">
+                                    <button onclick="saveAnnouncement()" class="px-4 py-2 bg-[#1677FF] text-white hover:bg-[#2585FF] font-bold text-[10px] uppercase tracking-wider transition-colors flex items-center min-h-[40px]">
                                         <i class="fa-solid fa-floppy-disk mr-1.5" aria-hidden="true"></i> <span id="btnAnnouncementText">Simpan Hebahan</span>
                                     </button>
                                 </div>
@@ -1089,7 +1089,7 @@
 
                         <div class="border theme-border theme-surface p-5 space-y-4">
                             <h3 class="font-display text-xs font-bold theme-text-primary uppercase tracking-wider border-b theme-border pb-2 flex items-center">
-                                <i class="fa-solid fa-link text-blue-500 mr-2" aria-hidden="true"></i> Tetapan Pautan Real-Time
+                                <i class="fa-solid fa-link text-[#00C2FF] mr-2" aria-hidden="true"></i> Tetapan Pautan Real-Time
                             </h3>
 
                             <div class="space-y-4">
@@ -1107,7 +1107,7 @@
                                 </div>
 
                                 <div class="flex justify-end pt-2">
-                                    <button onclick="saveRealtimeLinks()" class="px-5 py-2.5 bg-yellow-500 text-navy-950 hover:bg-yellow-400 font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 flex items-center min-h-[40px]">
+                                    <button onclick="saveRealtimeLinks()" class="px-5 py-2.5 bg-[#1677FF] text-white hover:bg-[#2585FF] font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 flex items-center min-h-[40px]">
                                         <i class="fa-solid fa-floppy-disk mr-2" aria-hidden="true"></i> Simpan Pautan
                                     </button>
                                 </div>
@@ -1140,16 +1140,16 @@
 
                     <div class="border theme-border theme-surface p-6 space-y-4">
                         <h3 class="font-display text-xs font-bold theme-text-primary uppercase tracking-wider flex items-center">
-                            <i class="fa-solid fa-box-archive text-yellow-500 mr-2" aria-hidden="true"></i> Sandaran &amp; Migrasi Cloud Firestore (JSON Format)
+                            <i class="fa-solid fa-box-archive text-[#1677FF] mr-2" aria-hidden="true"></i> Sandaran &amp; Migrasi Cloud Firestore (JSON Format)
                         </h3>
                         <p class="text-xs theme-text-secondary">Muat turun sandaran lengkap data Firestore atau muat naik fail JSON untuk mengemas kini pengkalan data awan secara pukal.</p>
                         
                         <div class="flex flex-wrap gap-3 pt-2">
-                            <button onclick="exportApplicationData()" class="px-5 py-2.5 bg-yellow-500 text-navy-950 hover:bg-yellow-400 font-bold text-[10px] uppercase tracking-widest transition-all flex items-center min-h-[40px]">
+                            <button onclick="exportApplicationData()" class="px-5 py-2.5 bg-[#1677FF] text-white hover:bg-[#2585FF] font-bold text-[10px] uppercase tracking-widest transition-all flex items-center min-h-[40px]">
                                 <i class="fa-solid fa-download mr-2" aria-hidden="true"></i> Export Data Firestore (JSON)
                             </button>
 
-                            <label class="px-5 py-2.5 border theme-border theme-text-primary hover:bg-yellow-500 hover:text-navy-950 font-bold text-[10px] uppercase tracking-widest transition-all cursor-pointer flex items-center min-h-[40px]">
+                            <label class="px-5 py-2.5 border theme-border theme-text-primary hover:bg-[#1677FF] hover:text-white font-bold text-[10px] uppercase tracking-widest transition-all cursor-pointer flex items-center min-h-[40px]">
                                 <i class="fa-solid fa-upload mr-2" aria-hidden="true"></i> Import / Restore Ke Firestore
                                 <input type="file" id="importJsonInput" accept=".json" class="hidden" onchange="importApplicationData(event)">
                             </label>
@@ -1170,11 +1170,11 @@
     <div id="importSummaryModal" class="fixed inset-0 z-50 hidden glass-card backdrop-blur-md overflow-y-auto flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="importSummaryModalTitle">
         <div class="border theme-border theme-surface p-6 max-w-md w-full relative shadow-2xl space-y-4">
             <h3 id="importSummaryModalTitle" class="font-display font-bold text-sm uppercase tracking-wider theme-text-primary border-b theme-border pb-3 flex items-center">
-                <i class="fa-solid fa-chart-pie text-yellow-500 mr-2" aria-hidden="true"></i> Ringkasan Import Google Sheet
+                <i class="fa-solid fa-chart-pie text-[#1677FF] mr-2" aria-hidden="true"></i> Ringkasan Import Google Sheet
             </h3>
             <div id="importSummaryContent" class="space-y-2 text-xs theme-text-secondary"></div>
             <div class="pt-3 border-t theme-border flex justify-end">
-                <button onclick="closeImportSummaryModal()" class="px-5 py-2 bg-yellow-500 text-navy-950 font-bold text-[10px] uppercase tracking-widest min-h-[40px]">
+                <button onclick="closeImportSummaryModal()" class="px-5 py-2 bg-[#1677FF] text-white font-bold text-[10px] uppercase tracking-widest min-h-[40px]">
                     Tutup & KEMASKINI
                 </button>
             </div>
@@ -1186,7 +1186,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 mb-12">
                 <div class="space-y-4">
                     <div class="flex items-center space-x-3">
-                        <div class="bg-yellow-500 text-navy-950 p-2 transform rotate-45 flex items-center justify-center">
+                        <div class="bg-[#1677FF] text-white p-2 transform rotate-45 flex items-center justify-center">
                             <i class="fa-solid fa-bolt text-sm transform -rotate-45" aria-hidden="true"></i>
                         </div>
                         <span class="font-display font-black text-lg tracking-widest uppercase">SKBK ATHLETIX</span>
@@ -1195,38 +1195,38 @@
                         Smart digital maklumat Kejohanan Olahraga melalui platform yang sistematik, efisien dan interaktif.
                     </p>
                     <div class="flex space-x-3 pt-2">
-                        <a href="#" class="w-9 h-9 theme-surface border theme-border flex items-center justify-center theme-text-secondary hover:text-yellow-500 hover:border-yellow-500 transition-all text-xs" aria-label="Laman Facebook Rasmi"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
-                        <a href="#" class="w-9 h-9 theme-surface border theme-border flex items-center justify-center theme-text-secondary hover:text-yellow-500 hover:border-yellow-500 transition-all text-xs" aria-label="Akaun TikTok Rasmi"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
-                        <a href="#" class="w-9 h-9 theme-surface border theme-border flex items-center justify-center theme-text-secondary hover:text-yellow-500 hover:border-yellow-500 transition-all text-xs" aria-label="Saluran YouTube Rasmi"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+                        <a href="#" class="w-9 h-9 theme-surface border theme-border flex items-center justify-center theme-text-secondary hover:text-[#1677FF] hover:border-[#1677FF] transition-all text-xs" aria-label="Laman Facebook Rasmi"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+                        <a href="#" class="w-9 h-9 theme-surface border theme-border flex items-center justify-center theme-text-secondary hover:text-[#1677FF] hover:border-[#1677FF] transition-all text-xs" aria-label="Akaun TikTok Rasmi"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
+                        <a href="#" class="w-9 h-9 theme-surface border theme-border flex items-center justify-center theme-text-secondary hover:text-[#1677FF] hover:border-[#1677FF] transition-all text-xs" aria-label="Saluran YouTube Rasmi"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
                     </div>
                 </div>
 
                 <div class="space-y-4">
-                    <h4 class="font-display font-bold text-xs uppercase tracking-widest border-l-2 border-yellow-500 pl-3">Navigasi Pantas</h4>
+                    <h4 class="font-display font-bold text-xs uppercase tracking-widest border-l-2 border-[#1677FF] pl-3">Navigasi Pantas</h4>
                     <ul class="space-y-2 text-xs uppercase tracking-wider">
-                        <li><button onclick="navigateToView('utama')" class="theme-text-muted hover:text-yellow-500 transition-all py-1 inline-block text-left cursor-pointer">Utama</button></li>
-                        <li><button onclick="navigateToView('jadual')" class="theme-text-muted hover:text-yellow-500 transition-all py-1 inline-block text-left cursor-pointer">Jadual</button></li>
-                        <li><button onclick="navigateToView('peserta')" class="theme-text-muted hover:text-yellow-500 transition-all py-1 inline-block text-left cursor-pointer">Senarai Atlet</button></li>
-                        <li><button onclick="navigateToView('keputusan')" class="theme-text-muted hover:text-yellow-500 transition-all py-1 inline-block text-left cursor-pointer">Podium Pingat</button></li>
-                        <li><button onclick="navigateToView('pemenang')" class="theme-text-muted hover:text-yellow-500 transition-all py-1 inline-block text-left cursor-pointer">Keputusan Rasmi</button></li>
-                        <li><button onclick="navigateToView('anugerah')" class="theme-text-muted hover:text-yellow-500 transition-all py-1 inline-block text-left cursor-pointer">Anugerah</button></li>
-                        <li><button onclick="navigateToView('media')" class="theme-text-muted hover:text-yellow-500 transition-all py-1 inline-block text-left cursor-pointer">Info & Media</button></li>
+                        <li><button onclick="navigateToView('utama')" class="theme-text-muted hover:text-[#1677FF] transition-all py-1 inline-block text-left cursor-pointer">Utama</button></li>
+                        <li><button onclick="navigateToView('jadual')" class="theme-text-muted hover:text-[#1677FF] transition-all py-1 inline-block text-left cursor-pointer">Jadual</button></li>
+                        <li><button onclick="navigateToView('peserta')" class="theme-text-muted hover:text-[#1677FF] transition-all py-1 inline-block text-left cursor-pointer">Senarai Atlet</button></li>
+                        <li><button onclick="navigateToView('keputusan')" class="theme-text-muted hover:text-[#1677FF] transition-all py-1 inline-block text-left cursor-pointer">Podium Pingat</button></li>
+                        <li><button onclick="navigateToView('pemenang')" class="theme-text-muted hover:text-[#1677FF] transition-all py-1 inline-block text-left cursor-pointer">Keputusan Rasmi</button></li>
+                        <li><button onclick="navigateToView('anugerah')" class="theme-text-muted hover:text-[#1677FF] transition-all py-1 inline-block text-left cursor-pointer">Anugerah</button></li>
+                        <li><button onclick="navigateToView('media')" class="theme-text-muted hover:text-[#1677FF] transition-all py-1 inline-block text-left cursor-pointer">Info & Media</button></li>
                     </ul>
                 </div>
 
                 <div class="space-y-4">
-                    <h4 class="font-display font-bold text-xs uppercase tracking-widest border-l-2 border-yellow-500 pl-3">Hubungi Kami</h4>
+                    <h4 class="font-display font-bold text-xs uppercase tracking-widest border-l-2 border-[#1677FF] pl-3">Hubungi Kami</h4>
                     <ul class="space-y-3 text-xs theme-text-muted">
                         <li class="flex items-start space-x-3">
-                            <i class="fa-solid fa-location-dot text-yellow-500 text-sm mt-0.5" aria-hidden="true"></i>
+                            <i class="fa-solid fa-location-dot text-[#1677FF] text-sm mt-0.5" aria-hidden="true"></i>
                             <span>Unit Sukan & Teknikal SKBK</span>
                         </li>
                         <li class="flex items-center space-x-3">
-                            <i class="fa-solid fa-envelope text-yellow-500 text-sm" aria-hidden="true"></i>
+                            <i class="fa-solid fa-envelope text-[#1677FF] text-sm" aria-hidden="true"></i>
                             <span>admin.elmioZteam@gmail.com</span>
                         </li>
                         <li class="flex items-center space-x-3">
-                            <i class="fa-solid fa-phone text-yellow-500 text-sm" aria-hidden="true"></i>
+                            <i class="fa-solid fa-phone text-[#1677FF] text-sm" aria-hidden="true"></i>
                             <span>0195362091</span>
                         </li>
                     </ul>
@@ -2096,7 +2096,7 @@
                 const isSelected = date === selectedScheduleDate;
                 
                 btn.className = `px-5 py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 min-h-[48px] ${
-                    isSelected ? 'bg-yellow-500 text-navy-950 active-tab' : 'theme-surface theme-text-primary hover:bg-yellow-500/10 border theme-border'
+                    isSelected ? 'bg-[#1677FF] text-white active-tab' : 'theme-surface theme-text-primary hover:bg-[#1677FF]/10 border theme-border'
                 }`;
                 btn.textContent = `Hari ${index + 1} (${formattedDate.split(' ').slice(0, 2).join(' ')})`;
                 btn.onclick = () => filterScheduleByDate(date);
@@ -2141,7 +2141,7 @@
                 const formattedCategory = formatCategoryHTML(item.category);
                 const isAkhir = String(item.round || '').trim().toLowerCase() === "akhir";
                 const roundBadgeClass = isAkhir 
-                    ? "bg-yellow-500/20 text-yellow-500 border-yellow-500/30" 
+                    ? "bg-[#1677FF]/20 text-[#00C2FF] border-[#1677FF]/30" 
                     : "theme-surface theme-text-primary border-theme-border";
 
                 const formattedRound = isAkhir 
@@ -2149,7 +2149,7 @@
                     : formatRoundHTML(item.round);
 
                 tableRowsHTML += `
-                    <tr class="hover:bg-yellow-500/10 transition-colors border-b theme-border">
+                    <tr class="hover:bg-[#1677FF]/10 transition-colors border-b theme-border">
                         <td class="py-4 px-6 font-sans tabular-nums font-bold theme-text-secondary w-28">${escapeHTML(item.time || '-')}</td>
                         <td class="py-4 px-6 font-display font-bold theme-text-primary uppercase">${escapeHTML(item.name || '')}</td>
                         <td class="py-4 px-6 text-center font-bold">${formattedCategory}</td>
@@ -2163,7 +2163,7 @@
             container.innerHTML = `
                 <div class="theme-surface p-4 border-b theme-border flex items-center justify-between">
                     <span class="text-xs font-bold uppercase tracking-wider theme-text-secondary flex items-center">
-                        <i class="fa-regular fa-calendar-days text-yellow-500 mr-2" aria-hidden="true"></i> Acara Dijadualkan
+                        <i class="fa-regular fa-calendar-days text-[#1677FF] mr-2" aria-hidden="true"></i> Acara Dijadualkan
                     </span>
                     <span class="text-xs font-sans tabular-nums font-bold theme-text-primary theme-surface px-3 py-1.5 border theme-border uppercase tracking-widest">
                         ${escapeHTML(dateMalay)}
@@ -2216,12 +2216,12 @@
                 if (!item) return;
                 const index = scheduleData.findIndex(s => s && s.docId === item.docId);
                 const tr = document.createElement("tr");
-                tr.className = "hover:bg-yellow-500/10 transition-colors border-b theme-border";
+                tr.className = "hover:bg-[#1677FF]/10 transition-colors border-b theme-border";
 
                 const formattedCategory = formatCategoryHTML(item.category);
                 const isAkhir = String(item.round || '').trim().toLowerCase() === "akhir";
                 const roundBadgeClass = isAkhir 
-                    ? "bg-yellow-500/20 border-yellow-500/30 text-yellow-500" 
+                    ? "bg-[#1677FF]/20 border-[#1677FF]/30 text-[#00C2FF]" 
                     : "theme-surface border-theme-border theme-text-secondary";
 
                 const formattedRound = isAkhir 
@@ -2235,7 +2235,7 @@
                     <td class="p-3 font-bold">${formattedCategory}</td>
                     <td class="p-3"><span class="px-2 py-0.5 border text-[9px] font-bold uppercase rounded ${roundBadgeClass}">${formattedRound}</span></td>
                     <td class="p-3 text-right space-x-2">
-                        <button onclick="editScheduleEntry(${index})" class="text-blue-500 hover:text-blue-400 p-1 min-h-[36px] min-w-[36px]" title="Sunting"><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i></button>
+                        <button onclick="editScheduleEntry(${index})" class="text-[#1677FF] hover:text-[#2585FF] p-1 min-h-[36px] min-w-[36px]" title="Sunting"><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i></button>
                         <button onclick="deleteScheduleEntry(${index})" class="text-red-500 hover:text-red-400 p-1 min-h-[36px] min-w-[36px]" title="Hapus"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
                     </td>
                 `;
@@ -2358,7 +2358,7 @@
 
             heroCardsData.forEach(card => {
                 const cardEl = document.createElement("div");
-                cardEl.className = "border theme-border glass-card p-4 text-left hover:border-yellow-500 transition-all duration-300 flex flex-col justify-between min-h-[90px]";
+                cardEl.className = "border theme-border glass-card p-4 text-left hover:border-[#1677FF] transition-all duration-300 flex flex-col justify-between min-h-[90px]";
                 cardEl.innerHTML = `
                     <div>
                         <span class="theme-text-muted text-[8px] sm:text-[9px] font-bold uppercase tracking-widest block mb-1">${escapeHTML(card.label || '')}</span>
@@ -2382,7 +2382,7 @@
                 cardEditor.className = "theme-surface border theme-border p-4 space-y-3 relative";
                 cardEditor.innerHTML = `
                     <div class="flex justify-between items-center border-b theme-border pb-2">
-                        <span class="text-[10px] font-bold text-yellow-500 uppercase tracking-widest"><i class="fa-solid fa-square-poll-vertical mr-1.5" aria-hidden="true"></i> Kad ${index + 1}</span>
+                        <span class="text-[10px] font-bold text-[#1677FF] uppercase tracking-widest"><i class="fa-solid fa-square-poll-vertical mr-1.5" aria-hidden="true"></i> Kad ${index + 1}</span>
                         <button onclick="deleteDashCard(${index})" class="text-red-500 hover:text-red-400 text-[10px] font-bold uppercase px-2 py-1 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 transition-colors flex items-center min-h-[32px]" title="Buang Kad">
                             <i class="fa-solid fa-trash mr-1" aria-hidden="true"></i> Buang
                         </button>
@@ -2400,7 +2400,7 @@
                         <input type="text" id="dashSub_${index}" value="${escapeHTML(card.subtext || '')}" class="w-full theme-input border theme-border py-2 px-3 text-xs focus:outline-none">
                     </div>
                     <div class="pt-2 flex justify-end">
-                        <button onclick="saveDashCard(${index})" class="w-full sm:w-auto px-4 py-2 bg-yellow-500 text-navy-950 hover:bg-yellow-400 font-bold text-[10px] uppercase tracking-widest transition-colors flex items-center justify-center min-h-[40px]">
+                        <button onclick="saveDashCard(${index})" class="w-full sm:w-auto px-4 py-2 bg-[#1677FF] text-white hover:bg-[#2585FF] font-bold text-[10px] uppercase tracking-widest transition-colors flex items-center justify-center min-h-[40px]">
                             <i class="fa-solid fa-floppy-disk mr-1.5" aria-hidden="true"></i> Simpan Kad
                         </button>
                     </div>
@@ -2462,14 +2462,14 @@
             sortedData.forEach((item) => {
                 const index = participantConfigsData.findIndex(p => p.docId === item.docId || p.id === item.id);
                 const tr = document.createElement("tr");
-                tr.className = "hover:bg-yellow-500/10 transition-colors border-b theme-border text-xs";
+                tr.className = "hover:bg-[#1677FF]/10 transition-colors border-b theme-border text-xs";
                 
                 tr.innerHTML = `
                     <td class="p-3 font-bold theme-text-primary uppercase">${escapeHTML(item.name || '')}</td>
                     <td class="p-3 truncate max-w-[120px] text-blue-500 font-sans tabular-nums text-[11px]">${escapeHTML(item.gsIndividu || "-")}</td>
                     <td class="p-3 truncate max-w-[120px] text-pink-500 font-sans tabular-nums text-[11px]">${escapeHTML(item.gsKumpulan || "-")}</td>
                     <td class="p-3 text-right space-x-2">
-                        <button onclick="editParticipantConfig(${index})" class="text-blue-500 hover:text-blue-400 p-1 min-h-[36px] min-w-[36px]" title="Edit"><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i></button>
+                        <button onclick="editParticipantConfig(${index})" class="text-[#1677FF] hover:text-[#2585FF] p-1 min-h-[36px] min-w-[36px]" title="Edit"><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i></button>
                         <button onclick="deleteParticipantConfig(${index})" class="text-red-500 hover:text-red-400 p-1 min-h-[36px] min-w-[36px]" title="Hapus"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
                     </td>
                 `;
@@ -2922,16 +2922,16 @@
 
             const url = appSettings.sheetUrlPingat || "";
             const tr = document.createElement("tr");
-            tr.className = "hover:bg-yellow-500/10 transition-colors border-b theme-border text-xs";
+            tr.className = "hover:bg-[#1677FF]/10 transition-colors border-b theme-border text-xs";
 
             tr.innerHTML = `
                 <td class="p-3 font-bold theme-text-primary uppercase">Kedudukan Pingat Rasmi</td>
-                <td class="p-3 truncate max-w-[280px] font-sans tabular-nums text-[11px] text-[#2563EB] font-bold">${escapeHTML(url) || '<span class="theme-text-muted italic font-normal">Belum Ditetapkan</span>'}</td>
+                <td class="p-3 truncate max-w-[280px] font-sans tabular-nums text-[11px] text-[#1677FF] font-bold">${escapeHTML(url) || '<span class="theme-text-muted italic font-normal">Belum Ditetapkan</span>'}</td>
                 <td class="p-3 text-right space-x-1.5">
-                    <button onclick="editPingatConfig()" class="px-2 py-1 bg-blue-500/10 text-blue-500 hover:bg-blue-500/20 border border-blue-500/20 text-[10px] font-bold uppercase rounded transition-colors min-h-[32px]" title="Edit / Fokus">
+                    <button onclick="editPingatConfig()" class="px-2 py-1 bg-[#1677FF]/10 text-[#1677FF] hover:bg-[#1677FF]/20 border border-[#1677FF]/25 text-[10px] font-bold uppercase rounded transition-colors min-h-[32px]" title="Edit / Fokus">
                         <i class="fa-solid fa-pen-to-square mr-1" aria-hidden="true"></i> Edit
                     </button>
-                    <button onclick="savePingatConfig()" class="px-2 py-1 bg-yellow-500 text-navy-950 font-bold text-[10px] uppercase rounded transition-colors min-h-[32px]" title="Simpan">
+                    <button onclick="savePingatConfig()" class="px-2 py-1 bg-[#1677FF] text-white font-bold text-[10px] uppercase rounded transition-colors min-h-[32px]" title="Simpan">
                         <i class="fa-solid fa-floppy-disk mr-1" aria-hidden="true"></i> Simpan
                     </button>
                     <button onclick="clearPingatConfig()" class="px-2 py-1 bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 text-[10px] font-bold uppercase rounded transition-colors min-h-[32px]" title="Hapus Pautan">
@@ -3044,11 +3044,11 @@
                         card.innerHTML = `
                             <div class="flex justify-between items-start">
                                 <div class="flex items-center space-x-1.5">
-                                    <span class="px-2 py-0.5 bg-yellow-500/20 text-yellow-500 text-[9px] rounded uppercase font-bold inline-block">${escapeHTML(item.category || 'MAKLUMAN')}</span>
+                                    <span class="px-2 py-0.5 bg-[#1677FF]/20 text-[#00C2FF] text-[9px] rounded uppercase font-bold inline-block">${escapeHTML(item.category || 'MAKLUMAN')}</span>
                                     ${statusBadge}
                                 </div>
                                 <div class="flex space-x-2">
-                                    <button onclick="editAnnouncement(${originalIndex})" class="text-blue-500 hover:text-blue-400 p-1 min-h-[32px] min-w-[32px]" title="Sunting"><i class="fa-solid fa-pen-to-square text-xs" aria-hidden="true"></i></button>
+                                    <button onclick="editAnnouncement(${originalIndex})" class="text-[#1677FF] hover:text-[#2585FF] p-1 min-h-[32px] min-w-[32px]" title="Sunting"><i class="fa-solid fa-pen-to-square text-xs" aria-hidden="true"></i></button>
                                     <button onclick="deleteAnnouncement(${originalIndex})" class="text-red-500 hover:text-red-400 p-1 min-h-[32px] min-w-[32px]" title="Hapus"><i class="fa-solid fa-trash text-xs" aria-hidden="true"></i></button>
                                 </div>
                             </div>
@@ -3073,14 +3073,14 @@
                 } else {
                     publishedAnnouncements.forEach(item => {
                         const timeInfo = formatTimestampMalay(item);
-                        let catBg = "bg-yellow-500/10 text-yellow-500 border-yellow-500/20";
+                        let catBg = "bg-[#1677FF]/10 text-[#00C2FF] border-[#1677FF]/25";
                         const catUpper = (item.category || "").toUpperCase();
                         if (catUpper.includes("PENTING")) catBg = "bg-red-500/10 text-red-500 border-red-500/20";
                         else if (catUpper.includes("JADUAL")) catBg = "bg-blue-500/10 text-blue-500 border-blue-500/20";
                         else if (catUpper.includes("KEPUTUSAN")) catBg = "bg-green-500/10 text-green-500 border-green-500/20";
 
                         const annCard = document.createElement("div");
-                        annCard.className = "border theme-border theme-surface p-4 sm:p-5 hover:border-yellow-500/50 transition-all duration-300 relative space-y-2.5";
+                        annCard.className = "border theme-border theme-surface p-4 sm:p-5 hover:border-[#1677FF]/50 transition-all duration-300 relative space-y-2.5";
                         annCard.innerHTML = `
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b theme-border pb-2.5">
                                 <div class="flex items-center space-x-2">
@@ -3115,7 +3115,7 @@
 
                     homeAnnouncementsLimit3.forEach(item => {
                         const timeInfo = formatTimestampMalay(item);
-                        let catBg = "bg-yellow-500/10 text-yellow-500 border-yellow-500/20";
+                        let catBg = "bg-[#1677FF]/10 text-[#00C2FF] border-[#1677FF]/25";
                         const catUpper = (item.category || "").toUpperCase();
                         if (catUpper.includes("PENTING")) catBg = "bg-red-500/10 text-red-500 border-red-500/20";
                         else if (catUpper.includes("JADUAL")) catBg = "bg-blue-500/10 text-blue-500 border-blue-500/20";
@@ -3126,7 +3126,7 @@
                         const summaryText = isLong ? msgContent.substring(0, 140) + "..." : msgContent;
 
                         const annCard = document.createElement("div");
-                        annCard.className = "border theme-border theme-surface p-4 hover:border-yellow-500/50 transition-all duration-300 relative space-y-2";
+                        annCard.className = "border theme-border theme-surface p-4 hover:border-[#1677FF]/50 transition-all duration-300 relative space-y-2";
                         annCard.innerHTML = `
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-1">
                                 <div class="flex items-center space-x-2">
@@ -3143,7 +3143,7 @@
                             <p class="text-xs theme-text-secondary leading-relaxed">${escapeHTML(summaryText)}</p>
                             ${isLong ? `
                                 <div class="pt-1">
-                                    <button onclick="navigateToView('media')" class="text-[10px] font-bold text-yellow-500 hover:text-yellow-400 uppercase tracking-wider inline-flex items-center cursor-pointer">
+                                    <button onclick="navigateToView('media')" class="text-[10px] font-bold text-[#1677FF] hover:text-[#2585FF] uppercase tracking-wider inline-flex items-center cursor-pointer">
                                         BACA SELANJUTNYA <i class="fa-solid fa-arrow-right ml-1" aria-hidden="true"></i>
                                     </button>
                                 </div>
@@ -3547,9 +3547,9 @@
                 const btn = document.getElementById(`btn-round-${r}`);
                 if (!btn) return;
                 if (r === roundVal) {
-                    btn.className = "w-full py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 bg-yellow-500 text-navy-950 min-h-[44px]";
+                    btn.className = "w-full py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 bg-[#1677FF] text-white min-h-[44px]";
                 } else {
-                    btn.className = "w-full py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 theme-surface theme-text-primary hover:bg-yellow-500/10 min-h-[44px] border theme-border";
+                    btn.className = "w-full py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 theme-surface theme-text-primary hover:bg-[#1677FF]/10 min-h-[44px] border theme-border";
                 }
             });
         };
@@ -3663,7 +3663,7 @@
 
             athletes.forEach(ath => {
                 const tr = document.createElement("tr");
-                tr.className = "hover:bg-yellow-500/10 transition-colors border-b theme-border";
+                tr.className = "hover:bg-[#1677FF]/10 transition-colors border-b theme-border";
                 
                 const badgeStyle = getTeamBadgeStyle(ath.team);
                 tr.innerHTML = `
@@ -3795,7 +3795,7 @@
             if (!config) return null;
 
             const cardWrapper = document.createElement("div");
-            cardWrapper.className = "winner-event-card col-span-full theme-surface border theme-border hover:border-yellow-500 transition-all duration-300 block";
+            cardWrapper.className = "winner-event-card col-span-full theme-surface border theme-border hover:border-[#1677FF] transition-all duration-300 block";
             cardWrapper.setAttribute("data-event-id", config.id || config.docId || "");
             cardWrapper.setAttribute("data-event-name", (config.name || "").toUpperCase());
 
@@ -3985,7 +3985,7 @@
 
             const btns = document.querySelectorAll(".admin-tab-btn");
             btns.forEach(btn => {
-                btn.classList.remove("bg-yellow-500/10", "border-yellow-500/30");
+                btn.classList.remove("bg-[#1677FF]/10", "border-[#1677FF]/30");
                 btn.classList.add("border-transparent");
             });
 
@@ -3998,7 +3998,7 @@
             const activeBtn = document.querySelector(`.admin-tab-btn[data-target="${targetId}"]`);
             if (activeBtn) {
                 activeBtn.classList.remove("border-transparent");
-                activeBtn.classList.add("bg-yellow-500/10", "border-yellow-500/30");
+                activeBtn.classList.add("bg-[#1677FF]/10", "border-[#1677FF]/30");
             }
         };
 
