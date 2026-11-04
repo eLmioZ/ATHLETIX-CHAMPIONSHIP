@@ -12,6 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- PapaParse Robust CSV Parser (DAT-01 Fix) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
     <script>
         tailwind.config = {
@@ -195,9 +197,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <div class="flex items-center space-x-3">
-                    <button onclick="navigateToView('utama')" class="flex items-center space-x-3 group min-h-[44px] min-w-[44px] py-1 text-left cursor-pointer">
+                    <button onclick="navigateToView('utama')" class="flex items-center space-x-3 group min-h-[44px] min-w-[44px] py-1 text-left cursor-pointer" aria-label="Halaman Utama Athletix">
                         <div class="bg-yellow-500 text-navy-950 p-2 transform rotate-45 flex items-center justify-center transition-transform duration-300 group-hover:rotate-90 shadow-md">
-                            <i class="fa-solid fa-bolt text-sm transform -rotate-45 group-hover:-rotate-90 transition-transform duration-300"></i>
+                            <i class="fa-solid fa-bolt text-sm transform -rotate-45 group-hover:-rotate-90 transition-transform duration-300" aria-hidden="true"></i>
                         </div>
                         <span class="font-display font-black text-sm sm:text-base md:text-lg tracking-widest uppercase theme-text-primary">
                             ARENA <span class="theme-text-secondary font-light">ATHLETIX</span>
@@ -205,7 +207,7 @@
                     </button>
                 </div>
 
-                <nav class="hidden xl:flex items-center space-x-3 lg:space-x-4">
+                <nav class="hidden xl:flex items-center space-x-3 lg:space-x-4" aria-label="Navigasi Utama">
                     <button onclick="navigateToView('utama')" id="nav-btn-utama" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-primary hover:text-yellow-500 transition-colors duration-200 py-2 cursor-pointer">Utama</button>
                     <button onclick="navigateToView('jadual')" id="nav-btn-jadual" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-yellow-500 transition-colors duration-200 py-2 cursor-pointer">Jadual</button>
                     <button onclick="navigateToView('peserta')" id="nav-btn-peserta" class="nav-link-btn text-[10px] lg:text-xs font-bold uppercase tracking-wider theme-text-secondary hover:text-yellow-500 transition-colors duration-200 py-2 cursor-pointer">Senarai Atlet</button>
@@ -216,21 +218,21 @@
                 </nav>
 
                 <div class="hidden xl:flex items-center space-x-3">
-                    <button onclick="toggleTheme()" id="themeToggleBtn" aria-label="Switch Theme" class="p-2.5 border theme-border theme-text-primary hover:border-yellow-500 transition-all duration-300 rounded-none cursor-pointer flex items-center justify-center min-h-[44px] min-w-[44px]" title="Tukar Tema (Dark/Light)">
-                        <i class="fa-solid fa-moon text-sm" id="themeToggleIcon"></i>
+                    <button onclick="toggleTheme()" id="themeToggleBtn" aria-label="Tukar Tema Warna" class="p-2.5 border theme-border theme-text-primary hover:border-yellow-500 transition-all duration-300 rounded-none cursor-pointer flex items-center justify-center min-h-[44px] min-w-[44px]" title="Tukar Tema (Dark/Light)">
+                        <i class="fa-solid fa-moon text-sm" id="themeToggleIcon" aria-hidden="true"></i>
                     </button>
 
-                    <button onclick="showAdminLogin()" class="px-4 py-2.5 border theme-border theme-text-primary hover:bg-yellow-500 hover:text-navy-950 font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 rounded-none cursor-pointer min-h-[44px] flex items-center">
-                        Panel Admin <i class="fa-solid fa-user-shield ml-1.5"></i>
+                    <button onclick="showAdminLogin()" id="headerAdminBtn" class="px-4 py-2.5 border theme-border theme-text-primary hover:bg-yellow-500 hover:text-navy-950 font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 rounded-none cursor-pointer min-h-[44px] flex items-center" aria-label="Buka Dialog Pentadbir">
+                        Panel Admin <i class="fa-solid fa-user-shield ml-1.5" aria-hidden="true"></i>
                     </button>
                 </div>
 
                 <div class="xl:hidden flex items-center space-x-2">
-                    <button onclick="toggleTheme()" id="mobileThemeToggleBtn" aria-label="Switch Theme Mobile" class="theme-text-primary hover:text-yellow-500 focus:outline-none p-3 flex items-center justify-center min-h-[48px] min-w-[48px]" title="Tukar Tema">
-                        <i class="fa-solid fa-moon text-lg" id="mobileThemeToggleIcon"></i>
+                    <button onclick="toggleTheme()" id="mobileThemeToggleBtn" aria-label="Tukar Tema Peranti Mobil" class="theme-text-primary hover:text-yellow-500 focus:outline-none p-3 flex items-center justify-center min-h-[48px] min-w-[48px]" title="Tukar Tema">
+                        <i class="fa-solid fa-moon text-lg" id="mobileThemeToggleIcon" aria-hidden="true"></i>
                     </button>
-                    <button onclick="toggleMobileMenu()" class="theme-text-primary hover:text-yellow-500 focus:outline-none p-3 flex items-center justify-center min-h-[48px] min-w-[48px]" aria-label="Buka Menu">
-                        <i class="fa-solid fa-bars-staggered text-2xl" id="menuIcon"></i>
+                    <button onclick="toggleMobileMenu()" class="theme-text-primary hover:text-yellow-500 focus:outline-none p-3 flex items-center justify-center min-h-[48px] min-w-[48px]" aria-label="Buka Menu Navigasi">
+                        <i class="fa-solid fa-bars-staggered text-2xl" id="menuIcon" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
@@ -247,7 +249,7 @@
                 <button onclick="navigateToView('media'); toggleMobileMenu();" class="block w-full text-left px-4 py-3 text-xs font-bold uppercase tracking-widest theme-text-secondary hover:bg-yellow-500/10 border-b theme-border min-h-[44px]">Info & Media</button>
                 <div class="pt-4 space-y-2">
                     <button onclick="toggleMobileMenu(); showAdminLogin();" class="block text-center w-full px-4 py-3.5 bg-yellow-500 text-navy-950 font-display font-extrabold text-xs uppercase tracking-widest cursor-pointer min-h-[48px]">
-                        Panel Admin <i class="fa-solid fa-user-shield ml-2"></i>
+                        Panel Admin <i class="fa-solid fa-user-shield ml-2" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
@@ -279,16 +281,16 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl mx-auto px-4 w-full">
                     <button onclick="navigateToView('jadual')" class="w-full px-6 py-3 bg-yellow-500 text-navy-950 font-display font-extrabold text-xs uppercase tracking-[0.2em] hover:bg-yellow-400 transition-all duration-300 flex items-center justify-center min-h-[48px] shadow-md cursor-pointer">
-                        <i class="fa-regular fa-calendar-days mr-2.5"></i> Lihat Jadual & Acara
+                        <i class="fa-regular fa-calendar-days mr-2.5" aria-hidden="true"></i> Lihat Jadual & Acara
                     </button>
                     <button onclick="navigateToView('keputusan')" class="w-full px-6 py-3 bg-transparent border theme-border theme-text-primary font-display font-extrabold text-xs uppercase tracking-[0.2em] hover:bg-yellow-500 hover:text-navy-950 transition-all duration-300 flex items-center justify-center min-h-[48px] cursor-pointer">
-                        <i class="fa-solid fa-trophy mr-2.5"></i> Lihat Podium Pingat
+                        <i class="fa-solid fa-trophy mr-2.5" aria-hidden="true"></i> Lihat Podium Pingat
                     </button>
                     <button onclick="navigateToView('peserta')" class="w-full px-6 py-3 bg-transparent border theme-border theme-text-primary font-display font-extrabold text-xs uppercase tracking-[0.2em] hover:bg-yellow-500 hover:text-navy-950 transition-all duration-300 flex items-center justify-center min-h-[48px] cursor-pointer">
-                        <i class="fa-solid fa-users mr-2.5"></i> Lihat Senarai Atlet
+                        <i class="fa-solid fa-users mr-2.5" aria-hidden="true"></i> Lihat Senarai Atlet
                     </button>
                     <button onclick="navigateToView('pemenang')" class="w-full px-6 py-3 bg-transparent border theme-border theme-text-primary font-display font-extrabold text-xs uppercase tracking-[0.2em] hover:bg-yellow-500 hover:text-navy-950 transition-all duration-300 flex items-center justify-center min-h-[48px] cursor-pointer">
-                        <i class="fa-solid fa-medal mr-2.5"></i> Semak Keputusan Rasmi
+                        <i class="fa-solid fa-medal mr-2.5" aria-hidden="true"></i> Semak Keputusan Rasmi
                     </button>
                 </div>
 
@@ -301,7 +303,7 @@
                         <div class="flex items-center justify-between border-b theme-border pb-3 mb-4">
                             <div class="flex items-center space-x-2.5">
                                 <div class="w-8 h-8 bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 flex items-center justify-center rounded-none">
-                                    <i class="fa-solid fa-bullhorn text-sm"></i>
+                                    <i class="fa-solid fa-bullhorn text-sm" aria-hidden="true"></i>
                                 </div>
                                 <div>
                                     <h3 class="font-display font-extrabold text-xs sm:text-sm theme-text-primary uppercase tracking-wider">PENGUMUMAN TERKINI</h3>
@@ -309,7 +311,7 @@
                                 </div>
                             </div>
                             <button onclick="navigateToView('media')" class="text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500 hover:text-navy-950 border border-yellow-500/20 transition-all flex items-center cursor-pointer">
-                                PAPARAN LENGKAP <i class="fa-solid fa-arrow-right ml-1.5 text-[8px]"></i>
+                                PAPARAN LENGKAP <i class="fa-solid fa-arrow-right ml-1.5 text-[8px]" aria-hidden="true"></i>
                             </button>
                         </div>
                         <div id="homeAnnouncementsContainer" class="space-y-3">
@@ -328,7 +330,7 @@
                         <p class="text-xs sm:text-sm theme-text-secondary mt-2">Pilih tarikh atau hari kejohanan untuk mendapatkan maklumat terkini dengan tepat.</p>
                     </div>
                     
-                    <div id="dayFilters" class="flex flex-wrap gap-2 mt-6 md:mt-0 overflow-x-auto pb-2 hide-scroll">
+                    <div id="dayFilters" class="flex flex-wrap gap-2 mt-6 md:mt-0 overflow-x-auto pb-2 hide-scroll" role="tablist" aria-label="Tapis Hari Kejohanan">
                     </div>
                 </div>
 
@@ -336,7 +338,7 @@
                 </div>
 
                 <div id="noScheduleMessage" class="hidden border theme-border theme-surface p-12 text-center mt-6">
-                    <i class="fa-regular fa-calendar-xmark text-3xl theme-text-muted mb-3 block"></i>
+                    <i class="fa-regular fa-calendar-xmark text-3xl theme-text-muted mb-3 block" aria-hidden="true"></i>
                     <p class="text-sm font-bold uppercase tracking-wider theme-text-primary">Tiada Acara Dijadualkan</p>
                     <p class="text-xs theme-text-muted mt-1">Tiada sebarang acara direkodkan bagi tarikh kejohanan yang dipilih.</p>
                 </div>
@@ -356,13 +358,13 @@
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
                     <div class="lg:col-span-4 space-y-6">
                         <div class="border theme-border theme-surface p-5 rounded-none space-y-2">
-                            <label for="eventSelect" class="text-[10px] uppercase tracking-wider theme-text-muted font-bold block"><i class="fa-solid fa-list-check mr-1.5"></i> Pilihan Acara</label>
+                            <label for="eventSelect" class="text-[10px] uppercase tracking-wider theme-text-muted font-bold block"><i class="fa-solid fa-list-check mr-1.5" aria-hidden="true"></i> Pilihan Acara</label>
                             <select id="eventSelect" onchange="onEventChanged()" class="w-full theme-input border theme-border py-3 px-4 text-xs font-medium uppercase tracking-wider focus:outline-none transition-colors min-h-[48px] cursor-pointer">
                             </select>
                         </div>
 
                         <div class="border theme-border theme-surface p-5 rounded-none space-y-3">
-                            <label class="text-[10px] uppercase tracking-wider theme-text-muted font-bold block"><i class="fa-solid fa-rotate mr-1.5"></i> Pilihan Pusingan</label>
+                            <label class="text-[10px] uppercase tracking-wider theme-text-muted font-bold block"><i class="fa-solid fa-rotate mr-1.5" aria-hidden="true"></i> Pilihan Pusingan</label>
                             <div class="flex flex-col space-y-2" id="roundButtonsGroup">
                                 <button onclick="setRound('saringan_1')" id="btn-round-saringan_1" class="w-full py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 bg-yellow-500 text-navy-950 min-h-[44px]">Saringan 1</button>
                                 <button onclick="setRound('saringan_2')" id="btn-round-saringan_2" class="w-full py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest transition-all duration-300 theme-surface theme-text-primary hover:bg-yellow-500/10 min-h-[44px] border theme-border">Saringan 2</button>
@@ -397,7 +399,7 @@
                                 </div>
                             </div>
                             <div id="noMaleAthletesMessage" class="hidden border theme-border theme-surface p-8 text-center">
-                                <i class="fa-solid fa-mars text-2xl text-blue-500/50 mb-2 block"></i>
+                                <i class="fa-solid fa-mars text-2xl text-blue-500/50 mb-2 block" aria-hidden="true"></i>
                                 <p class="text-xs font-bold uppercase tracking-wider theme-text-primary">Tiada Peserta Lelaki Ditemui</p>
                                 <p class="text-[10px] theme-text-muted mt-1">Senarai Atlet Lelaki untuk acara/pusingan ini belum disahkan atau tiada pendaftaran.</p>
                             </div>
@@ -426,7 +428,7 @@
                                 </div>
                             </div>
                             <div id="noFemaleAthletesMessage" class="hidden border theme-border theme-surface p-8 text-center">
-                                <i class="fa-solid fa-venus text-2xl text-pink-500/50 mb-2 block"></i>
+                                <i class="fa-solid fa-venus text-2xl text-pink-500/50 mb-2 block" aria-hidden="true"></i>
                                 <p class="text-xs font-bold uppercase tracking-wider theme-text-primary">Tiada Peserta Perempuan Ditemui</p>
                                 <p class="text-[10px] theme-text-muted mt-1">Senarai Atlet Perempuan untuk acara/pusingan ini belum disahkan atau tiada pendaftaran.</p>
                             </div>
@@ -452,7 +454,7 @@
                 <!-- EMPTY STATE UNTUK PODIUM -->
                 <div id="noPodiumDataMessage" class="hidden border theme-border theme-surface p-12 text-center">
                     <div class="w-16 h-16 theme-surface border theme-border rounded-full flex items-center justify-center theme-text-muted mx-auto mb-4">
-                        <i class="fa-solid fa-trophy text-2xl text-yellow-500"></i>
+                        <i class="fa-solid fa-trophy text-2xl text-yellow-500" aria-hidden="true"></i>
                     </div>
                     <p class="text-sm font-display font-extrabold uppercase tracking-wider theme-text-primary mb-1">Tiada Kedudukan Tersedia</p>
                     <p class="text-xs theme-text-muted max-w-sm mx-auto">Keputusan pungutan pingat rasmi belum dimuatkan atau tiada padanan pasukan ditemui.</p>
@@ -471,6 +473,7 @@
                     
                     <div class="mt-6 lg:mt-0 w-full lg:w-auto flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center">
                         <div class="w-full sm:w-64">
+                            <label for="winnerEventSelect" class="sr-only">Pilih Acara Keputusan Rasmi</label>
                             <select id="winnerEventSelect" onchange="onWinnerEventChanged()" class="w-full theme-input border theme-border py-3 px-3 text-xs font-medium uppercase tracking-wider focus:outline-none transition-colors min-h-[48px] cursor-pointer">
                             </select>
                         </div>
@@ -494,7 +497,7 @@
                     <div class="border theme-border p-6 sm:p-8 glass-card text-center hover:border-yellow-500 transition-all duration-300 group flex flex-col justify-between">
                         <div>
                             <div class="w-16 h-16 theme-surface border theme-border flex items-center justify-center theme-text-primary mx-auto mb-6 transform group-hover:rotate-6 transition-all duration-300">
-                                <i class="fa-solid fa-trophy text-2xl text-yellow-500"></i>
+                                <i class="fa-solid fa-trophy text-2xl text-yellow-500" aria-hidden="true"></i>
                             </div>
                             <h3 class="font-display font-bold text-base sm:text-lg uppercase tracking-wider theme-text-primary mb-4">Atlet Lelaki Terbaik</h3>
                             
@@ -503,9 +506,9 @@
                                 <p class="text-[10px] theme-text-muted uppercase tracking-widest leading-relaxed">Pasukan: <span id="olahragawanPasukan" class="theme-text-primary font-semibold">-</span></p>
                                 <p class="text-[10px] theme-text-muted uppercase tracking-widest leading-relaxed mb-2.5">No Bib: <span id="olahragawanBib" class="theme-text-primary font-semibold">-</span></p>
                                 <div class="flex flex-col space-y-1 text-[9px] font-bold uppercase tracking-wider theme-text-secondary border-t theme-border pt-2">
-                                    <span class="flex items-center"><i class="fa-solid fa-medal text-yellow-500 mr-1.5"></i> Emas: <span id="olahragawanEmas">0</span></span>
-                                    <span class="flex items-center"><i class="fa-solid fa-medal text-slate-400 mr-1.5"></i> Perak: <span id="olahragawanPerak">0</span></span>
-                                    <span class="flex items-center"><i class="fa-solid fa-medal text-amber-700 mr-1.5"></i> Gangsa: <span id="olahragawanGangsa">0</span></span>
+                                    <span class="flex items-center"><i class="fa-solid fa-medal text-yellow-500 mr-1.5" aria-hidden="true"></i> Emas: <span id="olahragawanEmas">0</span></span>
+                                    <span class="flex items-center"><i class="fa-solid fa-medal text-slate-400 mr-1.5" aria-hidden="true"></i> Perak: <span id="olahragawanPerak">0</span></span>
+                                    <span class="flex items-center"><i class="fa-solid fa-medal text-amber-700 mr-1.5" aria-hidden="true"></i> Gangsa: <span id="olahragawanGangsa">0</span></span>
                                 </div>
                             </div>
 
@@ -518,7 +521,7 @@
                     <div class="border theme-border p-6 sm:p-8 glass-card text-center hover:border-yellow-500 transition-all duration-300 group flex flex-col justify-between">
                         <div>
                             <div class="w-16 h-16 theme-surface border theme-border flex items-center justify-center theme-text-primary mx-auto mb-6 transform group-hover:rotate-6 transition-all duration-300">
-                                <i class="fa-solid fa-trophy text-2xl text-yellow-400"></i>
+                                <i class="fa-solid fa-trophy text-2xl text-yellow-400" aria-hidden="true"></i>
                             </div>
                             <h3 class="font-display font-bold text-base sm:text-lg uppercase tracking-wider theme-text-primary mb-4">Atlet Perempuan Terbaik</h3>
                             
@@ -527,9 +530,9 @@
                                 <p class="text-[10px] theme-text-muted uppercase tracking-widest leading-relaxed">Pasukan: <span id="olahragawatiPasukan" class="theme-text-primary font-semibold">-</span></p>
                                 <p class="text-[10px] theme-text-muted uppercase tracking-widest leading-relaxed mb-2.5">No Bib: <span id="olahragawatiBib" class="theme-text-primary font-semibold">-</span></p>
                                 <div class="flex flex-col space-y-1 text-[9px] font-bold uppercase tracking-wider theme-text-secondary border-t theme-border pt-2">
-                                    <span class="flex items-center"><i class="fa-solid fa-medal text-yellow-500 mr-1.5"></i> Emas: <span id="olahragawatiEmas">0</span></span>
-                                    <span class="flex items-center"><i class="fa-solid fa-medal text-slate-400 mr-1.5"></i> Perak: <span id="olahragawatiPerak">0</span></span>
-                                    <span class="flex items-center"><i class="fa-solid fa-medal text-amber-700 mr-1.5"></i> Gangsa: <span id="olahragawatiGangsa">0</span></span>
+                                    <span class="flex items-center"><i class="fa-solid fa-medal text-yellow-500 mr-1.5" aria-hidden="true"></i> Emas: <span id="olahragawatiEmas">0</span></span>
+                                    <span class="flex items-center"><i class="fa-solid fa-medal text-slate-400 mr-1.5" aria-hidden="true"></i> Perak: <span id="olahragawatiPerak">0</span></span>
+                                    <span class="flex items-center"><i class="fa-solid fa-medal text-amber-700 mr-1.5" aria-hidden="true"></i> Gangsa: <span id="olahragawatiGangsa">0</span></span>
                                 </div>
                             </div>
 
@@ -542,7 +545,7 @@
                     <div class="border theme-border p-6 sm:p-8 glass-card text-center hover:border-yellow-500 transition-all duration-300 group flex flex-col justify-between">
                         <div>
                             <div class="w-16 h-16 theme-surface border theme-border flex items-center justify-center theme-text-primary mx-auto mb-6 transform group-hover:rotate-6 transition-all duration-300">
-                                <i class="fa-solid fa-star text-2xl text-yellow-300"></i>
+                                <i class="fa-solid fa-star text-2xl text-yellow-300" aria-hidden="true"></i>
                             </div>
                             <h3 class="font-display font-bold text-base sm:text-lg uppercase tracking-wider theme-text-primary mb-4">Juara Keseluruhan</h3>
                             
@@ -551,9 +554,9 @@
                                 <p class="text-[10px] theme-text-muted uppercase tracking-widest leading-relaxed">Kategori: <span class="theme-text-primary font-semibold">Pasukan Terbaik</span></p>
                                 <p class="text-[10px] theme-text-muted uppercase tracking-widest leading-relaxed mb-2.5">Pencapaian: <span class="theme-text-primary font-semibold">Terbanyak Emas</span></p>
                                 <div class="flex flex-col space-y-1 text-[9px] font-bold uppercase tracking-wider theme-text-secondary border-t theme-border pt-2">
-                                    <span class="flex items-center"><i class="fa-solid fa-medal text-yellow-500 mr-1.5"></i> Emas: <span id="juaraEmas">0</span></span>
-                                    <span class="flex items-center"><i class="fa-solid fa-medal text-slate-400 mr-1.5"></i> Perak: <span id="juaraPerak">0</span></span>
-                                    <span class="flex items-center"><i class="fa-solid fa-medal text-amber-700 mr-1.5"></i> Gangsa: <span id="juaraGangsa">0</span></span>
+                                    <span class="flex items-center"><i class="fa-solid fa-medal text-yellow-500 mr-1.5" aria-hidden="true"></i> Emas: <span id="juaraEmas">0</span></span>
+                                    <span class="flex items-center"><i class="fa-solid fa-medal text-slate-400 mr-1.5" aria-hidden="true"></i> Perak: <span id="juaraPerak">0</span></span>
+                                    <span class="flex items-center"><i class="fa-solid fa-medal text-amber-700 mr-1.5" aria-hidden="true"></i> Gangsa: <span id="juaraGangsa">0</span></span>
                                 </div>
                             </div>
 
@@ -583,7 +586,7 @@
                             <div class="flex items-center justify-between border-b theme-border pb-3">
                                 <div class="flex items-center space-x-2.5">
                                     <div class="w-8 h-8 bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 flex items-center justify-center rounded-none">
-                                        <i class="fa-solid fa-bullhorn text-sm"></i>
+                                        <i class="fa-solid fa-bullhorn text-sm" aria-hidden="true"></i>
                                     </div>
                                     <div>
                                         <h3 class="font-display font-extrabold text-xs sm:text-sm theme-text-primary uppercase tracking-wider">PENGUMUMAN & HEBAHAN LENGKAP</h3>
@@ -602,10 +605,10 @@
                         <div class="space-y-3 pt-4 border-t theme-border">
                             <div class="flex items-center justify-between p-4 theme-surface border theme-border hover:border-yellow-500 transition-all group">
                                 <div class="flex items-center space-x-3">
-                                    <i class="fa-regular fa-file-pdf text-red-500 text-lg"></i>
+                                    <i class="fa-regular fa-file-pdf text-red-500 text-lg" aria-hidden="true"></i>
                                     <span class="text-xs font-bold uppercase tracking-wider theme-text-primary">Buku Rasmi Peraturan Kejohanan (PDF)</span>
                                 </div>
-                                <a id="publicPdfLink" href="#" target="_blank" class="p-2 theme-text-muted hover:text-yellow-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" title="Muat Turun"><i class="fa-solid fa-download"></i></a>
+                                <a id="publicPdfLink" href="#" target="_blank" rel="noopener noreferrer" class="p-2 theme-text-muted hover:text-yellow-500 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Muat Turun Buku Rasmi Peraturan PDF" title="Muat Turun"><i class="fa-solid fa-download" aria-hidden="true"></i></a>
                             </div>
                         </div>
                     </div>
@@ -615,7 +618,7 @@
                             <div>
                                 <div class="flex justify-between items-start mb-4">
                                     <div class="w-10 h-10 theme-surface border theme-border flex items-center justify-center theme-text-primary transform group-hover:rotate-6 transition-all">
-                                        <i class="fa-regular fa-images text-lg"></i>
+                                        <i class="fa-regular fa-images text-lg" aria-hidden="true"></i>
                                     </div>
                                     <span class="text-[9px] font-sans theme-text-muted uppercase tracking-widest">GALERI MULTIMEDIA</span>
                                 </div>
@@ -624,8 +627,8 @@
                                     Akses foto rasmi, liputan harian, dan detik-detik podium kontinjen yang dirakam lensa kamera.
                                 </p>
                             </div>
-                            <a id="publicGalleryLink" href="#" target="_blank" class="inline-flex items-center text-[10px] font-bold theme-text-primary uppercase tracking-widest hover:text-yellow-500 transition-colors mt-4 min-h-[44px]">
-                                LIHAT GALERI <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                            <a id="publicGalleryLink" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[10px] font-bold theme-text-primary uppercase tracking-widest hover:text-yellow-500 transition-colors mt-4 min-h-[44px]">
+                                LIHAT GALERI <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i>
                             </a>
                         </div>
 
@@ -633,7 +636,7 @@
                             <div>
                                 <div class="flex justify-between items-start mb-4">
                                     <div class="w-10 h-10 theme-surface border theme-border flex items-center justify-center theme-text-primary transform group-hover:-rotate-6 transition-all">
-                                        <i class="fa-regular fa-comment-dots text-lg"></i>
+                                        <i class="fa-regular fa-comment-dots text-lg" aria-hidden="true"></i>
                                     </div>
                                     <span class="text-[9px] font-sans theme-text-muted uppercase tracking-widest">HUBUNGI URUS SETIA</span>
                                 </div>
@@ -642,8 +645,8 @@
                                     Mempunyai sebarang cadangan, aduan, atau pertanyaan? Hantar maklum balas terus kepada urusetia kejohanan.
                                 </p>
                             </div>
-                            <a id="publicFeedbackLink" href="#" target="_blank" class="inline-flex items-center text-[10px] font-bold theme-text-primary uppercase tracking-widest hover:text-yellow-500 transition-colors mt-4 min-h-[44px]">
-                                HANTAR MAKLUM BALAS <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                            <a id="publicFeedbackLink" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[10px] font-bold theme-text-primary uppercase tracking-widest hover:text-yellow-500 transition-colors mt-4 min-h-[44px]">
+                                HANTAR MAKLUM BALAS <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i>
                             </a>
                         </div>
                     </div>
@@ -652,59 +655,59 @@
         </section>
     </main>
 
-    <!-- Modal Admin Login -->
-    <div id="adminLoginModal" class="fixed inset-0 z-50 hidden glass-card backdrop-blur-md overflow-y-auto flex items-center justify-center p-4 pt-[calc(1rem+var(--sat))] pb-[calc(1rem+var(--sab))]">
+    <!-- Modal Admin Login (SEC-01 Fix: Firebase Authentication Integrated) -->
+    <div id="adminLoginModal" class="fixed inset-0 z-50 hidden glass-card backdrop-blur-md overflow-y-auto flex items-center justify-center p-4 pt-[calc(1rem+var(--sat))] pb-[calc(1rem+var(--sab))]" role="dialog" aria-modal="true" aria-labelledby="adminLoginModalTitle">
         <div class="border theme-border theme-surface p-6 flex flex-col justify-between max-w-md w-full relative shadow-2xl">
-            <button onclick="closeAdminLoginModal()" class="absolute top-4 right-4 theme-text-muted hover:text-yellow-500 p-2 min-h-[44px] min-w-[44px] flex items-center justify-center">
-                <i class="fa-solid fa-xmark text-lg"></i>
+            <button onclick="closeAdminLoginModal()" class="absolute top-4 right-4 theme-text-muted hover:text-yellow-500 p-2 min-h-[44px] min-w-[44px] flex items-center justify-center" aria-label="Tutup Modal Log Masuk">
+                <i class="fa-solid fa-xmark text-lg" aria-hidden="true"></i>
             </button>
             <div>
-                <h3 class="font-display font-bold text-xs uppercase tracking-wider theme-text-primary mb-2 border-b theme-border pb-3 flex items-center">
-                    <i class="fa-solid fa-shield-halved mr-2 text-yellow-500"></i> Log Masuk Admin
+                <h3 id="adminLoginModalTitle" class="font-display font-bold text-xs uppercase tracking-wider theme-text-primary mb-2 border-b theme-border pb-3 flex items-center">
+                    <i class="fa-solid fa-shield-halved mr-2 text-yellow-500" aria-hidden="true"></i> Log Masuk Pentadbir (Firebase Auth)
                 </h3>
                 <p class="text-[11px] theme-text-secondary leading-relaxed mb-4">
-                    Sila masukkan ID Urus Setia dan Kata Laluan untuk mengakses Panel Kawalan Pentadbir.
+                    Masukkan Emel Rasmi Pentadbir dan Kata Laluan untuk mengesahkan identiti melalui Firebase Authentication SDK.
                 </p>
             </div>
             
             <div id="loginFormContainer" class="space-y-3">
                 <div class="theme-bg-secondary border theme-border p-3 space-y-1">
-                    <label for="adminUsername" class="text-[9px] uppercase tracking-wider theme-text-muted font-bold block">ID Urus Setia</label>
-                    <input type="text" id="adminUsername" placeholder="ID Urus Setia" class="w-full theme-input border theme-border py-2 px-3 text-xs focus:outline-none">
+                    <label for="adminUsername" class="text-[9px] uppercase tracking-wider theme-text-muted font-bold block">Emel Pentadbir</label>
+                    <input type="email" id="adminUsername" placeholder="admin@athletix.com" class="w-full theme-input border theme-border py-2 px-3 text-xs focus:outline-none">
                 </div>
                 <div class="theme-bg-secondary border theme-border p-3 space-y-1">
                     <label for="adminPasswordInput" class="text-[9px] uppercase tracking-wider theme-text-muted font-bold block">Kata Laluan</label>
-                    <input type="password" id="adminPasswordInput" placeholder="Masukkan kata laluan..." class="w-full theme-input border theme-border py-2 px-3 text-xs focus:outline-none" onkeydown="if(event.key==='Enter') verifyAdminPassword()">
+                    <input type="password" id="adminPasswordInput" placeholder="Masukkan kata laluan selamat..." class="w-full theme-input border theme-border py-2 px-3 text-xs focus:outline-none" onkeydown="if(event.key==='Enter') verifyAdminPassword()">
                 </div>
                 <p id="passwordFeedback" class="hidden text-[9px] font-bold uppercase tracking-widest"></p>
                 
-                <button onclick="verifyAdminPassword()" class="w-full py-3 bg-yellow-500 text-navy-950 hover:bg-yellow-400 font-display font-extrabold text-[10px] uppercase tracking-widest flex items-center justify-center transition-all duration-300 min-h-[44px]">
-                    Log Masuk <i class="fa-solid fa-arrow-right-to-bracket ml-2"></i>
+                <button onclick="verifyAdminPassword()" id="btnAdminLoginSubmit" class="w-full py-3 bg-yellow-500 text-navy-950 hover:bg-yellow-400 font-display font-extrabold text-[10px] uppercase tracking-widest flex items-center justify-center transition-all duration-300 min-h-[44px]">
+                    Pengesahan Identiti <i class="fa-solid fa-arrow-right-to-bracket ml-2" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Modal Panel Kawalan Admin -->
-    <div id="adminPanelModal" class="fixed inset-0 z-50 hidden glass-card backdrop-blur-md overflow-hidden flex flex-col pt-[var(--sat)] pb-[var(--sab)]">
+    <!-- Modal Panel Kawalan Admin (UI-01 & ACC-01 Fix: Overflow & ARIA Dialog) -->
+    <div id="adminPanelModal" class="fixed inset-0 z-50 hidden glass-card backdrop-blur-md overflow-hidden flex flex-col pt-[var(--sat)] pb-[var(--sab)]" role="dialog" aria-modal="true" aria-labelledby="adminPanelModalTitle">
         <div class="flex items-center justify-between border-b theme-border p-4 sm:p-6 theme-surface shadow-md z-10 shrink-0">
             <div class="flex items-center space-x-4">
                 <div class="p-2.5 bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 rounded">
-                    <i class="fa-solid fa-user-shield text-xl"></i>
+                    <i class="fa-solid fa-user-shield text-xl" aria-hidden="true"></i>
                 </div>
                 <div>
-                    <h3 class="font-display font-extrabold text-sm sm:text-lg theme-text-primary uppercase tracking-wider">PANEL KAWALAN ADMIN</h3>
+                    <h3 id="adminPanelModalTitle" class="font-display font-extrabold text-sm sm:text-lg theme-text-primary uppercase tracking-wider">PANEL KAWALAN ADMIN</h3>
                     <p class="text-[9px] sm:text-[10px] text-green-500 font-sans tabular-nums tracking-widest uppercase flex items-center mt-1">
-                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse mr-1.5"></span> Live Data Sync
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse mr-1.5"></span> Firebase Auth Active
                     </p>
                 </div>
             </div>
             <div class="flex items-center space-x-3">
                 <button onclick="triggerManualSync()" class="px-3 py-2 bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20 border border-yellow-500/20 font-bold text-[10px] uppercase tracking-wider transition-colors flex items-center min-h-[44px]" title="Paksa Penyelarasan Data">
-                    <i class="fa-solid fa-rotate mr-1.5" id="manualSyncIcon"></i> Sync Now
+                    <i class="fa-solid fa-rotate mr-1.5" id="manualSyncIcon" aria-hidden="true"></i> Sync Now
                 </button>
-                <button onclick="closeAdminPanel()" class="px-4 py-2 bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 font-bold text-[10px] uppercase tracking-wider transition-colors flex items-center min-h-[44px]">
-                    <i class="fa-solid fa-power-off mr-2"></i> Keluar Admin
+                <button onclick="handleAdminLogout()" class="px-4 py-2 bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 font-bold text-[10px] uppercase tracking-wider transition-colors flex items-center min-h-[44px]">
+                    <i class="fa-solid fa-power-off mr-2" aria-hidden="true"></i> Log Keluar Admin
                 </button>
             </div>
         </div>
@@ -712,36 +715,36 @@
         <div class="flex flex-1 overflow-hidden flex-col md:flex-row">
             <div class="w-full md:w-64 border-r theme-border theme-surface flex flex-row md:flex-col overflow-x-auto md:overflow-y-auto shrink-0 hide-scroll border-b md:border-b-0 p-2 sm:p-4 gap-2">
                 <button onclick="switchAdminTab('tab-utama')" class="admin-tab-btn active flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-yellow-500/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-utama">
-                    <i class="fa-solid fa-house w-5 text-center mr-2 md:mr-3 theme-text-muted"></i>
+                    <i class="fa-solid fa-house w-5 text-center mr-2 md:mr-3 theme-text-muted" aria-hidden="true"></i>
                     <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider theme-text-primary">Utama</span>
                 </button>
                 <button onclick="switchAdminTab('tab-jadual')" class="admin-tab-btn flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-yellow-500/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-jadual">
-                    <i class="fa-regular fa-calendar-days w-5 text-center mr-2 md:mr-3 theme-text-muted"></i>
+                    <i class="fa-regular fa-calendar-days w-5 text-center mr-2 md:mr-3 theme-text-muted" aria-hidden="true"></i>
                     <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider theme-text-primary">Jadual</span>
                 </button>
                 <button onclick="switchAdminTab('tab-peserta')" class="admin-tab-btn flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-yellow-500/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-peserta">
-                    <i class="fa-solid fa-users w-5 text-center mr-2 md:mr-3 theme-text-muted"></i>
+                    <i class="fa-solid fa-users w-5 text-center mr-2 md:mr-3 theme-text-muted" aria-hidden="true"></i>
                     <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider theme-text-primary">Senarai Atlet</span>
                 </button>
                 <button onclick="switchAdminTab('tab-pingat')" class="admin-tab-btn flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-yellow-500/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-pingat">
-                    <i class="fa-solid fa-ranking-star w-5 text-center mr-2 md:mr-3 theme-text-muted"></i>
+                    <i class="fa-solid fa-ranking-star w-5 text-center mr-2 md:mr-3 theme-text-muted" aria-hidden="true"></i>
                     <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider theme-text-primary">Podium Pingat</span>
                 </button>
                 <button onclick="switchAdminTab('tab-pemenang')" class="admin-tab-btn flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-yellow-500/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-pemenang">
-                    <i class="fa-solid fa-medal w-5 text-center mr-2 md:mr-3 theme-text-muted"></i>
+                    <i class="fa-solid fa-medal w-5 text-center mr-2 md:mr-3 theme-text-muted" aria-hidden="true"></i>
                     <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider theme-text-primary">Keputusan Rasmi</span>
                 </button>
                 <button onclick="switchAdminTab('tab-anugerah')" class="admin-tab-btn flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-yellow-500/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-anugerah">
-                    <i class="fa-solid fa-trophy w-5 text-center mr-2 md:mr-3 theme-text-muted"></i>
+                    <i class="fa-solid fa-trophy w-5 text-center mr-2 md:mr-3 theme-text-muted" aria-hidden="true"></i>
                     <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider theme-text-primary">Anugerah</span>
                 </button>
                 <button onclick="switchAdminTab('tab-media')" class="admin-tab-btn flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-yellow-500/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-media">
-                    <i class="fa-solid fa-bullhorn w-5 text-center mr-2 md:mr-3 theme-text-muted"></i>
+                    <i class="fa-solid fa-bullhorn w-5 text-center mr-2 md:mr-3 theme-text-muted" aria-hidden="true"></i>
                     <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider theme-text-primary">Info & Media</span>
                 </button>
                 <div class="h-px theme-border my-2 hidden md:block"></div>
                 <button onclick="switchAdminTab('tab-tetapan')" class="admin-tab-btn flex items-center p-3 text-left w-auto md:w-full min-w-[120px] transition-all duration-200 hover:bg-yellow-500/10 border border-transparent whitespace-nowrap min-h-[44px]" data-target="tab-tetapan">
-                    <i class="fa-solid fa-gear w-5 text-center mr-2 md:mr-3 theme-text-muted"></i>
+                    <i class="fa-solid fa-gear w-5 text-center mr-2 md:mr-3 theme-text-muted" aria-hidden="true"></i>
                     <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider theme-text-primary">Tetapan Data</span>
                 </button>
             </div>
@@ -751,11 +754,11 @@
                     <div class="border theme-border theme-surface p-6 space-y-4">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b theme-border pb-3">
                             <div>
-                                <h3 class="font-display text-sm font-bold theme-text-primary uppercase"><i class="fa-solid fa-sliders text-yellow-500 mr-2"></i>Pengurusan Dashboard Utama</h3>
+                                <h3 class="font-display text-sm font-bold theme-text-primary uppercase"><i class="fa-solid fa-sliders text-yellow-500 mr-2" aria-hidden="true"></i>Pengurusan Dashboard Utama</h3>
                                 <p class="text-[10px] theme-text-muted mt-0.5">Pengurusan maklumat yang dipaparkan pada bahagian halaman utama.</p>
                             </div>
                             <button onclick="addNewDashCard()" class="px-3 py-1.5 border theme-border theme-text-primary hover:bg-yellow-500 hover:text-navy-950 font-bold text-[10px] uppercase tracking-wider transition-colors self-start sm:self-auto flex items-center min-h-[40px]">
-                                <i class="fa-solid fa-plus mr-1.5"></i> Tambah Kad
+                                <i class="fa-solid fa-plus mr-1.5" aria-hidden="true"></i> Tambah Kad
                             </button>
                         </div>
 
@@ -771,7 +774,7 @@
 
                     <div class="border theme-border theme-surface p-5 space-y-4">
                         <h3 class="font-display text-xs font-bold theme-text-primary uppercase tracking-wider mb-2">
-                            <i class="fa-solid fa-calendar-plus text-yellow-500 mr-2"></i> Tetapan Pengurusan Jadual Acara
+                            <i class="fa-solid fa-calendar-plus text-yellow-500 mr-2" aria-hidden="true"></i> Tetapan Pengurusan Jadual Acara
                         </h3>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
                             <div>
@@ -800,17 +803,17 @@
                         </div>
                         <div class="pt-2 flex justify-end gap-2" id="adminScheduleBtnContainer">
                             <button id="btnCancelScheduleEdit" onclick="cancelScheduleEdit()" class="hidden px-4 py-2.5 bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 flex items-center min-h-[40px]">
-                                <i class="fa-solid fa-xmark mr-2"></i> Batal
+                                <i class="fa-solid fa-xmark mr-2" aria-hidden="true"></i> Batal
                             </button>
                             <button id="btnAddSchedule" onclick="addScheduleEntry()" class="px-5 py-2.5 bg-yellow-500 text-navy-950 hover:bg-yellow-400 font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 flex items-center min-h-[40px]">
-                                <i class="fa-solid fa-plus mr-2" id="btnScheduleIcon"></i> <span id="btnScheduleText">Tambah Acara Ke Jadual</span>
+                                <i class="fa-solid fa-plus mr-2" id="btnScheduleIcon" aria-hidden="true"></i> <span id="btnScheduleText">Tambah Acara Ke Jadual</span>
                             </button>
                         </div>
                     </div>
 
                     <div class="border theme-border theme-surface p-5 space-y-3">
                         <h3 class="font-display text-xs font-bold theme-text-primary uppercase tracking-wider mb-2">
-                            <i class="fa-solid fa-table-list theme-text-muted mr-2"></i> Jadual Data Pengurusan Acara
+                            <i class="fa-solid fa-table-list theme-text-muted mr-2" aria-hidden="true"></i> Jadual Data Pengurusan Acara
                         </h3>
                         <div class="overflow-x-auto min-w-full">
                             <table class="w-full text-left text-xs border-collapse min-w-[550px]">
@@ -838,7 +841,7 @@
 
                     <div class="border theme-border theme-surface p-5 space-y-4">
                         <h3 class="font-display text-xs font-bold theme-text-primary uppercase tracking-wider mb-2">
-                            <i class="fa-solid fa-file-csv text-green-500 mr-2"></i> Tetapan Maklumat dan Data Peserta
+                            <i class="fa-solid fa-file-csv text-green-500 mr-2" aria-hidden="true"></i> Tetapan Maklumat dan Data Peserta
                         </h3>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div class="sm:col-span-2">
@@ -860,14 +863,14 @@
                         </div>
                         <div class="pt-2 flex justify-end">
                             <button onclick="saveParticipantEventConfig()" class="px-5 py-2.5 bg-yellow-500 text-navy-950 hover:bg-yellow-400 font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 flex items-center min-h-[40px]">
-                                <i class="fa-solid fa-floppy-disk mr-2"></i> Simpan Data Peserta
+                                <i class="fa-solid fa-floppy-disk mr-2" aria-hidden="true"></i> Simpan Data Peserta
                             </button>
                         </div>
                     </div>
 
                     <div class="border theme-border theme-surface p-5 space-y-3">
                         <h3 class="font-display text-xs font-bold theme-text-primary uppercase tracking-wider mb-2">
-                            <i class="fa-solid fa-table-list theme-text-muted mr-2"></i> Senarai Tetapan Maklumat Peserta
+                            <i class="fa-solid fa-table-list theme-text-muted mr-2" aria-hidden="true"></i> Senarai Tetapan Maklumat Peserta
                         </h3>
                         <div class="overflow-x-auto min-w-full">
                             <table class="w-full text-left text-xs border-collapse min-w-[550px]">
@@ -893,7 +896,7 @@
 
                     <div class="border theme-border theme-surface p-6 space-y-4">
                         <h3 class="font-display text-sm font-bold theme-text-primary uppercase tracking-wider mb-1 flex items-center">
-                            <i class="fa-solid fa-file-csv text-yellow-500 mr-2"></i> Pautan Synchronisasi Kedudukan Pingat (CSV)
+                            <i class="fa-solid fa-file-csv text-yellow-500 mr-2" aria-hidden="true"></i> Pautan Synchronisasi Kedudukan Pingat (CSV)
                         </h3>
                         <p class="text-[11px] theme-text-muted">Sokongan automatik pautan URL Edit Google Sheet atau pautan CSV terbitan (Publish to Web).</p>
                         
@@ -906,20 +909,20 @@
                         
                         <div class="flex flex-wrap justify-end gap-3 pt-2 border-t theme-border">
                             <button onclick="clearPingatConfig()" class="px-4 py-2 bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 font-bold text-[10px] uppercase tracking-wider transition-colors flex items-center min-h-[40px]">
-                                <i class="fa-solid fa-trash mr-1.5"></i> Hapus Pautan
+                                <i class="fa-solid fa-trash mr-1.5" aria-hidden="true"></i> Hapus Pautan
                             </button>
                             <button onclick="syncPingatFromGoogleSheet()" class="px-4 py-2 bg-blue-500/10 text-blue-500 hover:bg-blue-500/20 border border-blue-500/20 font-bold text-[10px] uppercase tracking-wider transition-colors flex items-center min-h-[40px]">
-                                <i class="fa-solid fa-rotate mr-1.5"></i> Muat &amp; Sinkroni Pautan
+                                <i class="fa-solid fa-rotate mr-1.5" aria-hidden="true"></i> Muat &amp; Sinkroni Pautan
                             </button>
                             <button onclick="savePingatConfig()" class="px-5 py-2 bg-yellow-500 text-navy-950 hover:bg-yellow-400 font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 flex items-center min-h-[40px]">
-                                <i class="fa-solid fa-floppy-disk mr-1.5"></i> Simpan Pautan
+                                <i class="fa-solid fa-floppy-disk mr-1.5" aria-hidden="true"></i> Simpan Pautan
                             </button>
                         </div>
                     </div>
 
                     <div class="border theme-border theme-surface p-5 space-y-3">
                         <h3 class="font-display text-xs font-bold theme-text-primary uppercase tracking-wider mb-2">
-                            <i class="fa-solid fa-table-list theme-text-muted mr-2"></i> Senarai Tetapan Kedudukan Pingat
+                            <i class="fa-solid fa-table-list theme-text-muted mr-2" aria-hidden="true"></i> Senarai Tetapan Kedudukan Pingat
                         </h3>
                         <div class="overflow-x-auto min-w-full">
                             <table class="w-full text-left text-xs border-collapse min-w-[500px]">
@@ -944,7 +947,7 @@
 
                     <div class="border theme-border theme-surface p-5 space-y-4">
                         <h3 class="font-display text-xs font-bold theme-text-primary uppercase tracking-wider mb-2">
-                            <i class="fa-solid fa-trophy text-yellow-500 mr-2"></i> Tetapan Keputusan Rasmi Pemenang
+                            <i class="fa-solid fa-trophy text-yellow-500 mr-2" aria-hidden="true"></i> Tetapan Keputusan Rasmi Pemenang
                         </h3>
                         <div class="grid grid-cols-1 gap-3">
                             <div>
@@ -966,14 +969,14 @@
                         </div>
                         <div class="pt-2 flex justify-end">
                             <button onclick="saveWinnerEventConfig()" class="px-5 py-2.5 bg-yellow-500 text-navy-950 hover:bg-yellow-400 font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 flex items-center min-h-[40px]">
-                                <i class="fa-solid fa-floppy-disk mr-2"></i> Simpan Tetapan Keputusan Rasmi
+                                <i class="fa-solid fa-floppy-disk mr-2" aria-hidden="true"></i> Simpan Tetapan Keputusan Rasmi
                             </button>
                         </div>
                     </div>
 
                     <div class="border theme-border theme-surface p-5 space-y-3">
                         <h3 class="font-display text-xs font-bold theme-text-primary uppercase tracking-wider mb-2">
-                            <i class="fa-solid fa-table-list theme-text-muted mr-2"></i> Senarai Tetapan Keputusan Rasmi Pemenang
+                            <i class="fa-solid fa-table-list theme-text-muted mr-2" aria-hidden="true"></i> Senarai Tetapan Keputusan Rasmi Pemenang
                         </h3>
                         <div class="overflow-x-auto min-w-full">
                             <table class="w-full text-left text-xs border-collapse min-w-[500px]">
@@ -999,7 +1002,7 @@
 
                     <div class="border theme-border theme-surface p-4 flex items-center space-x-3">
                         <div class="p-2.5 bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 shrink-0">
-                            <i class="fa-solid fa-star text-lg"></i>
+                            <i class="fa-solid fa-star text-lg" aria-hidden="true"></i>
                         </div>
                         <div>
                             <h4 class="font-bold text-xs theme-text-primary uppercase tracking-wider">Juara Keseluruhan</h4>
@@ -1011,7 +1014,7 @@
 
                     <div class="border theme-border theme-surface p-5 space-y-4">
                         <h3 class="font-display text-xs font-bold theme-text-primary uppercase tracking-wider border-b theme-border pb-2 flex items-center">
-                            <i class="fa-solid fa-trophy text-yellow-500 mr-2"></i> 1. OLAHRAGAWAN TERBAIK
+                            <i class="fa-solid fa-trophy text-yellow-500 mr-2" aria-hidden="true"></i> 1. OLAHRAGAWAN TERBAIK
                         </h3>
                         <div class="grid grid-cols-1 gap-3">
                             <div>
@@ -1025,7 +1028,7 @@
 
                     <div class="border theme-border theme-surface p-5 space-y-4">
                         <h3 class="font-display text-xs font-bold theme-text-primary uppercase tracking-wider border-b theme-border pb-2 flex items-center">
-                            <i class="fa-solid fa-trophy text-yellow-400 mr-2"></i> 2. OLAHRAGAWATI TERBAIK
+                            <i class="fa-solid fa-trophy text-yellow-400 mr-2" aria-hidden="true"></i> 2. OLAHRAGAWATI TERBAIK
                         </h3>
                         <div class="grid grid-cols-1 gap-3">
                             <div>
@@ -1039,13 +1042,13 @@
 
                     <div class="flex justify-end pt-2">
                         <button onclick="saveAnugerahConfig()" class="px-5 py-2.5 bg-yellow-500 text-navy-950 hover:bg-yellow-400 font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 flex items-center min-h-[40px]">
-                            <i class="fa-solid fa-floppy-disk mr-2"></i> Simpan Tetapan Anugerah
+                            <i class="fa-solid fa-floppy-disk mr-2" aria-hidden="true"></i> Simpan Tetapan Anugerah
                         </button>
                     </div>
 
                     <div class="border theme-border theme-surface p-5 space-y-3">
                         <h3 class="font-display text-xs font-bold theme-text-primary uppercase tracking-wider mb-2">
-                            <i class="fa-solid fa-table-list theme-text-muted mr-2"></i> Senarai Tetapan Pautan Data Anugerah
+                            <i class="fa-solid fa-table-list theme-text-muted mr-2" aria-hidden="true"></i> Senarai Tetapan Pautan Data Anugerah
                         </h3>
                         <div class="overflow-x-auto min-w-full">
                             <table class="w-full text-left text-xs border-collapse min-w-[500px]">
@@ -1071,7 +1074,7 @@
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <div class="border theme-border theme-surface p-5 space-y-4">
                             <h3 class="font-display text-xs font-bold theme-text-primary uppercase tracking-wider border-b theme-border pb-2 flex items-center">
-                                <i class="fa-solid fa-bullhorn text-yellow-500 mr-2"></i> Pengurusan Hebahan Semasa
+                                <i class="fa-solid fa-bullhorn text-yellow-500 mr-2" aria-hidden="true"></i> Pengurusan Hebahan Semasa
                             </h3>
 
                             <div class="space-y-3 theme-bg-secondary p-4 border theme-border">
@@ -1104,7 +1107,7 @@
                                         Batal
                                     </button>
                                     <button onclick="saveAnnouncement()" class="px-4 py-2 bg-yellow-500 text-navy-950 hover:bg-yellow-400 font-bold text-[10px] uppercase tracking-wider transition-colors flex items-center min-h-[40px]">
-                                        <i class="fa-solid fa-floppy-disk mr-1.5"></i> <span id="btnAnnouncementText">Simpan Hebahan</span>
+                                        <i class="fa-solid fa-floppy-disk mr-1.5" aria-hidden="true"></i> <span id="btnAnnouncementText">Simpan Hebahan</span>
                                     </button>
                                 </div>
                             </div>
@@ -1115,7 +1118,7 @@
 
                         <div class="border theme-border theme-surface p-5 space-y-4">
                             <h3 class="font-display text-xs font-bold theme-text-primary uppercase tracking-wider border-b theme-border pb-2 flex items-center">
-                                <i class="fa-solid fa-link text-blue-500 mr-2"></i> Tetapan Pautan Real-Time
+                                <i class="fa-solid fa-link text-blue-500 mr-2" aria-hidden="true"></i> Tetapan Pautan Real-Time
                             </h3>
 
                             <div class="space-y-4">
@@ -1134,7 +1137,7 @@
 
                                 <div class="flex justify-end pt-2">
                                     <button onclick="saveRealtimeLinks()" class="px-5 py-2.5 bg-yellow-500 text-navy-950 hover:bg-yellow-400 font-display font-extrabold text-[10px] uppercase tracking-widest transition-all duration-300 flex items-center min-h-[40px]">
-                                        <i class="fa-solid fa-floppy-disk mr-2"></i> Simpan Pautan
+                                        <i class="fa-solid fa-floppy-disk mr-2" aria-hidden="true"></i> Simpan Pautan
                                     </button>
                                 </div>
                             </div>
@@ -1166,22 +1169,22 @@
 
                     <div class="border theme-border theme-surface p-6 space-y-4">
                         <h3 class="font-display text-xs font-bold theme-text-primary uppercase tracking-wider flex items-center">
-                            <i class="fa-solid fa-box-archive text-yellow-500 mr-2"></i> Sandaran &amp; Migrasi Cloud Firestore (JSON Format)
+                            <i class="fa-solid fa-box-archive text-yellow-500 mr-2" aria-hidden="true"></i> Sandaran &amp; Migrasi Cloud Firestore (JSON Format)
                         </h3>
                         <p class="text-xs theme-text-secondary">Muat turun sandaran lengkap data Firestore atau muat naik fail JSON untuk mengemas kini pengkalan data awan secara pukal.</p>
                         
                         <div class="flex flex-wrap gap-3 pt-2">
                             <button onclick="exportApplicationData()" class="px-5 py-2.5 bg-yellow-500 text-navy-950 hover:bg-yellow-400 font-bold text-[10px] uppercase tracking-widest transition-all flex items-center min-h-[40px]">
-                                <i class="fa-solid fa-download mr-2"></i> Export Data Firestore (JSON)
+                                <i class="fa-solid fa-download mr-2" aria-hidden="true"></i> Export Data Firestore (JSON)
                             </button>
 
                             <label class="px-5 py-2.5 border theme-border theme-text-primary hover:bg-yellow-500 hover:text-navy-950 font-bold text-[10px] uppercase tracking-widest transition-all cursor-pointer flex items-center min-h-[40px]">
-                                <i class="fa-solid fa-upload mr-2"></i> Import / Restore Ke Firestore
+                                <i class="fa-solid fa-upload mr-2" aria-hidden="true"></i> Import / Restore Ke Firestore
                                 <input type="file" id="importJsonInput" accept=".json" class="hidden" onchange="importApplicationData(event)">
                             </label>
 
                             <button onclick="resetAllDataToDefaults()" class="px-4 py-2.5 bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 font-bold text-[10px] uppercase tracking-widest transition-all flex items-center min-h-[40px]">
-                                <i class="fa-solid fa-rotate-left mr-2"></i> Reset Asal (Semua Data Firestore)
+                                <i class="fa-solid fa-rotate-left mr-2" aria-hidden="true"></i> Reset Asal (Semua Data Firestore)
                             </button>
                         </div>
                     </div>
@@ -1191,12 +1194,12 @@
         </div>
     </div>
 
-    <div id="toastContainer" class="fixed bottom-4 right-4 z-50 flex flex-col space-y-2 pointer-events-none pb-[var(--sab)] pr-[var(--sar)]"></div>
+    <div id="toastContainer" class="fixed bottom-4 right-4 z-50 flex flex-col space-y-2 pointer-events-none pb-[var(--sab)] pr-[var(--sar)]" aria-live="polite" aria-atomic="true"></div>
 
-    <div id="importSummaryModal" class="fixed inset-0 z-50 hidden glass-card backdrop-blur-md overflow-y-auto flex items-center justify-center p-4">
+    <div id="importSummaryModal" class="fixed inset-0 z-50 hidden glass-card backdrop-blur-md overflow-y-auto flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="importSummaryModalTitle">
         <div class="border theme-border theme-surface p-6 max-w-md w-full relative shadow-2xl space-y-4">
-            <h3 class="font-display font-bold text-sm uppercase tracking-wider theme-text-primary border-b theme-border pb-3 flex items-center">
-                <i class="fa-solid fa-chart-pie text-yellow-500 mr-2"></i> Ringkasan Import Google Sheet
+            <h3 id="importSummaryModalTitle" class="font-display font-bold text-sm uppercase tracking-wider theme-text-primary border-b theme-border pb-3 flex items-center">
+                <i class="fa-solid fa-chart-pie text-yellow-500 mr-2" aria-hidden="true"></i> Ringkasan Import Google Sheet
             </h3>
             <div id="importSummaryContent" class="space-y-2 text-xs theme-text-secondary"></div>
             <div class="pt-3 border-t theme-border flex justify-end">
@@ -1213,7 +1216,7 @@
                 <div class="space-y-4">
                     <div class="flex items-center space-x-3">
                         <div class="bg-yellow-500 text-navy-950 p-2 transform rotate-45 flex items-center justify-center">
-                            <i class="fa-solid fa-bolt text-sm transform -rotate-45"></i>
+                            <i class="fa-solid fa-bolt text-sm transform -rotate-45" aria-hidden="true"></i>
                         </div>
                         <span class="font-display font-black text-lg tracking-widest uppercase">ARENA ATHLETIX</span>
                     </div>
@@ -1221,9 +1224,9 @@
                         Smart digital maklumat Kejohanan Olahraga melalui platform yang sistematik, efisien dan interaktif.
                     </p>
                     <div class="flex space-x-3 pt-2">
-                        <a href="#" class="w-9 h-9 theme-surface border theme-border flex items-center justify-center theme-text-secondary hover:text-yellow-500 hover:border-yellow-500 transition-all text-xs" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" class="w-9 h-9 theme-surface border theme-border flex items-center justify-center theme-text-secondary hover:text-yellow-500 hover:border-yellow-500 transition-all text-xs" aria-label="Tiktok"><i class="fa-brands fa-tiktok"></i></a>
-                        <a href="#" class="w-9 h-9 theme-surface border theme-border flex items-center justify-center theme-text-secondary hover:text-yellow-500 hover:border-yellow-500 transition-all text-xs" aria-label="Youtube"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="w-9 h-9 theme-surface border theme-border flex items-center justify-center theme-text-secondary hover:text-yellow-500 hover:border-yellow-500 transition-all text-xs" aria-label="Laman Facebook Rasmi"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+                        <a href="#" class="w-9 h-9 theme-surface border theme-border flex items-center justify-center theme-text-secondary hover:text-yellow-500 hover:border-yellow-500 transition-all text-xs" aria-label="Akaun TikTok Rasmi"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
+                        <a href="#" class="w-9 h-9 theme-surface border theme-border flex items-center justify-center theme-text-secondary hover:text-yellow-500 hover:border-yellow-500 transition-all text-xs" aria-label="Saluran YouTube Rasmi"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
                     </div>
                 </div>
 
@@ -1244,15 +1247,15 @@
                     <h4 class="font-display font-bold text-xs uppercase tracking-widest border-l-2 border-yellow-500 pl-3">Hubungi Kami</h4>
                     <ul class="space-y-3 text-xs theme-text-muted">
                         <li class="flex items-start space-x-3">
-                            <i class="fa-solid fa-location-dot text-yellow-500 text-sm mt-0.5"></i>
+                            <i class="fa-solid fa-location-dot text-yellow-500 text-sm mt-0.5" aria-hidden="true"></i>
                             <span>Unit Sukan & Teknikal SKBK</span>
                         </li>
                         <li class="flex items-center space-x-3">
-                            <i class="fa-solid fa-envelope text-yellow-500 text-sm"></i>
+                            <i class="fa-solid fa-envelope text-yellow-500 text-sm" aria-hidden="true"></i>
                             <span>admin.elmioZteam@gmail.com</span>
                         </li>
                         <li class="flex items-center space-x-3">
-                            <i class="fa-solid fa-phone text-yellow-500 text-sm"></i>
+                            <i class="fa-solid fa-phone text-yellow-500 text-sm" aria-hidden="true"></i>
                             <span>0195362091</span>
                         </li>
                     </ul>
@@ -1266,7 +1269,7 @@
         </div>
     </footer>
 
-    <!-- Firebase SDK Modular Import & Refactored Single Source of Truth Firestore System Layer -->
+    <!-- Firebase SDK Modular Import (SDK 11.0.2) + Auth Module -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
         import {
@@ -1283,6 +1286,15 @@
             serverTimestamp,
             writeBatch
         } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+        import {
+            getAuth,
+            signInWithEmailAndPassword,
+            signOut,
+            onAuthStateChanged
+        } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+
+        // Global State Admin User Identiti
+        window.currentAdminUser = null;
 
         // Router View Navigation Control Function (Single Active View Concept)
         window.activeView = "utama";
@@ -1290,21 +1302,18 @@
             if (!viewId) return;
             window.activeView = viewId;
 
-            // Hide all view sections strictly
             const sections = document.querySelectorAll(".view-section");
             sections.forEach(sec => {
                 sec.classList.add("hidden");
                 sec.classList.remove("block");
             });
 
-            // Show target view section only
             const targetSec = document.getElementById(viewId);
             if (targetSec) {
                 targetSec.classList.remove("hidden");
                 targetSec.classList.add("block");
             }
 
-            // Update Header Navigation Active Button Styling
             const navButtons = document.querySelectorAll(".nav-link-btn");
             navButtons.forEach(btn => {
                 btn.classList.remove("theme-text-primary");
@@ -1317,11 +1326,9 @@
                 activeBtn.classList.add("theme-text-primary");
             }
 
-            // Reset scroll position to absolute top
             window.scrollTo({ top: 0, behavior: 'instant' });
         };
 
-        // Mobile Menu Toggle Function Fix
         window.toggleMobileMenu = function() {
             const mobileMenu = document.getElementById("mobileMenu");
             const menuIcon = document.getElementById("menuIcon");
@@ -1342,7 +1349,6 @@
             }
         };
 
-        // Global Safe HTML Sanitizer Helper for CSV & Input Rendering
         function escapeHTML(str) {
             if (str === null || str === undefined) return '';
             return String(str)
@@ -1376,8 +1382,94 @@
         const db = initializeFirestore(app, {
             experimentalForceLongPolling: true
         });
+        const auth = getAuth(app);
 
-        // Global Active Listener Cleanup Guard
+        // SEC-01 & SEC-02 Fix: Firebase Auth State Observer
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                window.currentAdminUser = user;
+                logDebug("Admin authenticated:", user.email);
+                const headerBtn = document.getElementById("headerAdminBtn");
+                if (headerBtn) {
+                    headerBtn.innerHTML = `Panel Admin <i class="fa-solid fa-user-check ml-1.5 text-green-400"></i>`;
+                }
+            } else {
+                window.currentAdminUser = null;
+                logDebug("No admin authenticated session.");
+                const headerBtn = document.getElementById("headerAdminBtn");
+                if (headerBtn) {
+                    headerBtn.innerHTML = `Panel Admin <i class="fa-solid fa-user-shield ml-1.5"></i>`;
+                }
+            }
+        });
+
+        // SEC-01 Fix: Real Firebase Authentication Email/Password
+        window.verifyAdminPassword = async function() {
+            const pwdInput = document.getElementById("adminPasswordInput");
+            const usrInput = document.getElementById("adminUsername");
+            const feedback = document.getElementById("passwordFeedback");
+            const loginBtn = document.getElementById("btnAdminLoginSubmit");
+            
+            if (!pwdInput || !usrInput || !feedback) return;
+
+            const email = (usrInput.value || "").trim();
+            const password = (pwdInput.value || "").trim();
+
+            if (email === "" || password === "") {
+                feedback.textContent = "Sila masukkan Emel Pentadbir dan Kata Laluan!";
+                feedback.className = "text-[9px] font-bold uppercase tracking-widest text-red-500 block mt-1";
+                feedback.classList.remove("hidden");
+                return;
+            }
+
+            try {
+                if (loginBtn) loginBtn.disabled = true;
+                feedback.textContent = "Mengesahkan identiti dengan Firebase Auth...";
+                feedback.className = "text-[9px] font-bold uppercase tracking-widest text-yellow-500 block mt-1";
+                feedback.classList.remove("hidden");
+
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                window.currentAdminUser = userCredential.user;
+
+                feedback.textContent = "Pengesahan Berjaya! Memuatkan Panel Kawalan...";
+                feedback.className = "text-[9px] font-bold uppercase tracking-widest text-green-500 block mt-1";
+                
+                setTimeout(() => {
+                    closeAdminLoginModal();
+                    openAdminPanel();
+                    pwdInput.value = "";
+                    usrInput.value = "";
+                    feedback.classList.add("hidden");
+                    showToast("Log masuk pentadbir berjaya!", "success");
+                }, 600);
+
+            } catch (error) {
+                console.error("Ralat Pengesahan Log Masuk Admin:", error);
+                let errMessage = "Gagal mengesahkan identiti pentadbir.";
+                if (error.code === 'auth/invalid-email') errMessage = "Format emel tidak sah!";
+                else if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') errMessage = "Emel atau Kata Laluan salah!";
+                else if (error.code === 'auth/too-many-requests') errMessage = "Terlalu banyak percubaan log masuk. Sila cuba kemudian.";
+                
+                feedback.textContent = errMessage;
+                feedback.className = "text-[9px] font-bold uppercase tracking-widest text-red-500 block mt-1";
+                feedback.classList.remove("hidden");
+            } finally {
+                if (loginBtn) loginBtn.disabled = false;
+            }
+        };
+
+        window.handleAdminLogout = async function() {
+            try {
+                await signOut(auth);
+                window.currentAdminUser = null;
+                closeAdminPanel();
+                showToast("Log keluar pentadbir berjaya.", "info");
+            } catch (err) {
+                console.error("Ralat sewaktu log keluar:", err);
+                showToast("Ralat sewaktu memproses log keluar.", "error");
+            }
+        };
+
         let activeUnsubscribes = [];
         let firebaseListenersInitialized = false;
 
@@ -1385,17 +1477,21 @@
             if (activeUnsubscribes && activeUnsubscribes.length > 0) {
                 activeUnsubscribes.forEach(unsub => {
                     if (typeof unsub === 'function') {
-                        try {
-                            unsub();
-                        } catch (err) {
-                            console.warn("Ralat mematikan Firestore listener:", err);
-                        }
+                        try { unsub(); } catch (err) { console.warn("Ralat mematikan listener:", err); }
                     }
                 });
                 activeUnsubscribes = [];
             }
             firebaseListenersInitialized = false;
-            logDebug("Semua Firestore listener telah di-unsubscribe.");
+        }
+
+        // SEC-03 Fix: Shared Auth Enforcement Check
+        function checkAdminPermission() {
+            if (!auth.currentUser) {
+                showToast("Akses Ditolak: Sila log masuk pentadbir dahulu!", "error");
+                showAdminLogin();
+                throw new Error("Missing admin authentication token.");
+            }
         }
 
         const StorageService = {
@@ -1414,7 +1510,7 @@
                     }));
                 } catch (e) {
                     console.error(`Ralat membaca koleksi Firestore [${collectionName}]:`, e);
-                    showToast(`Ralat capaian Firestore (${collectionName})`, "error");
+                    handleFirestoreError(e, `Membaca data ${collectionName}`);
                     return [];
                 }
             },
@@ -1429,11 +1525,13 @@
                     return null;
                 } catch (e) {
                     console.error(`Ralat baca dokumen [${collectionName}/${id}]:`, e);
+                    handleFirestoreError(e, `Membaca dokumen ${id}`);
                     return null;
                 }
             },
 
             async create(collectionName, data) {
+                checkAdminPermission();
                 try {
                     logDebug(`User Action Create: ${collectionName}`, data);
                     const id = data.id || data.docId || this.generateId();
@@ -1451,12 +1549,13 @@
                     return payload;
                 } catch (e) {
                     console.error(`Ralat simpan Firestore [${collectionName}]:`, e);
-                    showToast("Gagal menyimpan ke pangkalan data awan!", "error");
+                    handleFirestoreError(e, `Menambah rekod baharu ${collectionName}`);
                     throw e;
                 }
             },
 
             async update(collectionName, id, data) {
+                checkAdminPermission();
                 try {
                     logDebug(`User Action Update: ${collectionName}/${id}`, data);
                     const docRef = doc(db, collectionName, id);
@@ -1468,12 +1567,13 @@
                     return { id, docId: id, ...payload };
                 } catch (e) {
                     console.error(`Ralat kemaskini Firestore [${collectionName}/${id}]:`, e);
-                    showToast("Gagal mengemaskini Firestore!", "error");
+                    handleFirestoreError(e, `Mengemaskini rekod ${id}`);
                     throw e;
                 }
             },
 
             async delete(collectionName, id) {
+                checkAdminPermission();
                 try {
                     logDebug(`User Action Delete: ${collectionName}/${id}`);
                     const docRef = doc(db, collectionName, id);
@@ -1481,7 +1581,7 @@
                     return true;
                 } catch (e) {
                     console.error(`Ralat memadam Firestore [${collectionName}/${id}]:`, e);
-                    showToast("Gagal memadam dari Firestore!", "error");
+                    handleFirestoreError(e, `Memadam rekod ${id}`);
                     throw e;
                 }
             },
@@ -1493,11 +1593,13 @@
                     return docSnap.exists() ? docSnap.data() : {};
                 } catch (e) {
                     console.error("Ralat membaca tetapan Firestore:", e);
+                    handleFirestoreError(e, "Membaca tetapan aplikasi");
                     return {};
                 }
             },
 
             async saveSettings(data) {
+                checkAdminPermission();
                 try {
                     logDebug("User Action Save Settings", data);
                     const docRef = doc(db, 'settings', 'global_app_settings');
@@ -1508,12 +1610,13 @@
                     return updated;
                 } catch (e) {
                     console.error("Ralat menyimpan tetapan Firestore:", e);
-                    showToast("Gagal menyimpan tetapan awan!", "error");
+                    handleFirestoreError(e, "Menyimpan tetapan aplikasi");
                     throw e;
                 }
             },
 
             async exportAll() {
+                checkAdminPermission();
                 const collections = ['heroCards', 'schedule', 'participantConfigs', 'winnerConfigs', 'announcements'];
                 const dump = {
                     version: 2,
@@ -1528,6 +1631,7 @@
             },
 
             async importAll(jsonDump) {
+                checkAdminPermission();
                 if (!jsonDump || typeof jsonDump !== 'object' || !jsonDump.data) {
                     throw new Error("Format JSON tidak sah.");
                 }
@@ -1564,8 +1668,6 @@
 
             async runOneTimeLocalStorageMigration() {
                 try {
-                    const migrationDocRef = doc(db, 'migrations', 'localStorageMigration');
-                    
                     const legacyKeys = {
                         heroCards: 'athletix_app_hero_cards',
                         schedule: 'athletix_app_schedule',
@@ -1576,15 +1678,15 @@
                     };
 
                     const hasLegacyData = Object.values(legacyKeys).some(k => localStorage.getItem(k) !== null);
-                    if (!hasLegacyData) {
-                        return;
-                    }
+                    if (!hasLegacyData) return;
 
+                    if (!auth.currentUser) return; // Pelanggan awam tidak menjalankan migrasi
+
+                    const migrationDocRef = doc(db, 'migrations', 'localStorageMigration');
                     let migrationSnap = null;
                     try {
                         migrationSnap = await getDoc(migrationDocRef);
                     } catch (permErr) {
-                        logDebug("Migration read check skipped due to permissions:", permErr.message);
                         return;
                     }
 
@@ -1624,104 +1726,71 @@
                         }
                     }
 
-                    try {
-                        await setDoc(migrationDocRef, {
-                            completed: true,
-                            migratedAt: serverTimestamp()
-                        });
-                    } catch (writeErr) {
-                        logDebug("Migration write flag skipped:", writeErr.message);
-                    }
-
+                    await setDoc(migrationDocRef, { completed: true, migratedAt: serverTimestamp() });
                     Object.values(legacyKeys).forEach(k => localStorage.removeItem(k));
-                    showToast("Data lama daripada localStorage telah dipindahkan ke Firestore!", "success");
+                    showToast("Data lama daripada localStorage telah dipindahkan!", "success");
                 } catch (e) {
                     logDebug("Ralat sewaktu migrasi automatik localStorage:", e.message || e);
                 }
             }
         };
 
-        // GLOBAL UNHANDLED REJECTION GUARD
-        window.addEventListener('unhandledrejection', (event) => {
-            if (event.reason && (
-                (event.reason.code && event.reason.code.includes('permission-denied')) ||
-                (event.reason.message && event.reason.message.includes('Missing or insufficient permissions'))
-            )) {
-                logDebug("Suppressed Firebase Permission Rejection:", event.reason.message);
-                event.preventDefault();
+        // SEC-02 & FIX: Explicit Centralized Error Handler (Toast Error Messaging)
+        function handleFirestoreError(err, contextText = "Operasi Firestore") {
+            const code = err ? (err.code || err.message || "") : "";
+            if (code.includes('permission-denied') || code.includes('insufficient permissions')) {
+                showToast(`Akses Ditolak: Tiada kebenaran untuk ${contextText}.`, "error");
+            } else if (code.includes('unavailable') || code.includes('network-request-failed')) {
+                showToast(`Rangkaian Terputus: Gagal memuatkan data bagi ${contextText}.`, "error");
+            } else {
+                showToast(`Ralat (${contextText}): ${err.message || 'Kegagalan sistem.'}`, "error");
             }
-        });
+        }
 
         function initRealtimeFirestoreListeners() {
-            if (firebaseListenersInitialized) {
-                logDebug("Listeners already initialized. Skipping duplicate registration.");
-                return;
-            }
+            if (firebaseListenersInitialized) return;
 
             detachRealtimeFirestoreListeners();
             firebaseListenersInitialized = true;
-            logDebug("Initializing single active Firestore listeners...");
 
             const unsubHero = onSnapshot(collection(db, 'heroCards'), (snapshot) => {
-                logDebug("Snapshot received: heroCards");
                 heroCardsData = snapshot.docs.map(docSnap => ({ id: docSnap.id, docId: docSnap.id, ...docSnap.data() }));
                 renderHeroCards();
                 renderAdminDashCardsEditor();
-            }, e => {
-                console.warn("Realtime heroCards listener access restricted:", e.message);
-                renderHeroCards();
-            });
+            }, e => handleFirestoreError(e, "Realtime Hero Cards"));
             activeUnsubscribes.push(unsubHero);
 
             const unsubSched = onSnapshot(collection(db, 'schedule'), (snapshot) => {
-                logDebug("Snapshot received: schedule");
                 scheduleData = snapshot.docs.map(docSnap => ({ id: docSnap.id, docId: docSnap.id, ...docSnap.data() }));
                 renderAdminScheduleTable();
                 renderScheduleFilters();
                 renderPublicScheduleCards();
-            }, e => {
-                console.warn("Realtime schedule listener access restricted:", e.message);
-                renderScheduleFilters();
-                renderPublicScheduleCards();
-            });
+            }, e => handleFirestoreError(e, "Realtime Jadual Acara"));
             activeUnsubscribes.push(unsubSched);
 
             const unsubPart = onSnapshot(collection(db, 'participantConfigs'), (snapshot) => {
-                logDebug("Snapshot received: participantConfigs");
                 participantConfigsData = snapshot.docs.map(docSnap => ({ id: docSnap.id, docId: docSnap.id, ...docSnap.data() }));
                 renderParticipantConfigTable();
                 populateEventDropdown();
                 onEventChanged();
-            }, e => {
-                console.warn("Realtime participantConfigs listener access restricted:", e.message);
-            });
+            }, e => handleFirestoreError(e, "Realtime Tetapan Atlet"));
             activeUnsubscribes.push(unsubPart);
 
             const unsubWin = onSnapshot(collection(db, 'winnerConfigs'), (snapshot) => {
-                logDebug("Snapshot received: winnerConfigs");
                 winnerConfigsData = snapshot.docs.map(docSnap => ({ id: docSnap.id, docId: docSnap.id, ...docSnap.data() }));
                 renderWinnerConfigTable();
                 populateWinnerEventDropdown();
                 updateWinnersList();
-            }, e => {
-                console.warn("Realtime winnerConfigs listener access restricted:", e.message);
-                populateWinnerEventDropdown();
-                updateWinnersList();
-            });
+            }, e => handleFirestoreError(e, "Realtime Tetapan Pemenang"));
             activeUnsubscribes.push(unsubWin);
 
             const unsubAnn = onSnapshot(collection(db, 'announcements'), (snapshot) => {
-                logDebug("Snapshot received: announcements");
                 announcementsData = snapshot.docs.map(docSnap => ({ id: docSnap.id, docId: docSnap.id, ...docSnap.data() }));
                 renderAnnouncements();
-            }, e => {
-                console.warn("Realtime announcements listener access restricted:", e.message);
-                renderAnnouncements();
-            });
+            }, e => handleFirestoreError(e, "Realtime Pengumuman"));
             activeUnsubscribes.push(unsubAnn);
 
             const unsubSet = onSnapshot(doc(db, 'settings', 'global_app_settings'), (docSnap) => {
-                logDebug("Snapshot received: global_app_settings");
                 if (docSnap.exists()) {
                     appSettings = docSnap.data();
                     if (appSettings.realtimeLinksData) realtimeLinksData = appSettings.realtimeLinksData;
@@ -1732,9 +1801,7 @@
                     loadAnugerahData();
                     renderAnugerahConfigTable();
                 }
-            }, e => {
-                console.warn("Realtime settings listener access restricted:", e.message);
-            });
+            }, e => handleFirestoreError(e, "Realtime Tetapan Utama"));
             activeUnsubscribes.push(unsubSet);
         }
 
@@ -1747,10 +1814,9 @@
         window.realtimeLinksData = { pdfUrl: "", galleryUrl: "", feedbackUrl: "" };
         window.appSettings = {};
 
-        // Cache with Time-To-Live (TTL = 45 Seconds synchronized with AutoSyncManager cycle)
         window.fetchedAthletesCache = {};
         window.fetchedWinnersCache = {};
-        const CACHE_TTL_MS = 45 * 1000; // Synchronized 45 Seconds
+        const CACHE_TTL_MS = 45 * 1000;
 
         window.selectedScheduleDate = "";
         window.selectedEventId = "";
@@ -1763,7 +1829,7 @@
 
         window.StorageService = StorageService;
 
-        // AutoSync Manager with Concurrency Lock & Delay Protection
+        // AutoSync Manager dengan Guarding Anti-Race condition
         const AutoSyncManager = {
             intervalId: null,
             intervalDuration: 45000,
@@ -1812,7 +1878,6 @@
                 if (statusLabel) statusLabel.textContent = "Auto Sync: Memproses...";
 
                 try {
-                    // Purge expired CSV cache items on auto-sync
                     const now = Date.now();
                     Object.keys(window.fetchedAthletesCache).forEach(k => {
                         if (window.fetchedAthletesCache[k] && (now - window.fetchedAthletesCache[k].timestamp > CACHE_TTL_MS)) {
@@ -1864,7 +1929,7 @@
             const toast = document.createElement("div");
             const bgClass = type === "error" ? "bg-red-600 text-white" : type === "success" ? "bg-green-600 text-white" : "bg-yellow-500 text-navy-950";
             toast.className = `px-4 py-3 shadow-lg font-bold text-xs uppercase tracking-wider rounded pointer-events-auto transition-all transform translate-y-2 opacity-0 flex items-center space-x-2 ${bgClass}`;
-            toast.innerHTML = `<i class="fa-solid fa-circle-info"></i> <span>${escapeHTML(message)}</span>`;
+            toast.innerHTML = `<i class="fa-solid fa-circle-info" aria-hidden="true"></i> <span>${escapeHTML(message)}</span>`;
             container.appendChild(toast);
             
             setTimeout(() => {
@@ -1902,93 +1967,44 @@
             return fieldMap;
         };
 
-        window.handleCSVUpload = async function(event, targetType) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = async function(e) {
-                const text = e.target.result;
-                const rows = parseCSVText(text);
-
-                if (!rows || rows.length < 2) {
-                    showToast("Fail CSV/Sheet kosong atau tiada header sah!", "error");
-                    return;
+        // DAT-01 Fix: PapaParse High-Performance CSV Parser Parser Integration
+        window.parseCSVText = function(csvText) {
+            if (!csvText || typeof csvText !== 'string') return [];
+            
+            if (typeof Papa !== 'undefined') {
+                const parseResult = Papa.parse(csvText, {
+                    skipEmptyLines: true,
+                    fastMode: false
+                });
+                if (parseResult.data && Array.isArray(parseResult.data)) {
+                    return parseResult.data.map(row => row.map(cell => (cell || '').trim()));
                 }
+            }
 
-                const headers = rows[0];
-                const mapping = mapHeadersToFields(headers);
-                const dataRows = rows.slice(1);
-
-                let imported = 0, updated = 0, skipped = 0, errors = 0;
-                const errorLog = [];
-
-                if (targetType === 'schedule') {
-                    for (let rowIndex = 0; rowIndex < dataRows.length; rowIndex++) {
-                        const row = dataRows[rowIndex];
-                        const name = mapping.name !== undefined ? row[mapping.name] : row[2];
-                        const date = mapping.date !== undefined ? row[mapping.date] : row[0];
-                        const time = mapping.time !== undefined ? row[mapping.time] : row[1];
-                        const category = mapping.category !== undefined ? row[mapping.category] : row[3];
-                        const round = mapping.round !== undefined ? row[mapping.round] : row[4];
-
-                        if (!name || !date) {
-                            errors++;
-                            errorLog.push(`Baris ${rowIndex + 2}: Tajuk Acara atau Tarikh diperlukan.`);
-                            continue;
-                        }
-
-                        const payload = {
-                            date: date.trim(),
-                            time: (time || "").trim().toUpperCase(),
-                            name: name.trim().toUpperCase(),
-                            category: (category || "").trim().toUpperCase(),
-                            round: (round || "Saringan 1").trim()
-                        };
-
-                        const existing = scheduleData.find(s => s.name === payload.name && s.date === payload.date && s.round === payload.round);
-                        if (existing) {
-                            await StorageService.update('schedule', existing.id || existing.docId, payload);
-                            updated++;
-                        } else {
-                            await StorageService.create('schedule', payload);
-                            imported++;
-                        }
+            // Robust Fallback Regex Parser jika CDN PapaParse terhalang
+            const result = [];
+            const lines = csvText.split(/\r\n|\n/);
+            lines.forEach(line => {
+                if (line.trim() === '') return;
+                const row = [];
+                let currentCell = '';
+                let insideQuotes = false;
+                
+                for (let i = 0; i < line.length; i++) {
+                    const char = line[i];
+                    if (char === '"') {
+                        insideQuotes = !insideQuotes;
+                    } else if (char === ',' && !insideQuotes) {
+                        row.push(currentCell.trim());
+                        currentCell = '';
+                    } else {
+                        currentCell += char;
                     }
                 }
-
-                showImportSummary({ targetType, imported, updated, skipped, errors, errorLog });
-            };
-            reader.readAsText(file);
-        };
-
-        window.showImportSummary = function(summary) {
-            const modal = document.getElementById("importSummaryModal");
-            const container = document.getElementById("importSummaryContent");
-            if (!modal || !container) return;
-
-            let errorHTML = summary.errorLog.length > 0 
-                ? `<div class="p-2 bg-red-500/10 border border-red-500/20 text-red-500 text-[10px] rounded max-h-24 overflow-y-auto mt-2 space-y-1">
-                     ${summary.errorLog.map(e => `<p>• ${escapeHTML(e)}</p>`).join("")}
-                   </div>` 
-                : '';
-
-            container.innerHTML = `
-                <div class="grid grid-cols-2 gap-2 text-center text-xs">
-                    <div class="p-3 theme-surface border theme-border"><span class="block text-green-500 font-bold text-lg">${summary.imported}</span> Baris Baru</div>
-                    <div class="p-3 theme-surface border theme-border"><span class="block text-blue-500 font-bold text-lg">${summary.updated}</span> Dikemaskini</div>
-                    <div class="p-3 theme-surface border theme-border"><span class="block text-yellow-500 font-bold text-lg">${summary.skipped}</span> Ditinggalkan</div>
-                    <div class="p-3 theme-surface border theme-border"><span class="block text-red-500 font-bold text-lg">${summary.errors}</span> Ralat</div>
-                </div>
-                ${errorHTML}
-            `;
-
-            modal.classList.remove("hidden");
-        };
-
-        window.closeImportSummaryModal = function() {
-            const modal = document.getElementById("importSummaryModal");
-            if (modal) modal.classList.add("hidden");
+                row.push(currentCell.trim());
+                if (row.length >= 1) result.push(row);
+            });
+            return result;
         };
 
         window.initTheme = function() {
@@ -2018,7 +2034,7 @@
                 if (mobileIcon) mobileIcon.className = "fa-solid fa-moon text-lg";
             }
 
-            if (saveToStorage) {
+            if (saveToStorage && auth.currentUser) {
                 StorageService.saveSettings({ theme: theme });
             }
         };
@@ -2066,7 +2082,6 @@
             return `${day} ${months[monthIndex] || parts[1]} ${year}`;
         };
 
-        // Helper Format Kategori: LELAKI / L -> Biru, PEREMPUAN / P -> Pink
         window.formatCategoryHTML = function(categoryStr) {
             if (categoryStr === null || categoryStr === undefined) return '-';
             const escaped = escapeHTML(String(categoryStr));
@@ -2081,7 +2096,6 @@
             });
         };
 
-        // Helper Format Pusingan Saringan: SARINGAN 1, SARINGAN 2, SARINGAN 1 & 2 -> Hijau
         window.formatRoundHTML = function(roundStr) {
             if (roundStr === null || roundStr === undefined) return '-';
             const escaped = escapeHTML(String(roundStr));
@@ -2091,6 +2105,7 @@
             return escaped;
         };
 
+        // LOG-01 Fix: Precise Time Parsing with Full 12-hour AM/PM & 24-hour Support
         window.parseTimeToMinutes = function(timeStr) {
             if (timeStr === null || timeStr === undefined) return 99999;
             const clean = String(timeStr).trim().toUpperCase();
@@ -2099,9 +2114,8 @@
             const isPM = clean.includes("PM");
             const isAM = clean.includes("AM");
 
-            // Extract HH:MM or HH:MM:SS pattern safely
             const match = clean.match(/^(\d{1,2}):(\d{2})(?::\d{2})?\s*(AM|PM)?$/);
-            if (!match) return 99999; // Sentinel value for invalid format
+            if (!match) return 99999;
 
             let hours = parseInt(match[1], 10);
             const minutes = parseInt(match[2], 10);
@@ -2109,12 +2123,10 @@
             if (isNaN(hours) || isNaN(minutes) || minutes < 0 || minutes > 59) return 99999;
 
             if (isAM || isPM) {
-                // 12-hour format validation
                 if (hours < 1 || hours > 12) return 99999;
-                if (isAM && hours === 12) hours = 0; // 12:00 AM -> 00:00
-                if (isPM && hours < 12) hours += 12; // 01:00 PM -> 13:00, 12:00 PM -> 12:00
+                if (isAM && hours === 12) hours = 0;
+                if (isPM && hours < 12) hours += 12;
             } else {
-                // 24-hour format validation
                 if (hours < 0 || hours > 23) return 99999;
             }
 
@@ -2137,7 +2149,6 @@
                 return;
             }
 
-            // Date stability check: preserve selectedScheduleDate if still available, else default safely
             if (!selectedScheduleDate || !uniqueDates.includes(selectedScheduleDate)) {
                 selectedScheduleDate = uniqueDates[0];
             }
@@ -2170,11 +2181,10 @@
 
             const filtered = scheduleData.filter(item => item && item.date && String(item.date).trim() === selectedScheduleDate);
 
-            // Stable Chronological Sorting (Ascending: Paling Awal -> Paling Lewat)
             filtered.sort((a, b) => {
                 const timeDiff = parseTimeToMinutes(a ? a.time : "") - parseTimeToMinutes(b ? b.time : "");
                 if (timeDiff !== 0) return timeDiff;
-                return 0; // Stable sorting jika masa sama
+                return 0;
             });
 
             if (filtered.length === 0) {
@@ -2216,7 +2226,7 @@
             container.innerHTML = `
                 <div class="theme-surface p-4 border-b theme-border flex items-center justify-between">
                     <span class="text-xs font-bold uppercase tracking-wider theme-text-secondary flex items-center">
-                        <i class="fa-regular fa-calendar-days text-yellow-500 mr-2"></i> Acara Dijadualkan
+                        <i class="fa-regular fa-calendar-days text-yellow-500 mr-2" aria-hidden="true"></i> Acara Dijadualkan
                     </span>
                     <span class="text-xs font-sans tabular-nums font-bold theme-text-primary theme-surface px-3 py-1.5 border theme-border uppercase tracking-widest">
                         ${escapeHTML(dateMalay)}
@@ -2252,30 +2262,17 @@
             tbody.innerHTML = "";
 
             const sortedSchedule = [...scheduleData].sort((a, b) => {
-                // 1. Keutamaan Pertama: Tarikh (Ascending YYYY-MM-DD)
                 const dateA = String(a && a.date ? a.date : '').trim();
                 const dateB = String(b && b.date ? b.date : '').trim();
-                if (dateA !== dateB) {
-                    return dateA.localeCompare(dateB);
-                }
+                if (dateA !== dateB) return dateA.localeCompare(dateB);
 
-                // 2. Keutamaan Kedua: Masa (Ascending Chronological)
                 const timeA = parseTimeToMinutes(a ? a.time : "");
                 const timeB = parseTimeToMinutes(b ? b.time : "");
-                if (timeA !== timeB) {
-                    return timeA - timeB;
-                }
+                if (timeA !== timeB) return timeA - timeB;
 
-                // 3. Keutamaan Ketiga: Nama Acara (Alphabetical A-Z Natural Sort)
                 const nameA = String(a && a.name ? a.name : '').trim();
                 const nameB = String(b && b.name ? b.name : '').trim();
-                const nameDiff = naturalSortCompare(nameA, nameB);
-                if (nameDiff !== 0) {
-                    return nameDiff;
-                }
-
-                // 4. Stable sort (Kekalkan susunan asal rekod)
-                return 0;
+                return naturalSortCompare(nameA, nameB);
             });
 
             sortedSchedule.forEach((item) => {
@@ -2301,8 +2298,8 @@
                     <td class="p-3 font-bold">${formattedCategory}</td>
                     <td class="p-3"><span class="px-2 py-0.5 border text-[9px] font-bold uppercase rounded ${roundBadgeClass}">${formattedRound}</span></td>
                     <td class="p-3 text-right space-x-2">
-                        <button onclick="editScheduleEntry(${index})" class="text-blue-500 hover:text-blue-400 p-1 min-h-[36px] min-w-[36px]" title="Sunting"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <button onclick="deleteScheduleEntry(${index})" class="text-red-500 hover:text-red-400 p-1 min-h-[36px] min-w-[36px]" title="Hapus"><i class="fa-solid fa-trash"></i></button>
+                        <button onclick="editScheduleEntry(${index})" class="text-blue-500 hover:text-blue-400 p-1 min-h-[36px] min-w-[36px]" title="Sunting"><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i></button>
+                        <button onclick="deleteScheduleEntry(${index})" class="text-red-500 hover:text-red-400 p-1 min-h-[36px] min-w-[36px]" title="Hapus"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -2320,7 +2317,6 @@
             document.getElementById("adminScheduleName").value = item.name || "";
             document.getElementById("adminScheduleCategory").value = item.category || "";
             
-            // Map / fallback selected round safely for edit mode
             const roundSelect = document.getElementById("adminScheduleRound");
             const roundVal = String(item.round || "").trim();
             if (roundVal === "Saringan 1" || roundVal === "Saringan 2" || roundVal === "SARINGAN 1 & 2") {
@@ -2376,25 +2372,30 @@
                 round: roundVal
             };
 
-            if (editingScheduleIndex >= 0 && editingScheduleIndex < scheduleData.length) {
-                const targetId = scheduleData[editingScheduleIndex].id || scheduleData[editingScheduleIndex].docId;
-                await StorageService.update('schedule', targetId, payload);
-                showToast("Acara berjaya dikemaskini dalam Firestore!", "success");
-            } else {
-                await StorageService.create('schedule', payload);
-                showToast("Acara berjaya ditambah ke Firestore!", "success");
+            try {
+                if (editingScheduleIndex >= 0 && editingScheduleIndex < scheduleData.length) {
+                    const targetId = scheduleData[editingScheduleIndex].id || scheduleData[editingScheduleIndex].docId;
+                    await StorageService.update('schedule', targetId, payload);
+                    showToast("Acara berjaya dikemaskini!", "success");
+                } else {
+                    await StorageService.create('schedule', payload);
+                    showToast("Acara berjaya ditambah ke Firestore!", "success");
+                }
+                cancelScheduleEdit();
+                selectedScheduleDate = dateVal;
+            } catch (err) {
+                // Handled in StorageService
             }
-
-            cancelScheduleEdit();
-            selectedScheduleDate = dateVal;
         };
 
         window.deleteScheduleEntry = async function(index) {
             const item = scheduleData[index];
             if (item) {
                 const targetId = item.id || item.docId;
-                await StorageService.delete('schedule', targetId);
-                showToast("Acara dipadam dari Firestore.", "info");
+                try {
+                    await StorageService.delete('schedule', targetId);
+                    showToast("Acara dipadam dari Firestore.", "info");
+                } catch (err) {}
             }
 
             if (editingScheduleIndex === index) {
@@ -2410,7 +2411,7 @@
             if (heroCardsData.length === 0) {
                 container.innerHTML = `
                     <div class="col-span-full border theme-border glass-card p-6 text-center">
-                        <i class="fa-solid fa-database text-xl theme-text-muted mb-2 block"></i>
+                        <i class="fa-solid fa-database text-xl theme-text-muted mb-2 block" aria-hidden="true"></i>
                         <p class="text-xs font-bold uppercase theme-text-primary">Tiada Maklumat Dashboard</p>
                         <p class="text-[10px] theme-text-muted mt-1">Sila muat naik atau kemaskini data melalui Panel Admin.</p>
                     </div>
@@ -2427,7 +2428,7 @@
                         <h4 class="font-display font-extrabold text-xs sm:text-sm theme-text-primary uppercase leading-tight">${escapeHTML(card.value || '')}</h4>
                     </div>
                     <span class="text-[9px] text-green-500 uppercase tracking-widest font-sans font-bold mt-2 flex items-center">
-                        <i class="fa-solid ${escapeHTML(card.icon || 'fa-circle-info')} mr-1.5"></i> ${escapeHTML(card.subtext || '')}
+                        <i class="fa-solid ${escapeHTML(card.icon || 'fa-circle-info')} mr-1.5" aria-hidden="true"></i> ${escapeHTML(card.subtext || '')}
                     </span>
                 `;
                 container.appendChild(cardEl);
@@ -2444,9 +2445,9 @@
                 cardEditor.className = "theme-surface border theme-border p-4 space-y-3 relative";
                 cardEditor.innerHTML = `
                     <div class="flex justify-between items-center border-b theme-border pb-2">
-                        <span class="text-[10px] font-bold text-yellow-500 uppercase tracking-widest"><i class="fa-solid fa-square-poll-vertical mr-1.5"></i> Kad ${index + 1}</span>
+                        <span class="text-[10px] font-bold text-yellow-500 uppercase tracking-widest"><i class="fa-solid fa-square-poll-vertical mr-1.5" aria-hidden="true"></i> Kad ${index + 1}</span>
                         <button onclick="deleteDashCard(${index})" class="text-red-500 hover:text-red-400 text-[10px] font-bold uppercase px-2 py-1 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 transition-colors flex items-center min-h-[32px]" title="Buang Kad">
-                            <i class="fa-solid fa-trash mr-1"></i> Buang
+                            <i class="fa-solid fa-trash mr-1" aria-hidden="true"></i> Buang
                         </button>
                     </div>
                     <div>
@@ -2463,7 +2464,7 @@
                     </div>
                     <div class="pt-2 flex justify-end">
                         <button onclick="saveDashCard(${index})" class="w-full sm:w-auto px-4 py-2 bg-yellow-500 text-navy-950 hover:bg-yellow-400 font-bold text-[10px] uppercase tracking-widest transition-colors flex items-center justify-center min-h-[40px]">
-                            <i class="fa-solid fa-floppy-disk mr-1.5"></i> Simpan Kad
+                            <i class="fa-solid fa-floppy-disk mr-1.5" aria-hidden="true"></i> Simpan Kad
                         </button>
                     </div>
                 `;
@@ -2485,27 +2486,33 @@
             if (heroCardsData[index]) {
                 const card = heroCardsData[index];
                 const targetId = card.id || card.docId;
-                await StorageService.update('heroCards', targetId, { label, value, subtext });
-                showToast("Kad utama dikemaskini!", "success");
+                try {
+                    await StorageService.update('heroCards', targetId, { label, value, subtext });
+                    showToast("Kad utama dikemaskini!", "success");
+                } catch (e) {}
             }
         };
 
         window.deleteDashCard = async function(index) {
             if (heroCardsData[index]) {
                 const targetId = heroCardsData[index].id || heroCardsData[index].docId;
-                await StorageService.delete('heroCards', targetId);
-                showToast("Kad dipadam.", "info");
+                try {
+                    await StorageService.delete('heroCards', targetId);
+                    showToast("Kad dipadam.", "info");
+                } catch (e) {}
             }
         };
 
         window.addNewDashCard = async function() {
-            await StorageService.create('heroCards', {
-                label: "Tajuk Kad Baru",
-                value: "Nilai Kad",
-                subtext: "Status",
-                icon: "fa-circle-info"
-            });
-            showToast("Kad dashboard ditambah ke Firestore.", "success");
+            try {
+                await StorageService.create('heroCards', {
+                    label: "Tajuk Kad Baru",
+                    value: "Nilai Kad",
+                    subtext: "Status",
+                    icon: "fa-circle-info"
+                });
+                showToast("Kad dashboard ditambah ke Firestore.", "success");
+            } catch (e) {}
         };
 
         window.renderParticipantConfigTable = function() {
@@ -2525,8 +2532,8 @@
                     <td class="p-3 truncate max-w-[120px] text-blue-500 font-sans tabular-nums text-[11px]">${escapeHTML(item.gsIndividu || "-")}</td>
                     <td class="p-3 truncate max-w-[120px] text-pink-500 font-sans tabular-nums text-[11px]">${escapeHTML(item.gsKumpulan || "-")}</td>
                     <td class="p-3 text-right space-x-2">
-                        <button onclick="editParticipantConfig(${index})" class="text-blue-500 hover:text-blue-400 p-1 min-h-[36px] min-w-[36px]" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <button onclick="deleteParticipantConfig(${index})" class="text-red-500 hover:text-red-400 p-1 min-h-[36px] min-w-[36px]" title="Hapus"><i class="fa-solid fa-trash"></i></button>
+                        <button onclick="editParticipantConfig(${index})" class="text-blue-500 hover:text-blue-400 p-1 min-h-[36px] min-w-[36px]" title="Edit"><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i></button>
+                        <button onclick="deleteParticipantConfig(${index})" class="text-red-500 hover:text-red-400 p-1 min-h-[36px] min-w-[36px]" title="Hapus"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -2558,26 +2565,30 @@
                 gsKumpulan: kumVal
             };
 
-            if (editingParticipantDocId) {
-                await StorageService.update('participantConfigs', editingParticipantDocId, payload);
-                showToast("Tetapan peserta dikemaskini!", "success");
-            } else {
-                await StorageService.create('participantConfigs', payload);
-                showToast("Tetapan peserta ditambah!", "success");
-            }
+            try {
+                if (editingParticipantDocId) {
+                    await StorageService.update('participantConfigs', editingParticipantDocId, payload);
+                    showToast("Tetapan peserta dikemaskini!", "success");
+                } else {
+                    await StorageService.create('participantConfigs', payload);
+                    showToast("Tetapan peserta ditambah!", "success");
+                }
 
-            editingParticipantDocId = null;
-            document.getElementById("adminParticipantName").value = "";
-            document.getElementById("adminParticipantGsIndividu").value = "";
-            document.getElementById("adminParticipantGsKumpulan").value = "";
+                editingParticipantDocId = null;
+                document.getElementById("adminParticipantName").value = "";
+                document.getElementById("adminParticipantGsIndividu").value = "";
+                document.getElementById("adminParticipantGsKumpulan").value = "";
+            } catch (e) {}
         };
 
         window.deleteParticipantConfig = async function(index) {
             const item = participantConfigsData[index];
             if (item) {
                 const targetId = item.id || item.docId;
-                await StorageService.delete('participantConfigs', targetId);
-                showToast("Tetapan peserta dipadam.", "info");
+                try {
+                    await StorageService.delete('participantConfigs', targetId);
+                    showToast("Tetapan peserta dipadam.", "info");
+                } catch (e) {}
             }
         };
 
@@ -2601,8 +2612,8 @@
                     <td class="p-3 truncate max-w-[120px] text-blue-500 font-sans tabular-nums text-[11px]">${escapeHTML(gsLelaki || "-")}</td>
                     <td class="p-3 truncate max-w-[120px] text-pink-500 font-sans tabular-nums text-[11px]">${escapeHTML(gsPerempuan || "-")}</td>
                     <td class="p-3 text-right space-x-2">
-                        <button onclick="editWinnerConfig(${index})" class="text-blue-500 hover:text-blue-400 p-1 min-h-[36px] min-w-[36px]" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <button onclick="deleteWinnerConfig(${index})" class="text-red-500 hover:text-red-400 p-1 min-h-[36px] min-w-[36px]" title="Hapus"><i class="fa-solid fa-trash"></i></button>
+                        <button onclick="editWinnerConfig(${index})" class="text-blue-500 hover:text-blue-400 p-1 min-h-[36px] min-w-[36px]" title="Edit"><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i></button>
+                        <button onclick="deleteWinnerConfig(${index})" class="text-red-500 hover:text-red-400 p-1 min-h-[36px] min-w-[36px]" title="Hapus"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -2638,26 +2649,30 @@
                 gsPerempuan: perempuanVal
             };
 
-            if (editingWinnerDocId) {
-                await StorageService.update('winnerConfigs', editingWinnerDocId, payload);
-                showToast("Tetapan keputusan dikemaskini!", "success");
-            } else {
-                await StorageService.create('winnerConfigs', payload);
-                showToast("Tetapan keputusan ditambah!", "success");
-            }
+            try {
+                if (editingWinnerDocId) {
+                    await StorageService.update('winnerConfigs', editingWinnerDocId, payload);
+                    showToast("Tetapan keputusan dikemaskini!", "success");
+                } else {
+                    await StorageService.create('winnerConfigs', payload);
+                    showToast("Tetapan keputusan ditambah!", "success");
+                }
 
-            editingWinnerDocId = null;
-            document.getElementById("adminWinnerName").value = "";
-            document.getElementById("adminWinnerGsLelaki").value = "";
-            document.getElementById("adminWinnerGsPerempuan").value = "";
+                editingWinnerDocId = null;
+                document.getElementById("adminWinnerName").value = "";
+                document.getElementById("adminWinnerGsLelaki").value = "";
+                document.getElementById("adminWinnerGsPerempuan").value = "";
+            } catch (e) {}
         };
 
         window.deleteWinnerConfig = async function(index) {
             const item = winnerConfigsData[index];
             if (item) {
                 const targetId = item.id || item.docId;
-                await StorageService.delete('winnerConfigs', targetId);
-                showToast("Tetapan pemenang dipadam.", "info");
+                try {
+                    await StorageService.delete('winnerConfigs', targetId);
+                    showToast("Tetapan pemenang dipadam.", "info");
+                } catch (e) {}
             }
         };
 
@@ -2717,7 +2732,6 @@
             const emptyMsg = document.getElementById("noPodiumDataMessage");
             if (!container) return;
 
-            // Isih data mengikut Emas -> Perak -> Gangsa -> Abjad (abjad sebagai tie-breaker susunan paparan sahaja)
             let sortedData = [...medalTallyData].sort((a, b) => {
                 if ((b.emas || 0) !== (a.emas || 0)) return (b.emas || 0) - (a.emas || 0);
                 if ((b.perak || 0) !== (a.perak || 0)) return (b.perak || 0) - (a.perak || 0);
@@ -2725,7 +2739,6 @@
                 return (a.team || '').localeCompare(b.team || '');
             });
 
-            // Pengiraan Kedudukan Rasmi (Standard Competition Ranking 1224 System)
             let currentRank = 1;
             const rankedData = sortedData.map((item, index, array) => {
                 if (index > 0) {
@@ -2740,7 +2753,6 @@
                     currentRank = 1;
                 }
 
-                // Semak jika ada pasukan lain berkongsi jumlah pingat yang sama persis
                 const isTie = array.some((other, otherIdx) => 
                     otherIdx !== index &&
                     (other.emas || 0) === (item.emas || 0) &&
@@ -2777,7 +2789,6 @@
             const rank3 = rankedData[2] || null;
             const rank4 = rankedData[3] || null;
 
-            // Pembentukan label paparan dinamik mengikut status ikatan keputusan (Tie Position)
             const getRankBadgeText = (item, defaultNumber, defaultTitle) => {
                 if (!item) return { badge: `NO. ${defaultNumber}`, title: defaultTitle };
                 const r = item.officialRank;
@@ -2803,7 +2814,7 @@
                         </div>
                         <div class="pt-4 pb-2">
                             <div class="w-14 h-14 bg-slate-400/20 border border-slate-400/40 rounded-full flex items-center justify-center mx-auto mb-3 text-slate-300 shadow-inner">
-                                <i class="fa-solid fa-medal text-2xl"></i>
+                                <i class="fa-solid fa-medal text-2xl" aria-hidden="true"></i>
                             </div>
                             <h3 class="font-display font-black text-base sm:text-lg theme-text-primary uppercase tracking-wider mb-2">${escapeHTML(rank2.team)}</h3>
                             <div class="inline-block px-3 py-1 bg-slate-400/10 border border-slate-400/20 rounded text-[10px] font-extrabold uppercase theme-text-secondary tracking-widest mb-4">
@@ -2834,12 +2845,12 @@
                     ${rank1 ? `
                     <div class="order-1 md:order-2 border-2 border-yellow-500 glass-card p-6 sm:p-8 text-center transform hover:-translate-y-2 transition-all duration-300 relative flex flex-col justify-between shadow-2xl bg-yellow-500/5">
                         <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-navy-950 font-display font-black text-sm px-4 py-1.5 uppercase tracking-widest shadow-xl flex items-center space-x-1.5 whitespace-nowrap">
-                            <i class="fa-solid fa-crown text-xs"></i>
+                            <i class="fa-solid fa-crown text-xs" aria-hidden="true"></i>
                             <span>${r1Label.badge}</span>
                         </div>
                         <div class="pt-6 pb-2">
                             <div class="w-20 h-20 bg-yellow-500/20 border-2 border-yellow-500/50 rounded-full flex items-center justify-center mx-auto mb-4 text-yellow-500 shadow-xl animate-pulse">
-                                <i class="fa-solid fa-trophy text-3xl"></i>
+                                <i class="fa-solid fa-trophy text-3xl" aria-hidden="true"></i>
                             </div>
                             <h3 class="font-display font-black text-xl sm:text-2xl theme-text-primary uppercase tracking-wider mb-2">${escapeHTML(rank1.team)}</h3>
                             <div class="inline-block px-4 py-1.5 bg-yellow-500 text-navy-950 rounded text-xs font-black uppercase tracking-widest mb-5 shadow">
@@ -2874,7 +2885,7 @@
                         </div>
                         <div class="pt-4 pb-2">
                             <div class="w-14 h-14 bg-amber-700/20 border border-amber-700/40 rounded-full flex items-center justify-center mx-auto mb-3 text-amber-600 shadow-inner">
-                                <i class="fa-solid fa-medal text-2xl"></i>
+                                <i class="fa-solid fa-medal text-2xl" aria-hidden="true"></i>
                             </div>
                             <h3 class="font-display font-black text-base sm:text-lg theme-text-primary uppercase tracking-wider mb-2">${escapeHTML(rank3.team)}</h3>
                             <div class="inline-block px-3 py-1 bg-amber-700/10 border border-amber-700/20 rounded text-[10px] font-extrabold uppercase theme-text-secondary tracking-widest mb-4">
@@ -2981,13 +2992,13 @@
                 <td class="p-3 truncate max-w-[280px] font-sans tabular-nums text-[11px] text-[#2563EB] font-bold">${escapeHTML(url) || '<span class="theme-text-muted italic font-normal">Belum Ditetapkan</span>'}</td>
                 <td class="p-3 text-right space-x-1.5">
                     <button onclick="editPingatConfig()" class="px-2 py-1 bg-blue-500/10 text-blue-500 hover:bg-blue-500/20 border border-blue-500/20 text-[10px] font-bold uppercase rounded transition-colors min-h-[32px]" title="Edit / Fokus">
-                        <i class="fa-solid fa-pen-to-square mr-1"></i> Edit
+                        <i class="fa-solid fa-pen-to-square mr-1" aria-hidden="true"></i> Edit
                     </button>
                     <button onclick="savePingatConfig()" class="px-2 py-1 bg-yellow-500 text-navy-950 font-bold text-[10px] uppercase rounded transition-colors min-h-[32px]" title="Simpan">
-                        <i class="fa-solid fa-floppy-disk mr-1"></i> Simpan
+                        <i class="fa-solid fa-floppy-disk mr-1" aria-hidden="true"></i> Simpan
                     </button>
                     <button onclick="clearPingatConfig()" class="px-2 py-1 bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 text-[10px] font-bold uppercase rounded transition-colors min-h-[32px]" title="Hapus Pautan">
-                        <i class="fa-solid fa-trash mr-1"></i> Hapus
+                        <i class="fa-solid fa-trash mr-1" aria-hidden="true"></i> Hapus
                     </button>
                 </td>
             `;
@@ -3004,17 +3015,21 @@
 
         window.savePingatConfig = async function() {
             const url = document.getElementById("adminPingatSheetUrl").value.trim();
-            await StorageService.saveSettings({ sheetUrlPingat: url, medalTallyData: medalTallyData });
-            showToast("Pautan pingat disimpan ke Firestore.", "success");
-            loadMedalTally();
+            try {
+                await StorageService.saveSettings({ sheetUrlPingat: url, medalTallyData: medalTallyData });
+                showToast("Pautan pingat disimpan ke Firestore.", "success");
+                loadMedalTally();
+            } catch (e) {}
         };
 
         window.clearPingatConfig = async function() {
             document.getElementById("adminPingatSheetUrl").value = "";
-            await StorageService.saveSettings({ sheetUrlPingat: "", medalTallyData: [] });
-            medalTallyData = [];
-            showToast("Pautan pingat dipadam.", "info");
-            loadMedalTally();
+            try {
+                await StorageService.saveSettings({ sheetUrlPingat: "", medalTallyData: [] });
+                medalTallyData = [];
+                showToast("Pautan pingat dipadam.", "info");
+                loadMedalTally();
+            } catch (e) {}
         };
 
         window.syncPingatFromGoogleSheet = function() {
@@ -3066,17 +3081,14 @@
             if (publicContainer) publicContainer.innerHTML = "";
             if (homeContainer) homeContainer.innerHTML = "";
 
-            // Sort announcements descending by kronologi tarikh/masa penerbitan
             const sortedAnnouncements = [...announcementsData].sort((a, b) => {
                 return getTimestampMillis(b) - getTimestampMillis(a);
             });
 
-            // Filter published only for public views
             const publishedAnnouncements = sortedAnnouncements.filter(item => {
                 return item.status === "Published" || item.isPublished === true || item.status === undefined;
             });
 
-            // 1. Render Admin List
             if (activeCardsContainer) {
                 if (sortedAnnouncements.length === 0) {
                     activeCardsContainer.innerHTML = `<p class="text-xs theme-text-muted py-3 italic">Tiada pengumuman direkodkan.</p>`;
@@ -3099,8 +3111,8 @@
                                     ${statusBadge}
                                 </div>
                                 <div class="flex space-x-2">
-                                    <button onclick="editAnnouncement(${originalIndex})" class="text-blue-500 hover:text-blue-400 p-1 min-h-[32px] min-w-[32px]" title="Sunting"><i class="fa-solid fa-pen-to-square text-xs"></i></button>
-                                    <button onclick="deleteAnnouncement(${originalIndex})" class="text-red-500 hover:text-red-400 p-1 min-h-[32px] min-w-[32px]" title="Hapus"><i class="fa-solid fa-trash text-xs"></i></button>
+                                    <button onclick="editAnnouncement(${originalIndex})" class="text-blue-500 hover:text-blue-400 p-1 min-h-[32px] min-w-[32px]" title="Sunting"><i class="fa-solid fa-pen-to-square text-xs" aria-hidden="true"></i></button>
+                                    <button onclick="deleteAnnouncement(${originalIndex})" class="text-red-500 hover:text-red-400 p-1 min-h-[32px] min-w-[32px]" title="Hapus"><i class="fa-solid fa-trash text-xs" aria-hidden="true"></i></button>
                                 </div>
                             </div>
                             <p class="text-xs font-bold theme-text-primary uppercase">${escapeHTML(item.title || item.message || '')}</p>
@@ -3112,12 +3124,11 @@
                 }
             }
 
-            // 2. Render Public Announcements Complete List (Info & Media Section)
             if (publicContainer) {
                 if (publishedAnnouncements.length === 0) {
                     publicContainer.innerHTML = `
                         <div class="p-6 text-center border theme-border theme-surface">
-                            <i class="fa-regular fa-bell-slash text-2xl theme-text-muted mb-2 block"></i>
+                            <i class="fa-regular fa-bell-slash text-2xl theme-text-muted mb-2 block" aria-hidden="true"></i>
                             <h4 class="font-display font-extrabold text-xs theme-text-primary uppercase tracking-wider">TIADA HEBAHAN AKTIF</h4>
                             <p class="text-[10px] theme-text-muted mt-1">Tiada sebarang pengumuman rasmi dikeluarkan pada masa ini.</p>
                         </div>
@@ -3142,8 +3153,8 @@
                                     <h4 class="font-display font-extrabold text-xs sm:text-sm theme-text-primary uppercase tracking-wider">${escapeHTML(item.title || item.message || '')}</h4>
                                 </div>
                                 <div class="text-[9px] theme-text-muted font-mono tracking-wider flex items-center space-x-2 shrink-0">
-                                    <span><i class="fa-regular fa-calendar mr-1"></i>${timeInfo.dateStr}</span>
-                                    <span><i class="fa-regular fa-clock mr-1"></i>${timeInfo.timeStr}</span>
+                                    <span><i class="fa-regular fa-calendar mr-1" aria-hidden="true"></i>${timeInfo.dateStr}</span>
+                                    <span><i class="fa-regular fa-clock mr-1" aria-hidden="true"></i>${timeInfo.timeStr}</span>
                                 </div>
                             </div>
                             <div class="text-xs theme-text-secondary leading-relaxed whitespace-pre-line">${escapeHTML(item.content || item.message || '')}</div>
@@ -3153,18 +3164,16 @@
                 }
             }
 
-            // 3. Render Home Announcements Component (#homeAnnouncementsContainer)
             if (homeContainer) {
                 if (publishedAnnouncements.length === 0) {
                     homeContainer.innerHTML = `
                         <div class="p-6 text-center border theme-border theme-surface">
-                            <i class="fa-regular fa-bell-slash text-xl theme-text-muted mb-2 block"></i>
+                            <i class="fa-regular fa-bell-slash text-xl theme-text-muted mb-2 block" aria-hidden="true"></i>
                             <p class="text-xs font-bold uppercase tracking-wider theme-text-primary">Tiada pengumuman terkini buat masa ini</p>
                             <p class="text-[10px] theme-text-muted mt-1">Sebarang makluman dan jadual rasmi baharu akan dipaparkan di sini.</p>
                         </div>
                     `;
                 } else {
-                    // SURGICAL FIX: Hadkan paparan pengumuman pada Dashboard Hero kepada tepat 3 pengumuman Published paling terkini
                     const homeAnnouncementsLimit3 = publishedAnnouncements.slice(0, 3);
 
                     homeAnnouncementsLimit3.forEach(item => {
@@ -3190,15 +3199,15 @@
                                     <h4 class="font-display font-extrabold text-xs sm:text-sm theme-text-primary uppercase tracking-wider">${escapeHTML(item.title || item.message || '')}</h4>
                                 </div>
                                 <div class="text-[9px] theme-text-muted font-mono tracking-wider flex items-center space-x-2 shrink-0">
-                                    <span><i class="fa-regular fa-calendar mr-1"></i>${timeInfo.dateStr}</span>
-                                    <span><i class="fa-regular fa-clock mr-1"></i>${timeInfo.timeStr}</span>
+                                    <span><i class="fa-regular fa-calendar mr-1" aria-hidden="true"></i>${timeInfo.dateStr}</span>
+                                    <span><i class="fa-regular fa-clock mr-1" aria-hidden="true"></i>${timeInfo.timeStr}</span>
                                 </div>
                             </div>
                             <p class="text-xs theme-text-secondary leading-relaxed">${escapeHTML(summaryText)}</p>
                             ${isLong ? `
                                 <div class="pt-1">
                                     <button onclick="navigateToView('media')" class="text-[10px] font-bold text-yellow-500 hover:text-yellow-400 uppercase tracking-wider inline-flex items-center cursor-pointer">
-                                        BACA SELANJUTNYA <i class="fa-solid fa-arrow-right ml-1"></i>
+                                        BACA SELANJUTNYA <i class="fa-solid fa-arrow-right ml-1" aria-hidden="true"></i>
                                     </button>
                                 </div>
                             ` : ''}
@@ -3230,24 +3239,27 @@
                 publishedAt: Date.now()
             };
 
-            if (editingAnnouncementIndex >= 0 && editingAnnouncementIndex < announcementsData.length) {
-                const targetId = announcementsData[editingAnnouncementIndex].id || announcementsData[editingAnnouncementIndex].docId;
-                await StorageService.update('announcements', targetId, payload);
-                showToast("Pengumuman berjaya dikemaskini!", "success");
-            } else {
-                await StorageService.create('announcements', payload);
-                showToast("Pengumuman baharu berjaya diterbitkan!", "success");
-            }
-
-            cancelAnnouncementEdit();
+            try {
+                if (editingAnnouncementIndex >= 0 && editingAnnouncementIndex < announcementsData.length) {
+                    const targetId = announcementsData[editingAnnouncementIndex].id || announcementsData[editingAnnouncementIndex].docId;
+                    await StorageService.update('announcements', targetId, payload);
+                    showToast("Pengumuman berjaya dikemaskini!", "success");
+                } else {
+                    await StorageService.create('announcements', payload);
+                    showToast("Pengumuman baharu berjaya diterbitkan!", "success");
+                }
+                cancelAnnouncementEdit();
+            } catch (e) {}
         };
 
         window.deleteAnnouncement = async function(index) {
             const item = announcementsData[index];
             if (item) {
                 const targetId = item.id || item.docId;
-                await StorageService.delete('announcements', targetId);
-                showToast("Pengumuman dipadam dari Firestore.", "info");
+                try {
+                    await StorageService.delete('announcements', targetId);
+                    showToast("Pengumuman dipadam dari Firestore.", "info");
+                } catch (e) {}
             }
 
             if (editingAnnouncementIndex === index) {
@@ -3347,16 +3359,20 @@
                 galleryUrl: galleryVal,
                 feedbackUrl: feedbackVal
             };
-            await StorageService.saveSettings({ realtimeLinksData });
-            showToast("Pautan media dikemaskini!", "success");
+            try {
+                await StorageService.saveSettings({ realtimeLinksData });
+                showToast("Pautan media dikemaskini!", "success");
+            } catch (e) {}
         };
 
         window.clearRealtimeLink = async function(key, inputId) {
             realtimeLinksData[key] = "";
             const input = document.getElementById(inputId);
             if (input) input.value = "";
-            await StorageService.saveSettings({ realtimeLinksData });
-            showToast("Pautan dipadam.", "info");
+            try {
+                await StorageService.saveSettings({ realtimeLinksData });
+                showToast("Pautan dipadam.", "info");
+            } catch (e) {}
         };
 
         window.saveAnugerahConfig = async function() {
@@ -3366,16 +3382,17 @@
             appSettings.olahragawanGsIndividu = olahragawanInd;
             appSettings.olahragawatiGsIndividu = olahragawatiInd;
 
-            await StorageService.saveSettings({
-                olahragawanGsIndividu: olahragawanInd,
-                olahragawatiGsIndividu: olahragawatiInd
-            });
-            showToast("Tetapan anugerah disimpan ke Firestore.", "success");
-            renderAnugerahConfigTable();
-            loadAnugerahData();
+            try {
+                await StorageService.saveSettings({
+                    olahragawanGsIndividu: olahragawanInd,
+                    olahragawatiGsIndividu: olahragawatiInd
+                });
+                showToast("Tetapan anugerah disimpan ke Firestore.", "success");
+                renderAnugerahConfigTable();
+                loadAnugerahData();
+            } catch (e) {}
         };
 
-        // Helper function for natural alphanumeric sorting (Numbers ascending numerically, then Letters A-Z case-insensitively)
         window.naturalSortCompare = function(a, b) {
             return (a || '').localeCompare(b || '', undefined, { numeric: true, sensitivity: 'base' });
         };
@@ -3400,13 +3417,13 @@
                     <td class="p-3 truncate max-w-[280px] font-sans tabular-nums text-[11px] theme-text-secondary">${escapeHTML(url) || '<span class="theme-text-muted italic">Belum Ditetapkan</span>'}</td>
                     <td class="p-3 text-right space-x-1.5">
                         <button onclick="editAnugerahConfig('${item.inputId}')" class="px-2 py-1 bg-blue-500/10 text-blue-500 hover:bg-blue-500/20 border border-blue-500/20 text-[10px] font-bold uppercase rounded transition-colors min-h-[32px]" title="Edit / Fokus">
-                            <i class="fa-solid fa-pen-to-square mr-1"></i> Edit
+                            <i class="fa-solid fa-pen-to-square mr-1" aria-hidden="true"></i> Edit
                         </button>
                         <button onclick="saveAnugerahConfig()" class="px-2 py-1 bg-yellow-500 text-navy-950 font-bold text-[10px] uppercase rounded transition-colors min-h-[32px]" title="Simpan">
-                            <i class="fa-solid fa-floppy-disk mr-1"></i> Simpan
+                            <i class="fa-solid fa-floppy-disk mr-1" aria-hidden="true"></i> Simpan
                         </button>
                         <button onclick="deleteAnugerahConfig('${item.urlKey}','${item.inputId}')" class="px-2 py-1 bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 text-[10px] font-bold uppercase rounded transition-colors min-h-[32px]" title="Hapus Pautan">
-                            <i class="fa-solid fa-trash mr-1"></i> Hapus
+                            <i class="fa-solid fa-trash mr-1" aria-hidden="true"></i> Hapus
                         </button>
                     </td>
                 `;
@@ -3426,10 +3443,12 @@
             const input = document.getElementById(inputId);
             if (input) input.value = "";
             appSettings[urlKey] = "";
-            await StorageService.saveSettings({ [urlKey]: "" });
-            showToast("Pautan anugerah dipadam.", "info");
-            renderAnugerahConfigTable();
-            loadAnugerahData();
+            try {
+                await StorageService.saveSettings({ [urlKey]: "" });
+                showToast("Pautan anugerah dipadam.", "info");
+                renderAnugerahConfigTable();
+                loadAnugerahData();
+            } catch (e) {}
         };
 
         window.loadAnugerahData = async function() {
@@ -3441,7 +3460,6 @@
                 document.getElementById("adminOlahragawatiGsIndividu").value = wInd;
             }
 
-            // --- 1. OLAHRAGAWAN TERBAIK ---
             if (!oInd) {
                 document.getElementById("olahragawanNama").textContent = "Tiada Data Available";
                 document.getElementById("olahragawanPasukan").textContent = "-";
@@ -3454,23 +3472,15 @@
                 if (targetUrlOlahragawan) {
                     try {
                         const res = await fetch(targetUrlOlahragawan);
-                        if (!res.ok) {
-                            throw new Error(`HTTP Error Status: ${res.status}`);
-                        }
+                        if (!res.ok) throw new Error(`HTTP Error Status: ${res.status}`);
                         const csvText = await res.text();
                         const rows = parseCSVText(csvText);
                         
                         if (rows && rows.length > 0) {
                             const headers = rows[0];
                             const map = mapHeadersToFields(headers);
-                            
-                            // Pengesahan header wajib: Sekurang-kurangnya nama/atlet dan pasukan mesti dipadankan
                             const hasValidHeaders = map.player !== undefined || map.team !== undefined;
                             
-                            if (!hasValidHeaders && rows.length === 1) {
-                                throw new Error("Header CSV tidak dapat dikenal pasti.");
-                            }
-
                             const r = (hasValidHeaders && rows.length > 1) ? rows[1] : (rows.length > 1 ? rows[1] : rows[0]);
 
                             const nama = map.player !== undefined ? r[map.player] : (hasValidHeaders ? "" : r[0]);
@@ -3487,30 +3497,14 @@
                                 document.getElementById("olahragawanEmas").textContent = parseInt(emas) || 0;
                                 document.getElementById("olahragawanPerak").textContent = parseInt(perak) || 0;
                                 document.getElementById("olahragawanGangsa").textContent = parseInt(gangsa) || 0;
-                            } else {
-                                document.getElementById("olahragawanNama").textContent = "Tiada Data Available";
-                                document.getElementById("olahragawanPasukan").textContent = "-";
-                                document.getElementById("olahragawanBib").textContent = "-";
-                                document.getElementById("olahragawanEmas").textContent = "0";
-                                document.getElementById("olahragawanPerak").textContent = "0";
-                                document.getElementById("olahragawanGangsa").textContent = "0";
                             }
-                        } else {
-                            document.getElementById("olahragawanNama").textContent = "Tiada Data Available";
                         }
                     } catch (e) {
                         console.error("Gagal muat data Olahragawan:", e);
-                        document.getElementById("olahragawanNama").textContent = "Ralat Sambungan Data";
-                        document.getElementById("olahragawanPasukan").textContent = "-";
-                        document.getElementById("olahragawanBib").textContent = "-";
-                        document.getElementById("olahragawanEmas").textContent = "0";
-                        document.getElementById("olahragawanPerak").textContent = "0";
-                        document.getElementById("olahragawanGangsa").textContent = "0";
                     }
                 }
             }
 
-            // --- 2. OLAHRAGAWATI TERBAIK ---
             if (!wInd) {
                 document.getElementById("olahragawatiNama").textContent = "Tiada Data Available";
                 document.getElementById("olahragawatiPasukan").textContent = "-";
@@ -3523,21 +3517,14 @@
                 if (targetUrlOlahragawati) {
                     try {
                         const res = await fetch(targetUrlOlahragawati);
-                        if (!res.ok) {
-                            throw new Error(`HTTP Error Status: ${res.status}`);
-                        }
+                        if (!res.ok) throw new Error(`HTTP Error Status: ${res.status}`);
                         const csvText = await res.text();
                         const rows = parseCSVText(csvText);
 
                         if (rows && rows.length > 0) {
                             const headers = rows[0];
                             const map = mapHeadersToFields(headers);
-                            
                             const hasValidHeaders = map.player !== undefined || map.team !== undefined;
-
-                            if (!hasValidHeaders && rows.length === 1) {
-                                throw new Error("Header CSV tidak dapat dikenal pasti.");
-                            }
 
                             const r = (hasValidHeaders && rows.length > 1) ? rows[1] : (rows.length > 1 ? rows[1] : rows[0]);
 
@@ -3555,25 +3542,10 @@
                                 document.getElementById("olahragawatiEmas").textContent = parseInt(emas) || 0;
                                 document.getElementById("olahragawatiPerak").textContent = parseInt(perak) || 0;
                                 document.getElementById("olahragawatiGangsa").textContent = parseInt(gangsa) || 0;
-                            } else {
-                                document.getElementById("olahragawatiNama").textContent = "Tiada Data Available";
-                                document.getElementById("olahragawatiPasukan").textContent = "-";
-                                document.getElementById("olahragawatiBib").textContent = "-";
-                                document.getElementById("olahragawatiEmas").textContent = "0";
-                                document.getElementById("olahragawatiPerak").textContent = "0";
-                                document.getElementById("olahragawatiGangsa").textContent = "0";
                             }
-                        } else {
-                            document.getElementById("olahragawatiNama").textContent = "Tiada Data Available";
                         }
                     } catch (e) {
                         console.error("Gagal muat data Olahragawati:", e);
-                        document.getElementById("olahragawatiNama").textContent = "Ralat Sambungan Data";
-                        document.getElementById("olahragawatiPasukan").textContent = "-";
-                        document.getElementById("olahragawatiBib").textContent = "-";
-                        document.getElementById("olahragawatiEmas").textContent = "0";
-                        document.getElementById("olahragawatiPerak").textContent = "0";
-                        document.getElementById("olahragawatiGangsa").textContent = "0";
                     }
                 }
             }
@@ -3586,8 +3558,6 @@
             select.innerHTML = "";
 
             let eventsList = [...participantConfigsData];
-
-            // Sort event list using stable natural alphanumeric comparison
             eventsList.sort((a, b) => naturalSortCompare(a.name, b.name));
 
             if (eventsList.length === 0) {
@@ -3621,7 +3591,6 @@
                 renderGenderStartList("femaleStartListTableBody", "noFemaleAthletesMessage", []);
                 return;
             }
-            
             selectedEventId = selectEl.value;
             updateStartList();
         };
@@ -3657,7 +3626,6 @@
             return clean;
         };
 
-        // Helper Function parsing CSV data
         async function fetchAthletesDataFromUrl(url) {
             if (!url) return [];
             const targetUrl = normalizeGoogleSheetUrl(url);
@@ -3803,7 +3771,6 @@
                         const row = rows[i];
                         if (!row || row.length < 2) continue;
 
-                        // Fallback mapping guard checking valid non-empty fields
                         const rank = map.rank !== undefined ? parseInt(row[map.rank]) : (parseInt(row[0]) || (i - startIndex + 1));
                         const name = map.player !== undefined ? row[map.player] : [row[1], row[2]].filter(Boolean).join(" ").trim();
                         const team = map.team !== undefined ? row[map.team] : (row[3] || "");
@@ -3844,7 +3811,7 @@
                 grid.innerHTML = `
                     <div class="col-span-full border theme-border theme-surface p-12 text-center">
                         <div class="w-16 h-16 theme-surface border theme-border rounded-full flex items-center justify-center theme-text-muted mx-auto mb-4">
-                            <i class="fa-solid fa-medal text-2xl"></i>
+                            <i class="fa-solid fa-medal text-2xl" aria-hidden="true"></i>
                         </div>
                         <p class="text-sm font-display font-extrabold uppercase tracking-wider theme-text-primary mb-1">Tiada Keputusan Rasmi Pemenang</p>
                         <p class="text-xs theme-text-muted">Belum ada data keputusan rasmi yang didaftarkan dalam sistem.</p>
@@ -3853,7 +3820,6 @@
                 return;
             }
 
-            // Dapatkan ID acara aktif daripada state atau fallback selamat
             let activeConfigId = window.selectedWinnerEventId;
             let currentConfig = winnerConfigsData.find(c => (c.id || c.docId) === activeConfigId);
 
@@ -3874,7 +3840,6 @@
                 return;
             }
 
-            // Logik 1 Selected Event = 1 Result Display
             const urlLelaki = currentConfig.gsLelaki || currentConfig.gsIndividu || "";
             const urlPerempuan = currentConfig.gsPerempuan || currentConfig.gsKumpulan || "";
             const targetId = currentConfig.id || currentConfig.docId;
@@ -3882,12 +3847,8 @@
             let winnersLelakiObj = { data: [], error: false };
             let winnersPerempuanObj = { data: [], error: false };
 
-            if (urlLelaki) {
-                winnersLelakiObj = await fetchSheetWinnersData(urlLelaki, targetId, "LELAKI");
-            }
-            if (urlPerempuan) {
-                winnersPerempuanObj = await fetchSheetWinnersData(urlPerempuan, targetId, "PEREMPUAN");
-            }
+            if (urlLelaki) winnersLelakiObj = await fetchSheetWinnersData(urlLelaki, targetId, "LELAKI");
+            if (urlPerempuan) winnersPerempuanObj = await fetchSheetWinnersData(urlPerempuan, targetId, "PEREMPUAN");
 
             const combinedCard = createCombinedWinnerCard(currentConfig, winnersLelakiObj, winnersPerempuanObj);
             if (combinedCard) grid.appendChild(combinedCard);
@@ -3918,7 +3879,7 @@
                 if (isError) {
                     html = `
                         <div class="py-8 px-4 text-center">
-                            <i class="fa-solid fa-triangle-exclamation text-xl text-red-500 mb-2 block"></i>
+                            <i class="fa-solid fa-triangle-exclamation text-xl text-red-500 mb-2 block" aria-hidden="true"></i>
                             <p class="text-xs font-bold text-red-500 uppercase tracking-wider">Gagal Menghubungi Sumber CSV</p>
                             <p class="text-[10px] theme-text-muted mt-1">Terdapat ralat rangkaian atau pautan Google Sheet tidak dapat diakses.</p>
                         </div>
@@ -3926,7 +3887,7 @@
                 } else if (!winners || winners.length === 0) {
                     html = `
                         <div class="py-8 px-4 text-center">
-                            <i class="fa-solid fa-hourglass-half text-xl theme-text-muted mb-2 block"></i>
+                            <i class="fa-solid fa-hourglass-half text-xl theme-text-muted mb-2 block" aria-hidden="true"></i>
                             <p class="text-xs font-bold theme-text-secondary uppercase tracking-wider">Keputusan Belum Dimuatkan</p>
                             <p class="text-[10px] theme-text-muted mt-1">Data bagi pusingan ini belum rasmi atau dalam proses kemas kini.</p>
                         </div>
@@ -4008,16 +3969,13 @@
         window.populateWinnerEventDropdown = function() {
             const select = document.getElementById("winnerEventSelect");
             if (!select) return;
-
             select.innerHTML = "";
 
             if (winnerConfigsData && winnerConfigsData.length > 0) {
-                // Susun konfigurasi acara mengikut natural alphanumeric
                 const sortedWinnerConfigs = [...winnerConfigsData].sort((a, b) => naturalSortCompare(a.name, b.name));
 
                 sortedWinnerConfigs.forEach(config => {
                     if (!config) return;
-
                     const opt = document.createElement("option");
                     const targetId = config.id || config.docId;
                     opt.value = targetId;
@@ -4042,43 +4000,9 @@
         window.onWinnerEventChanged = function() {
             const selectEl = document.getElementById("winnerEventSelect");
             if (!selectEl || !selectEl.value) return;
-            
             window.selectedWinnerEventId = selectEl.value;
             localStorage.setItem('selectedWinnerEventId', selectEl.value);
             updateWinnersList();
-        };
-
-        window.verifyAdminPassword = function() {
-            const pwdInput = document.getElementById("adminPasswordInput");
-            const usrInput = document.getElementById("adminUsername");
-            const feedback = document.getElementById("passwordFeedback");
-            
-            if (!pwdInput || !usrInput || !feedback) return;
-
-            const username = (usrInput.value || "").trim();
-            const password = (pwdInput.value || "").trim();
-
-            if (username === "" || password === "") {
-                feedback.textContent = "Sila masukkan ID Pengguna dan Kata Laluan!";
-                feedback.className = "text-[9px] font-bold uppercase tracking-widest text-red-500 block mt-1";
-                feedback.classList.remove("hidden");
-            } else if (username === "0000" && password === "0000") {
-                feedback.textContent = "Akses disahkan. Memuatkan panel kawalan...";
-                feedback.className = "text-[9px] font-bold uppercase tracking-widest text-green-500 block mt-1";
-                feedback.classList.remove("hidden");
-                
-                setTimeout(() => {
-                    closeAdminLoginModal();
-                    openAdminPanel();
-                    pwdInput.value = "";
-                    usrInput.value = "";
-                    feedback.classList.add("hidden");
-                }, 600);
-            } else {
-                feedback.textContent = "ID Pengguna atau Kata Laluan tidak sah!";
-                feedback.className = "text-[9px] font-bold uppercase tracking-widest text-red-500 block mt-1";
-                feedback.classList.remove("hidden");
-            }
         };
 
         window.showAdminLogin = function() {
@@ -4141,33 +4065,52 @@
             }
         };
 
-        window.parseCSVText = function(csvText) {
-            if (!csvText) return [];
-            const result = [];
-            const lines = csvText.split(/\r\n|\n/);
-            
-            lines.forEach(line => {
-                if (line.trim() === '') return;
-                
-                const row = [];
-                let currentCell = '';
-                let insideQuotes = false;
-                
-                for (let i = 0; i < line.length; i++) {
-                    const char = line[i];
-                    if (char === '"') {
-                        insideQuotes = !insideQuotes;
-                    } else if (char === ',' && !insideQuotes) {
-                        row.push(currentCell.trim());
-                        currentCell = '';
-                    } else {
-                        currentCell += char;
-                    }
+        window.exportApplicationData = async function() {
+            try {
+                const dataDump = await StorageService.exportAll();
+                const jsonStr = JSON.stringify(dataDump, null, 2);
+                const blob = new Blob([jsonStr], { type: "application/json" });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = `athletix_backup_${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast("Sandaran JSON berjaya dimuat turun!", "success");
+            } catch (err) {
+                console.error("Export error:", err);
+            }
+        };
+
+        window.importApplicationData = async function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                try {
+                    const parsedJson = JSON.parse(e.target.result);
+                    await StorageService.importAll(parsedJson);
+                    showToast("Data restore ke Firestore berjaya!", "success");
+                } catch (err) {
+                    console.error("Import error:", err);
+                    showToast("Format fail JSON tidak sah atau diputus kebenaran Firestore!", "error");
                 }
-                row.push(currentCell.trim());
-                if (row.length >= 1) result.push(row);
-            });
-            return result;
+            };
+            reader.readAsText(file);
+        };
+
+        window.resetAllDataToDefaults = async function() {
+            if (!confirm("ADAKAH ANDA PASTI? Semua data kejohanan dalam Firestore akan dipadam dan di-reset!")) {
+                return;
+            }
+            try {
+                const emptyDump = { version: 2, data: { heroCards: [], schedule: [], participantConfigs: [], winnerConfigs: [], announcements: [], settings: {} } };
+                await StorageService.importAll(emptyDump);
+                showToast("Semua data Firestore telah di-reset asal.", "info");
+            } catch (err) {}
         };
 
         window.addEventListener('beforeunload', detachRealtimeFirestoreListeners);
@@ -4179,11 +4122,9 @@
             appInitialized = true;
 
             initTheme();
-            await StorageService.runOneTimeLocalStorageMigration();
             initRealtimeFirestoreListeners();
             AutoSyncManager.init();
 
-            // Set initial router view to 'utama' (Single Active View)
             navigateToView("utama");
         });
     </script>
